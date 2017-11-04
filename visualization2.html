@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<head>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+    <svg></svg>
+</body>
+
+<script>
+    var dbData = {
+      "schools": [
+        {
+          "name": "School1",
+          "leaType": "CTC",
+          "topics": {
+            "Math": {
+              "A": 0.35,
+              "P": 0.50,
+              "B": 0.10,
+              "BB": 0.05
+            }, "Reading": {
+              "A": 0.25,
+              "P": 0.50,
+              "B": 0.20,
+              "BB": 0.05
+            }, "SciBio": {
+              "A": 0.15,
+              "P": 0.10,
+              "B": 0.60,
+              "BB": 0.15
+            }, "Writing": {
+              "A": 0.10,
+              "P": 0.75,
+              "B": 0.10,
+              "BB": 0.05
+            }
+          }
+        }, {
+          "name": "School2",
+          "leaType": "PS",
+          "topics": {
+            "Math": {
+              "A": 0.15,
+              "P": 0.55,
+              "B": 0.10,
+              "BB": 0.20
+            }, "Reading": {
+              "A": 0.25,
+              "P": 0.25,
+              "B": 0.40,
+              "BB": 0.05
+            }, "SciBio": {
+              "A": 0.15,
+              "P": 0.10,
+              "B": 0.60,
+              "BB": 0.15
+            }, "Writing": {
+              "A": 0.15,
+              "P": 0.75,
+              "B": 0.10,
+              "BB": 0.00
+            }
+          }
+        }, {
+          "name": "School3",
+          "leaType": "CS",
+          "topics": {
+            "Math": {
+              "A": 0.75,
+              "P": 0.24,
+              "B": 0.00,
+              "BB": 0.01
+            }, "Reading": {
+              "A": 0.25,
+              "P": 0.30,
+              "B": 0.20,
+              "BB": 0.25
+            }, "SciBio": {
+              "A": 0.15,
+              "P": 0.40,
+              "B": 0.30,
+              "BB": 0.15
+            }, "Writing": {
+              "A": 0.20,
+              "P": 0.25,
+              "B": 0.30,
+              "BB": 0.25
+            }
+          }
+        }
+      ]
+    };
+
+    function avgScoresForProficiencyLevels(schools){
+      var result = {};
+
+      var topicTypes = ["Math", "Reading", "Writing", "SciBio"];
+      var profLevels = ["A", "P", "B", "BB"];
+
+      for(var school of dbData.schools){
+        if(!result.hasOwnProperty(school.leaType)){
+          result[school.leaType] = {};
+          for(topicType of topicTypes){
+            result[school.leaType][topicType] = {};
+            for(profLevel of profLevels){
+              result[school.leaType][topicType][profLevel] = 0;
+            }
+          }
+          result[school.leaType]["schools"] = 0;
+        }
+      }
+
+      for(var school of dbData.schools){
+        result[school.leaType]["Math"]["A"] += school.topics["Math"]["A"];
+        result[school.leaType]["Math"]["P"] += school.topics["Math"]["P"];
+        result[school.leaType]["Math"]["B"] += school.topics["Math"]["B"];
+        result[school.leaType]["Math"]["BB"] += school.topics["Math"]["BB"];
+
+        result[school.leaType]["Reading"]["A"] += school.topics["Reading"]["A"];
+        result[school.leaType]["Reading"]["P"] += school.topics["Reading"]["P"];
+        result[school.leaType]["Reading"]["B"] += school.topics["Reading"]["B"];
+        result[school.leaType]["Reading"]["BB"] += school.topics["Reading"]["BB"];
+
+        result[school.leaType]["Writing"]["A"] += school.topics["Writing"]["A"];
+        result[school.leaType]["Writing"]["P"] += school.topics["Writing"]["P"];
+        result[school.leaType]["Writing"]["B"] += school.topics["Writing"]["B"];
+        result[school.leaType]["Writing"]["BB"] += school.topics["Writing"]["BB"];
+
+        result[school.leaType]["SciBio"]["A"] += school.topics["SciBio"]["A"];
+        result[school.leaType]["SciBio"]["P"] += school.topics["SciBio"]["P"];
+        result[school.leaType]["SciBio"]["B"] += school.topics["SciBio"]["B"];
+        result[school.leaType]["SciBio"]["BB"] += school.topics["SciBio"]["BB"];
+
+        result[school.leaType]["schools"] += school.name;
+      }
+
+      for(var leaType in result){
+        for(var topic in result[leaType]){
+          for(var proficiency in result[leaType][topic]){
+            result[leaType][topic][proficiency] /= result[leaType]["schools"].length;
+          }
+        }
+      }
+
+      return result;
+    }
+
+    var scoresPerLeaType = avgScoresForProficiencyLevels(dbData.schools);
+
+    var totalSections = 4;
+    // JSON data
+    var nodeData = {
+      "name": "TOPICS", "children": [
+        {
+          "name": "Math",
+          "children": [
+            {"name": "MathA", "children": [
+              {"name": "CTC", "size": scoresPerLeaType["CTC"]["Math"]["A"]},
+              {"name": "PS", "size": scoresPerLeaType["PS"]["Math"]["A"]},
+              {"name": "CS", "size": scoresPerLeaType["CS"]["Math"]["A"]}
+            ]},
+            {"name": "MathP", "children": [
+              {"name": "CTC", "size": scoresPerLeaType["CTC"]["Math"]["P"]},
+              {"name": "PS", "size": scoresPerLeaType["PS"]["Math"]["P"]},
+              {"name": "CS", "size": scoresPerLeaType["CS"]["Math"]["P"]}
+            ]},
+            {"name": "MathB", "children": [
+              {"name": "CTC", "size": scoresPerLeaType["CTC"]["Math"]["B"]},
+              {"name": "PS", "size": scoresPerLeaType["PS"]["Math"]["B"]},
+              {"name": "CS", "size": scoresPerLeaType["CS"]["Math"]["B"]}
+            ]},
+            {"name": "MathBB", "children": [
+              {"name": "CTC", "size": scoresPerLeaType["CTC"]["Math"]["BB"]},
+              {"name": "PS", "size": scoresPerLeaType["PS"]["Math"]["BB"]},
+              {"name": "CS", "size": scoresPerLeaType["CS"]["Math"]["BB"]}
+            ]}
+          ]
+        }, {
+          "name": "Reading",
+          "children": [
+            {"name": "ReadingA", "children": [
+              {"name": "CTC", "size": scoresPerLeaType["CTC"]["Reading"]["A"]},
+              {"name": "PS", "size": scoresPerLeaType["PS"]["Reading"]["A"]},
+              {"name": "CS", "size": scoresPerLeaType["CS"]["Reading"]["A"]}
+            ]},
+            {"name": "ReadingP", "children": [
+              {"name": "CTC", "size": scoresPerLeaType["CTC"]["Reading"]["P"]},
+              {"name": "PS", "size": scoresPerLeaType["PS"]["Reading"]["P"]},
+              {"name": "CS", "size": scoresPerLeaType["CS"]["Reading"]["P"]}
+            ]},
+            {"name": "ReadingB", "children": [
+              {"name": "CTC", "size": scoresPerLeaType["CTC"]["Reading"]["B"]},
+              {"name": "PS", "size": scoresPerLeaType["PS"]["Reading"]["B"]},
+              {"name": "CS", "size": scoresPerLeaType["CS"]["Reading"]["B"]}
+            ]},
+            {"name": "ReadingBB", "children": [
+              {"name": "CTC", "size": scoresPerLeaType["CTC"]["Reading"]["BB"]},
+              {"name": "PS", "size": scoresPerLeaType["PS"]["Reading"]["BB"]},
+              {"name": "CS", "size": scoresPerLeaType["CS"]["Reading"]["BB"]}
+            ]}
+          ]
+        }, {
+          "name": "SciBio",
+          "children": [
+            {"name": "SciBioA", "children": [
+              {"name": "CTC", "size": scoresPerLeaType["CTC"]["SciBio"]["A"]},
+              {"name": "PS", "size": scoresPerLeaType["PS"]["SciBio"]["A"]},
+              {"name": "CS", "size": scoresPerLeaType["CS"]["SciBio"]["A"]}
+            ]},
+            {"name": "SciBioP", "children": [
+              {"name": "CTC", "size": scoresPerLeaType["CTC"]["SciBio"]["P"]},
+              {"name": "PS", "size": scoresPerLeaType["PS"]["SciBio"]["P"]},
+              {"name": "CS", "size": scoresPerLeaType["CS"]["SciBio"]["P"]}
+            ]},
+            {"name": "SciBioB", "children": [
+              {"name": "CTC", "size": scoresPerLeaType["CTC"]["SciBio"]["B"]},
+              {"name": "PS", "size": scoresPerLeaType["PS"]["SciBio"]["B"]},
+              {"name": "CS", "size": scoresPerLeaType["CS"]["SciBio"]["B"]}
+            ]},
+            {"name": "SciBioBB", "children": [
+              {"name": "CTC", "size": scoresPerLeaType["CTC"]["SciBio"]["BB"]},
+              {"name": "PS", "size": scoresPerLeaType["PS"]["SciBio"]["BB"]},
+              {"name": "CS", "size": scoresPerLeaType["CS"]["SciBio"]["BB"]}
+            ]}
+          ]
+        }, {
+          "name": "Writing",
+          "children": [
+            {"name": "WritingA", "children": [
+              {"name": "CTC", "size": scoresPerLeaType["CTC"]["Writing"]["A"]},
+              {"name": "PS", "size": scoresPerLeaType["PS"]["Writing"]["A"]},
+              {"name": "CS", "size": scoresPerLeaType["CS"]["Writing"]["A"]}
+            ]},
+            {"name": "WritingP", "children": [
+              {"name": "CTC", "size": scoresPerLeaType["CTC"]["Writing"]["P"]},
+              {"name": "PS", "size": scoresPerLeaType["PS"]["Writing"]["P"]},
+              {"name": "CS", "size": scoresPerLeaType["CS"]["Writing"]["P"]}
+            ]},
+            {"name": "WritingB", "children": [
+              {"name": "CTC", "size": scoresPerLeaType["CTC"]["Writing"]["B"]},
+              {"name": "PS", "size": scoresPerLeaType["PS"]["Writing"]["B"]},
+              {"name": "CS", "size": scoresPerLeaType["CS"]["Writing"]["B"]}
+            ]},
+            {"name": "WritingBB", "children": [
+              {"name": "CTC", "size": scoresPerLeaType["CTC"]["Writing"]["BB"]},
+              {"name": "PS", "size": scoresPerLeaType["PS"]["Writing"]["BB"]},
+              {"name": "CS", "size": scoresPerLeaType["CS"]["Writing"]["BB"]}
+            ]}
+          ]
+        }
+      ]
+    };
+
+    // Variables
+    var width = 500;
+    var height = 500;
+    var radius = Math.min(width, height) / 2;
+    var color = d3.scaleOrdinal(d3.schemeCategory20b);
+
+    // Create primary <g> element
+    var g = d3.select('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .append('g')
+        .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+
+    // Data strucure
+    var partition = d3.partition()
+        .size([2 * Math.PI, radius]);
+
+    // Find data root
+    var root = d3.hierarchy(nodeData)
+        .sum(function (d) { return d.size});
+
+    // Size arcs
+    partition(root);
+    var arc = d3.arc()
+        .startAngle(function (d) { return d.x0 })
+        .endAngle(function (d) { return d.x1 })
+        .innerRadius(function (d) { return d.y0 })
+        .outerRadius(function (d) { return d.y1 });
+
+    // Put it all together
+    g.selectAll('path')
+        .data(root.descendants())
+        .enter().append('path')
+        .attr("display", function (d) { return d.depth ? null : "none"; })
+        .attr("d", arc)
+        .style('stroke', '#fff')
+        .style("fill", function (d) { return color((d.children ? d : d.parent).data.name); });
+</script>
+
