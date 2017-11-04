@@ -7,6 +7,21 @@
 </body>
 
 <script>
+// Mapping of step names to colors.
+    var colors = {
+      "CTC": "#38c742",
+      "CS": "#303ce3",
+      "PS": "#114183",
+      "A": "#259ee7",
+      "P": "#7ab6db",
+      "B": "#d8d8d8",
+      "BB": "#db7712",
+      "Math": "#c35b48",
+      "Reading": "#e5c027",
+      "Writing": "#458962",
+      "SciBio": "#125592"
+    };
+
     var dbData = {
       "schools": [
         {
@@ -154,22 +169,22 @@
         {
           "name": "Math",
           "children": [
-            {"name": "MathA", "children": [
+            {"name": "A", "children": [
               {"name": "CTC", "size": scoresPerLeaType["CTC"]["Math"]["A"]},
               {"name": "PS", "size": scoresPerLeaType["PS"]["Math"]["A"]},
               {"name": "CS", "size": scoresPerLeaType["CS"]["Math"]["A"]}
             ]},
-            {"name": "MathP", "children": [
+            {"name": "P", "children": [
               {"name": "CTC", "size": scoresPerLeaType["CTC"]["Math"]["P"]},
               {"name": "PS", "size": scoresPerLeaType["PS"]["Math"]["P"]},
               {"name": "CS", "size": scoresPerLeaType["CS"]["Math"]["P"]}
             ]},
-            {"name": "MathB", "children": [
+            {"name": "B", "children": [
               {"name": "CTC", "size": scoresPerLeaType["CTC"]["Math"]["B"]},
               {"name": "PS", "size": scoresPerLeaType["PS"]["Math"]["B"]},
               {"name": "CS", "size": scoresPerLeaType["CS"]["Math"]["B"]}
             ]},
-            {"name": "MathBB", "children": [
+            {"name": "BB", "children": [
               {"name": "CTC", "size": scoresPerLeaType["CTC"]["Math"]["BB"]},
               {"name": "PS", "size": scoresPerLeaType["PS"]["Math"]["BB"]},
               {"name": "CS", "size": scoresPerLeaType["CS"]["Math"]["BB"]}
@@ -178,22 +193,22 @@
         }, {
           "name": "Reading",
           "children": [
-            {"name": "ReadingA", "children": [
+            {"name": "A", "children": [
               {"name": "CTC", "size": scoresPerLeaType["CTC"]["Reading"]["A"]},
               {"name": "PS", "size": scoresPerLeaType["PS"]["Reading"]["A"]},
               {"name": "CS", "size": scoresPerLeaType["CS"]["Reading"]["A"]}
             ]},
-            {"name": "ReadingP", "children": [
+            {"name": "P", "children": [
               {"name": "CTC", "size": scoresPerLeaType["CTC"]["Reading"]["P"]},
               {"name": "PS", "size": scoresPerLeaType["PS"]["Reading"]["P"]},
               {"name": "CS", "size": scoresPerLeaType["CS"]["Reading"]["P"]}
             ]},
-            {"name": "ReadingB", "children": [
+            {"name": "B", "children": [
               {"name": "CTC", "size": scoresPerLeaType["CTC"]["Reading"]["B"]},
               {"name": "PS", "size": scoresPerLeaType["PS"]["Reading"]["B"]},
               {"name": "CS", "size": scoresPerLeaType["CS"]["Reading"]["B"]}
             ]},
-            {"name": "ReadingBB", "children": [
+            {"name": "BB", "children": [
               {"name": "CTC", "size": scoresPerLeaType["CTC"]["Reading"]["BB"]},
               {"name": "PS", "size": scoresPerLeaType["PS"]["Reading"]["BB"]},
               {"name": "CS", "size": scoresPerLeaType["CS"]["Reading"]["BB"]}
@@ -202,22 +217,22 @@
         }, {
           "name": "SciBio",
           "children": [
-            {"name": "SciBioA", "children": [
+            {"name": "A", "children": [
               {"name": "CTC", "size": scoresPerLeaType["CTC"]["SciBio"]["A"]},
               {"name": "PS", "size": scoresPerLeaType["PS"]["SciBio"]["A"]},
               {"name": "CS", "size": scoresPerLeaType["CS"]["SciBio"]["A"]}
             ]},
-            {"name": "SciBioP", "children": [
+            {"name": "P", "children": [
               {"name": "CTC", "size": scoresPerLeaType["CTC"]["SciBio"]["P"]},
               {"name": "PS", "size": scoresPerLeaType["PS"]["SciBio"]["P"]},
               {"name": "CS", "size": scoresPerLeaType["CS"]["SciBio"]["P"]}
             ]},
-            {"name": "SciBioB", "children": [
+            {"name": "B", "children": [
               {"name": "CTC", "size": scoresPerLeaType["CTC"]["SciBio"]["B"]},
               {"name": "PS", "size": scoresPerLeaType["PS"]["SciBio"]["B"]},
               {"name": "CS", "size": scoresPerLeaType["CS"]["SciBio"]["B"]}
             ]},
-            {"name": "SciBioBB", "children": [
+            {"name": "BB", "children": [
               {"name": "CTC", "size": scoresPerLeaType["CTC"]["SciBio"]["BB"]},
               {"name": "PS", "size": scoresPerLeaType["PS"]["SciBio"]["BB"]},
               {"name": "CS", "size": scoresPerLeaType["CS"]["SciBio"]["BB"]}
@@ -226,22 +241,22 @@
         }, {
           "name": "Writing",
           "children": [
-            {"name": "WritingA", "children": [
+            {"name": "A", "children": [
               {"name": "CTC", "size": scoresPerLeaType["CTC"]["Writing"]["A"]},
               {"name": "PS", "size": scoresPerLeaType["PS"]["Writing"]["A"]},
               {"name": "CS", "size": scoresPerLeaType["CS"]["Writing"]["A"]}
             ]},
-            {"name": "WritingP", "children": [
+            {"name": "P", "children": [
               {"name": "CTC", "size": scoresPerLeaType["CTC"]["Writing"]["P"]},
               {"name": "PS", "size": scoresPerLeaType["PS"]["Writing"]["P"]},
               {"name": "CS", "size": scoresPerLeaType["CS"]["Writing"]["P"]}
             ]},
-            {"name": "WritingB", "children": [
+            {"name": "B", "children": [
               {"name": "CTC", "size": scoresPerLeaType["CTC"]["Writing"]["B"]},
               {"name": "PS", "size": scoresPerLeaType["PS"]["Writing"]["B"]},
               {"name": "CS", "size": scoresPerLeaType["CS"]["Writing"]["B"]}
             ]},
-            {"name": "WritingBB", "children": [
+            {"name": "BB", "children": [
               {"name": "CTC", "size": scoresPerLeaType["CTC"]["Writing"]["BB"]},
               {"name": "PS", "size": scoresPerLeaType["PS"]["Writing"]["BB"]},
               {"name": "CS", "size": scoresPerLeaType["CS"]["Writing"]["BB"]}
@@ -287,6 +302,6 @@
         .attr("display", function (d) { return d.depth ? null : "none"; })
         .attr("d", arc)
         .style('stroke', '#fff')
-        .style("fill", function (d) { return color((d.children ? d : d.parent).data.name); });
+        .style("fill", function (d) { return color(colors[d.data.name]); });
 </script>
 
