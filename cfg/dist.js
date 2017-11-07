@@ -14,7 +14,6 @@ let config = Object.assign({}, baseConfig, {
     path.join(__dirname, '../src/index'),
     path.join(__dirname, '../src/styles/index.sass')
  ],
-  path.join(__dirname, '../src/styles/index.sass')
   cache: false,
   devtool: 'sourcemap',
   plugins: [
