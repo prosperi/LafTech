@@ -1,0 +1,244 @@
+;
+; Archive created at 2017-09-19 12:19:30 EDT
+;     dbname: laftech
+;     TOC Entries: 231
+;     Compression: -1
+;     Dump Version: 1.12-0
+;     Format: CUSTOM
+;     Integer: 4 bytes
+;     Offset: 8 bytes
+;     Dumped from database version: 9.1.13
+;     Dumped by pg_dump version: 9.1.13
+;
+;
+; Selected TOC Entries:
+;
+2330; 1262 45821 DATABASE - laftech laftech
+6; 2615 2200 SCHEMA - public postgres
+2331; 0 0 COMMENT - SCHEMA public postgres
+2332; 0 0 ACL - public postgres
+214; 3079 11677 EXTENSION - plpgsql 
+2333; 0 0 COMMENT - EXTENSION plpgsql 
+168; 1259 47558 TABLE public auth_group laftech
+167; 1259 47556 SEQUENCE public auth_group_id_seq laftech
+2334; 0 0 SEQUENCE OWNED BY public auth_group_id_seq laftech
+170; 1259 47568 TABLE public auth_group_permissions laftech
+169; 1259 47566 SEQUENCE public auth_group_permissions_id_seq laftech
+2335; 0 0 SEQUENCE OWNED BY public auth_group_permissions_id_seq laftech
+166; 1259 47550 TABLE public auth_permission laftech
+165; 1259 47548 SEQUENCE public auth_permission_id_seq laftech
+2336; 0 0 SEQUENCE OWNED BY public auth_permission_id_seq laftech
+172; 1259 47576 TABLE public auth_user laftech
+174; 1259 47586 TABLE public auth_user_groups laftech
+173; 1259 47584 SEQUENCE public auth_user_groups_id_seq laftech
+2337; 0 0 SEQUENCE OWNED BY public auth_user_groups_id_seq laftech
+171; 1259 47574 SEQUENCE public auth_user_id_seq laftech
+2338; 0 0 SEQUENCE OWNED BY public auth_user_id_seq laftech
+176; 1259 47594 TABLE public auth_user_user_permissions laftech
+175; 1259 47592 SEQUENCE public auth_user_user_permissions_id_seq laftech
+2339; 0 0 SEQUENCE OWNED BY public auth_user_user_permissions_id_seq laftech
+200; 1259 50820 TABLE public data_exam laftech
+208; 1259 51215 VIEW public avg_exam laftech
+183; 1259 49029 TABLE public data_multi_year_grad_rate laftech
+206; 1259 51205 VIEW public avg_multi_year_grad_rate laftech
+186; 1259 49124 TABLE public data_public_school_enrollment laftech
+209; 1259 51219 VIEW public avg_public_school_enrollment laftech
+187; 1259 49127 TABLE public data_public_school_gender_enrollment laftech
+210; 1259 51224 VIEW public avg_public_school_gender_enrollment laftech
+180; 1259 47749 TABLE public data_school_facts laftech
+211; 1259 51229 VIEW public avg_school_facts laftech
+192; 1259 50251 TABLE public data_district_fiscal laftech
+212; 1259 51234 VIEW public avg_school_fiscal laftech
+181; 1259 47762 TABLE public data_school_performance_measure laftech
+190; 1259 50145 TABLE public school laftech
+213; 1259 51238 VIEW public avg_school_performance_measure laftech
+184; 1259 49065 TABLE public data_yearly_grad_rate laftech
+207; 1259 51210 VIEW public avg_yearly_grad_rate laftech
+193; 1259 50372 TABLE public data_cova_v11 laftech
+199; 1259 50483 TABLE public data_dictionary laftech
+191; 1259 50238 TABLE public data_district_facts laftech
+194; 1259 50384 TABLE public data_gapa_v11 laftech
+195; 1259 50390 TABLE public data_meana_v11 laftech
+196; 1259 50398 TABLE public data_meand_v11 laftech
+197; 1259 50406 TABLE public data_meang_v11 laftech
+198; 1259 50414 TABLE public data_meanh_v11 laftech
+201; 1259 50941 TABLE public data_private_school_elementary_enrollment laftech
+202; 1259 50952 TABLE public data_private_school_fulltime_equivalent_teachers laftech
+182; 1259 48973 TABLE public data_private_school_low_percentage laftech
+203; 1259 50963 TABLE public data_private_school_other_enrollment laftech
+204; 1259 50974 TABLE public data_private_school_percentage_low_income laftech
+205; 1259 50985 TABLE public data_private_school_secondary_enrollment laftech
+185; 1259 49106 TABLE public data_public_lea_race_enrollment laftech
+188; 1259 50042 TABLE public data_school_fiscal laftech
+189; 1259 50137 TABLE public district laftech
+178; 1259 47654 TABLE public django_admin_log laftech
+177; 1259 47652 SEQUENCE public django_admin_log_id_seq laftech
+2340; 0 0 SEQUENCE OWNED BY public django_admin_log_id_seq laftech
+164; 1259 47540 TABLE public django_content_type laftech
+163; 1259 47538 SEQUENCE public django_content_type_id_seq laftech
+2341; 0 0 SEQUENCE OWNED BY public django_content_type_id_seq laftech
+162; 1259 47529 TABLE public django_migrations laftech
+161; 1259 47527 SEQUENCE public django_migrations_id_seq laftech
+2342; 0 0 SEQUENCE OWNED BY public django_migrations_id_seq laftech
+179; 1259 47704 TABLE public django_session laftech
+1996; 2604 47561 DEFAULT public id laftech
+1997; 2604 47571 DEFAULT public id laftech
+1995; 2604 47553 DEFAULT public id laftech
+1998; 2604 47579 DEFAULT public id laftech
+1999; 2604 47589 DEFAULT public id laftech
+2000; 2604 47597 DEFAULT public id laftech
+2001; 2604 47657 DEFAULT public id laftech
+1994; 2604 47543 DEFAULT public id laftech
+1993; 2604 47532 DEFAULT public id laftech
+2288; 0 47558 TABLE DATA public auth_group laftech
+2343; 0 0 SEQUENCE SET public auth_group_id_seq laftech
+2290; 0 47568 TABLE DATA public auth_group_permissions laftech
+2344; 0 0 SEQUENCE SET public auth_group_permissions_id_seq laftech
+2286; 0 47550 TABLE DATA public auth_permission laftech
+2345; 0 0 SEQUENCE SET public auth_permission_id_seq laftech
+2292; 0 47576 TABLE DATA public auth_user laftech
+2294; 0 47586 TABLE DATA public auth_user_groups laftech
+2346; 0 0 SEQUENCE SET public auth_user_groups_id_seq laftech
+2347; 0 0 SEQUENCE SET public auth_user_id_seq laftech
+2296; 0 47594 TABLE DATA public auth_user_user_permissions laftech
+2348; 0 0 SEQUENCE SET public auth_user_user_permissions_id_seq laftech
+2313; 0 50372 TABLE DATA public data_cova_v11 laftech
+2319; 0 50483 TABLE DATA public data_dictionary laftech
+2311; 0 50238 TABLE DATA public data_district_facts laftech
+2312; 0 50251 TABLE DATA public data_district_fiscal laftech
+2320; 0 50820 TABLE DATA public data_exam laftech
+2314; 0 50384 TABLE DATA public data_gapa_v11 laftech
+2315; 0 50390 TABLE DATA public data_meana_v11 laftech
+2316; 0 50398 TABLE DATA public data_meand_v11 laftech
+2317; 0 50406 TABLE DATA public data_meang_v11 laftech
+2318; 0 50414 TABLE DATA public data_meanh_v11 laftech
+2303; 0 49029 TABLE DATA public data_multi_year_grad_rate laftech
+2321; 0 50941 TABLE DATA public data_private_school_elementary_enrollment laftech
+2322; 0 50952 TABLE DATA public data_private_school_fulltime_equivalent_teachers laftech
+2302; 0 48973 TABLE DATA public data_private_school_low_percentage laftech
+2323; 0 50963 TABLE DATA public data_private_school_other_enrollment laftech
+2324; 0 50974 TABLE DATA public data_private_school_percentage_low_income laftech
+2325; 0 50985 TABLE DATA public data_private_school_secondary_enrollment laftech
+2305; 0 49106 TABLE DATA public data_public_lea_race_enrollment laftech
+2306; 0 49124 TABLE DATA public data_public_school_enrollment laftech
+2307; 0 49127 TABLE DATA public data_public_school_gender_enrollment laftech
+2300; 0 47749 TABLE DATA public data_school_facts laftech
+2308; 0 50042 TABLE DATA public data_school_fiscal laftech
+2301; 0 47762 TABLE DATA public data_school_performance_measure laftech
+2304; 0 49065 TABLE DATA public data_yearly_grad_rate laftech
+2309; 0 50137 TABLE DATA public district laftech
+2298; 0 47654 TABLE DATA public django_admin_log laftech
+2349; 0 0 SEQUENCE SET public django_admin_log_id_seq laftech
+2284; 0 47540 TABLE DATA public django_content_type laftech
+2350; 0 0 SEQUENCE SET public django_content_type_id_seq laftech
+2282; 0 47529 TABLE DATA public django_migrations laftech
+2351; 0 0 SEQUENCE SET public django_migrations_id_seq laftech
+2299; 0 47704 TABLE DATA public django_session laftech
+2310; 0 50145 TABLE DATA public school laftech
+2033; 2606 47565 CONSTRAINT public auth_group_name_key laftech
+2039; 2606 47620 CONSTRAINT public auth_group_permissions_group_id_0cd325b0_uniq laftech
+2041; 2606 47573 CONSTRAINT public auth_group_permissions_pkey laftech
+2035; 2606 47563 CONSTRAINT public auth_group_pkey laftech
+2028; 2606 47606 CONSTRAINT public auth_permission_content_type_id_01ab375a_uniq laftech
+2030; 2606 47555 CONSTRAINT public auth_permission_pkey laftech
+2050; 2606 47591 CONSTRAINT public auth_user_groups_pkey laftech
+2052; 2606 47635 CONSTRAINT public auth_user_groups_user_id_94350c0c_uniq laftech
+2043; 2606 47581 CONSTRAINT public auth_user_pkey laftech
+2056; 2606 47599 CONSTRAINT public auth_user_user_permissions_pkey laftech
+2058; 2606 47649 CONSTRAINT public auth_user_user_permissions_user_id_14a6b632_uniq laftech
+2046; 2606 47690 CONSTRAINT public auth_user_username_key laftech
+2104; 2606 51154 CONSTRAINT public cova_pkey laftech
+2121; 2606 50490 CONSTRAINT public data_dictionary_pkey laftech
+2100; 2606 50245 CONSTRAINT public district_facts_pk laftech
+2102; 2606 50258 CONSTRAINT public district_fiscal_pkey laftech
+2096; 2606 50144 CONSTRAINT public districts_pkey laftech
+2062; 2606 47663 CONSTRAINT public django_admin_log_pkey laftech
+2023; 2606 47547 CONSTRAINT public django_content_type_app_label_76bd3d3b_uniq laftech
+2025; 2606 47545 CONSTRAINT public django_content_type_pkey laftech
+2021; 2606 47537 CONSTRAINT public django_migrations_pkey laftech
+2065; 2606 47711 CONSTRAINT public django_session_pkey laftech
+2123; 2606 50827 CONSTRAINT public exam_pkey laftech
+2107; 2606 51156 CONSTRAINT public gapa_v11_pkey laftech
+2110; 2606 50397 CONSTRAINT public meana_v11_pkey laftech
+2113; 2606 50405 CONSTRAINT public meand_v11_pkey laftech
+2116; 2606 50413 CONSTRAINT public meang_v11_pkey laftech
+2119; 2606 50421 CONSTRAINT public meanh_v11_pkey laftech
+2074; 2606 48977 CONSTRAINT public mrx_percent_pkey laftech
+2077; 2606 51072 CONSTRAINT public multiid laftech
+2079; 2606 51070 CONSTRAINT public multiyearrates_pkey laftech
+2127; 2606 50945 CONSTRAINT public private_school_elementary_enrollment_pkey laftech
+2130; 2606 50956 CONSTRAINT public private_schools_fulltime_equivalent_teachers_fkey laftech
+2133; 2606 50967 CONSTRAINT public private_schools_other_enrollment_pkey laftech
+2136; 2606 50978 CONSTRAINT public private_schools_percentage_loe_income_pkey laftech
+2139; 2606 50989 CONSTRAINT public private_schools_secondary_enrollment laftech
+2087; 2606 49146 CONSTRAINT public public_lea_race_enrollment_pkey laftech
+2089; 2606 49148 CONSTRAINT public public_school_enrollment_pkey laftech
+2091; 2606 49150 CONSTRAINT public public_school_gender_enrollment_pkey laftech
+2068; 2606 47756 CONSTRAINT public school_facts_pk laftech
+2094; 2606 50049 CONSTRAINT public school_fiscal laftech
+2071; 2606 47769 CONSTRAINT public school_performance_measures_pk laftech
+2098; 2606 50152 CONSTRAINT public school_pkey laftech
+2082; 2606 49154 CONSTRAINT public yearlyid laftech
+2084; 2606 49156 CONSTRAINT public yearlyrates_pkey laftech
+2031; 1259 47608 INDEX public auth_group_name_a6ea08ec_like laftech
+2036; 1259 47621 INDEX public auth_group_permissions_0e939a4f laftech
+2037; 1259 47622 INDEX public auth_group_permissions_8373b171 laftech
+2026; 1259 47607 INDEX public auth_permission_417f1b1c laftech
+2047; 1259 47637 INDEX public auth_user_groups_0e939a4f laftech
+2048; 1259 47636 INDEX public auth_user_groups_e8701ad4 laftech
+2053; 1259 47651 INDEX public auth_user_user_permissions_8373b171 laftech
+2054; 1259 47650 INDEX public auth_user_user_permissions_e8701ad4 laftech
+2044; 1259 47691 INDEX public auth_user_username_6821ab7c_like laftech
+2059; 1259 47674 INDEX public django_admin_log_417f1b1c laftech
+2060; 1259 47675 INDEX public django_admin_log_e8701ad4 laftech
+2063; 1259 47712 INDEX public django_session_de54fa62 laftech
+2066; 1259 47713 INDEX public django_session_session_key_c0390e0f_like laftech
+2124; 1259 50828 INDEX public fki_exam_fkey laftech
+2105; 1259 51162 INDEX public fki_gapa_v11_fkey_exists laftech
+2108; 1259 51168 INDEX public fki_meana_v11_fkey_exists laftech
+2111; 1259 51174 INDEX public fki_meand_v11_fkey_exists laftech
+2114; 1259 51180 INDEX public fki_meang_v11_fkey_exists laftech
+2117; 1259 51186 INDEX public fki_meanh_v11_fkey_exists laftech
+2075; 1259 51038 INDEX public fki_multi_year_grad_rate_fkey laftech
+2072; 1259 51028 INDEX public fki_private_school_low_percentage_fkey laftech
+2131; 1259 50968 INDEX public fki_private_school_other_enrollment_pkey laftech
+2125; 1259 50946 INDEX public fki_private_schools_elementary_enrollment_pkey laftech
+2128; 1259 50957 INDEX public fki_private_schools_fulltime_equivalent_teachers_pkey laftech
+2137; 1259 50990 INDEX public fki_private_schools_secondary_enrollment_pkey laftech
+2085; 1259 50851 INDEX public fki_public_lea_race_enrollment_district_exist_fkey laftech
+2092; 1259 51198 INDEX public fki_school_fiscal_fkey_exists laftech
+2069; 1259 51204 INDEX public fki_school_performance_measure_fkey_exists laftech
+2134; 1259 50979 INDEX public fki_uc_private_schools_percentage_low_income_pkey laftech
+2080; 1259 51110 INDEX public fki_yearly_grad_rate_fkey laftech
+2142; 2606 47614 FK CONSTRAINT public auth_group_permiss_permission_id_84c5c92e_fk_auth_permission_id laftech
+2141; 2606 47609 FK CONSTRAINT public auth_group_permissions_group_id_b120cbf9_fk_auth_group_id laftech
+2140; 2606 47600 FK CONSTRAINT public auth_permiss_content_type_id_2f476e4b_fk_django_content_type_id laftech
+2144; 2606 47629 FK CONSTRAINT public auth_user_groups_group_id_97559544_fk_auth_group_id laftech
+2143; 2606 47624 FK CONSTRAINT public auth_user_groups_user_id_6a12ed8b_fk_auth_user_id laftech
+2146; 2606 47643 FK CONSTRAINT public auth_user_user_per_permission_id_1fbb5f2c_fk_auth_permission_id laftech
+2145; 2606 47638 FK CONSTRAINT public auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id laftech
+2160; 2606 50379 FK CONSTRAINT public cova_v11_fkey laftech
+2158; 2606 50246 FK CONSTRAINT public district_facts_fkey laftech
+2159; 2606 50259 FK CONSTRAINT public district_fiscal_fkey laftech
+2147; 2606 47664 FK CONSTRAINT public django_admin_content_type_id_c4bce8eb_fk_django_content_type_id laftech
+2148; 2606 47669 FK CONSTRAINT public django_admin_log_user_id_c564eba6_fk_auth_user_id laftech
+2166; 2606 50829 FK CONSTRAINT public exam_school_exist_fkey laftech
+2161; 2606 51157 FK CONSTRAINT public gapa_v11_fkey_exists laftech
+2162; 2606 51163 FK CONSTRAINT public meana_v11_fkey_exists laftech
+2163; 2606 51169 FK CONSTRAINT public meand_v11_fkey_exists laftech
+2164; 2606 51175 FK CONSTRAINT public meang_v11_fkey_exists laftech
+2165; 2606 51181 FK CONSTRAINT public meanh_v11_fkey_exists laftech
+2152; 2606 51033 FK CONSTRAINT public multi_year_grad_rate_fkey laftech
+2151; 2606 51023 FK CONSTRAINT public private_school_low_percentage_fkey laftech
+2169; 2606 50969 FK CONSTRAINT public private_school_other_enrollment_pkey laftech
+2167; 2606 50947 FK CONSTRAINT public private_schools_elementary_enrollment_pkey laftech
+2168; 2606 50958 FK CONSTRAINT public private_schools_fulltime_equivalent_teachers_pkey laftech
+2171; 2606 50991 FK CONSTRAINT public private_schools_secondary_enrollment_pkey laftech
+2154; 2606 50846 FK CONSTRAINT public public_lea_race_enrollment_district_exist_fkey laftech
+2155; 2606 50177 FK CONSTRAINT public public_school_enrollment_fkey laftech
+2156; 2606 50182 FK CONSTRAINT public public_school_gender_enrollment_fkey laftech
+2149; 2606 50172 FK CONSTRAINT public school_facts_fkey laftech
+2157; 2606 51193 FK CONSTRAINT public school_fiscal_fkey_exists laftech
+2150; 2606 51199 FK CONSTRAINT public school_performance_measure_fkey_exists laftech
+2170; 2606 50980 FK CONSTRAINT public uc_private_schools_percentage_low_income_pkey laftech
+2153; 2606 51105 FK CONSTRAINT public yearly_grad_rate_fkey laftech

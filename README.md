@@ -3,9 +3,9 @@
 
 ### Structure
 
-The project is built in *React* and *Ruby on Rails*. There are two main parts of the project - backend and frontend. Backend is written on Rails while React is used to build front-end
+The project is built in [*React*](https://reactjs.org/tutorial/tutorial.html) and [*Ruby on Rails*](http://guides.rubyonrails.org/getting_started.html). There are two main parts of the project - server-side rails application and client-side react application. [Backend is written on Rails while React is used to build front-end](https://www.fullstackreact.com/articles/how-to-get-create-react-app-to-work-with-your-rails-api/)
 
-In addition to React we are using ES6, Sass and Semantic UI, with Webpack bundler. The structure of the whole project is following:
+In addition to React we are using [ES6](http://ccoenraets.github.io/es6-tutorial/), [Sass](http://sass-lang.com/) and [Semantic UI](https://react.semantic-ui.com/), with [Webpack](https://webpack.js.org/) bundler. The structure of the whole project is following:
 
 ##### Main directories:
 - `src` directory contains all the source files
@@ -14,9 +14,9 @@ In addition to React we are using ES6, Sass and Semantic UI, with Webpack bundle
 - `cfg` provides *webpack* configuration for * test, production* and *development* builds
 
 #### React
-- `src/actions` contains all the Redux actions
+- `src/actions` contains all the [Redux](https://redux.js.org/) actions
 - `src/api` contains the server-side codebase written on Rails
-- `src/components` keeps all the React Components
+- `src/components` keeps all the [React Components](https://reactjs.org/docs/react-component.html)
 - `src/data` contains all the data files used in application (JSON, txt, etc.)
 - `src/images` contains all the media files used in the project
 - `src/pages` contains main all the pages user can navigate to using LafTech
