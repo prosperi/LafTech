@@ -4,6 +4,10 @@
 </head>
 <body>
     <svg></svg>
+    <span id="test-topic"></span>
+    <span id="proficiency-level"></span>
+    <span id="school-type"></span>
+    <span id="percentage"></span>
 </body>
 
 <script>
@@ -266,6 +270,74 @@
       ]
     };
 
+    function getAncestors(node) {
+      var path = [];
+      var current = node;
+      while (current.parent) {
+        path.unshift(current);
+        current = current.parent;
+      }
+      return path;
+    }
+
+    function isTopicNode(d){
+      var ancestorsArray = getAncestors(d);
+      return ancestorsArray.length == 1;
+    }
+
+    function isProficiencyNode(d){
+      var ancestorsArray = getAncestors(d);
+      return ancestorsArray.length == 2;
+    }
+
+    function isSchoolNode(d){
+      var ancestorsArray = getAncestors(d);
+      return ancestorsArray.length == 3;
+    }
+
+    function mouseover(d){
+       var sequenceArray = getAncestors(d);
+       if(isTopicNode(d)){
+         d3.select("#percentage")
+           .text("")
+         d3.select("#test-topic")
+           .text(d.data.name)
+         d3.select("#proficiency-level")
+           .text("")
+         d3.select("#school-type")
+           .text("")
+       } else if(isProficiencyNode(d)) {
+         d3.select("#percentage")
+           .text(d.value/d.parent.value)
+         d3.select("#test-topic")
+           .text(d.parent.data.name)
+         d3.select("#proficiency-level")
+           .text(d.data.name)
+         d3.select("#school-type")
+           .text("")
+       } else if(isSchoolNode(d)) {
+         d3.select("#percentage")
+           .text(d.value / d.parent.parent.value)
+         d3.select("#test-topic")
+           .text(d.parent.parent.data.name)
+         d3.select("#proficiency-level")
+           .text(d.parent.data.name)
+         d3.select("#school-type")
+           .text(d.data.name)
+       }
+
+       // Fade all the segments.
+       d3.selectAll("path")
+           .style("opacity", 0.3);
+
+       // Then highlight only those that are an ancestor of the current segment.
+       g.selectAll("path")
+           .filter(function(node) {
+                     return (sequenceArray.indexOf(node) >= 0);
+                   })
+           .style("opacity", 1);
+     }
+
     // Variables
     var width = 500;
     var height = 500;
@@ -302,6 +374,6 @@
         .attr("display", function (d) { return d.depth ? null : "none"; })
         .attr("d", arc)
         .style('stroke', '#fff')
-        .style("fill", function (d) { return color(colors[d.data.name]); });
+        .style("fill", function (d) { return color(colors[d.data.name]); })
+        .on("mouseover", mouseover);
 </script>
-
