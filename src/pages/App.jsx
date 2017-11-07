@@ -28,7 +28,12 @@ class App extends Component {
           <Divider horizontal className='or' >Or</Divider>
           <Header as='h2' className='hint' style={{marginTop: '30px'}} >SELECT DISTRICT FROM MAP</Header>
         </Container>
+
+        <Container>
+         <Header as='h10'>Hello Joe</Header>
+        </Container>
       </Container>
+
     )
   }
 }
