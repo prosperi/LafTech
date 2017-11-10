@@ -30,9 +30,7 @@ class App extends Component {
           <Header as='h2' className='hint' style={{marginTop: '30px'}} >SELECT DISTRICT FROM MAP</Header>
         </Container>
 
-        <Container>
         <Visualization3 />
-        </Container>
 
       </Container>
     )
