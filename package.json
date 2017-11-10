@@ -65,6 +65,7 @@
     "node-sass": "^4.6.0",
     "normalize.css": "^4.0.0",
     "react": "^15.0.0",
+    "react-d3-basic": "^1.6.11",
     "react-dom": "^15.0.0",
     "sass-loader": "^6.0.6",
     "semantic-ui-css": "^2.2.12",

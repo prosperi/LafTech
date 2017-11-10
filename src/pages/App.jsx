@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Image, Header, Icon, Dropdown, Divider } from 'semantic-ui-react'
-
+import Visualization3 from './Visualization3'
 class App extends Component {
   constructor (props) {
     super(props)
@@ -10,6 +10,7 @@ class App extends Component {
     const districtOptions = [ { key: 'AL', value: 'AL', text: 'Alabama' } ]
 
     return (
+
       <Container fluid>
 
         <Container className='index-header' fluid>
@@ -30,10 +31,10 @@ class App extends Component {
         </Container>
 
         <Container>
-         <Header as='h10'>Hello Joe</Header>
+        <Visualization3 />
         </Container>
-      </Container>
 
+      </Container>
     )
   }
 }
