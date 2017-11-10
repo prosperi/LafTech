@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Image, Header, Icon, Dropdown, Divider } from 'semantic-ui-react'
-
+import Visualization3 from './Visualization3'
 class App extends Component {
   constructor (props) {
     super(props)
@@ -10,6 +10,7 @@ class App extends Component {
     const districtOptions = [ { key: 'AL', value: 'AL', text: 'Alabama' } ]
 
     return (
+
       <Container fluid>
 
         <Container className='index-header' fluid>
@@ -28,6 +29,9 @@ class App extends Component {
           <Divider horizontal className='or' >Or</Divider>
           <Header as='h2' className='hint' style={{marginTop: '30px'}} >SELECT DISTRICT FROM MAP</Header>
         </Container>
+
+        <Visualization3 />
+
       </Container>
     )
   }
