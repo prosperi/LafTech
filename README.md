@@ -30,6 +30,8 @@ To be developed....
 In order to set up the project on the local machine, at first clone the repo:
 - `git clone git@github.com:prosperi/LafTech.git`
 
+#### Running the frontend (React)
+
 Navigate to the project directory:
 - `cd LafTech`
 
@@ -40,6 +42,20 @@ Start webpack dev-server:
 - `npm start`
 
 After this react will be serving on port 3000, hence navigate to localhost:3000 in your browser and view the client-side.
+
+#### Database Setup
+Create an SSH tunnel to the Lafayette server using
+>> `ssh -fN -L 5432:localhost:5432 yourLafUsername@139.147.9.191`
+
+You may want to save this as an alias in `~/bash_profile` as `alias cs320db='ssh -fN -L 5432:localhost:5432 yourLafUsername@139.147.9.191'`
+
+Once the ssh tunnel is enabled, configure `/config/database.yml` to use the port `5432`, your lafayette username and your LID as a password (copy from previous project). You can now proceed to the next steps.
+
+#### Rails setup
+
+Follow [this tutorial](https://gorails.com/setup/osx/10.13-high-sierra) to set up Ruby and Rails 
+
+#### Running the backend (Rails)
 
 To start the rails server, navigate to api directory:
 - `cd src/api`
