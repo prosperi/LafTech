@@ -1,60 +1,64 @@
-//Width and height
-var width = 960,
-height = 600,
-scale_thousand = 1000,
+import * as d3 from 'd3'
+import { geoMercator, geoPath } from 'd3-geo'
+import { feature } from 'topojson-client'
 
-//Centre County is the geographical center of Pennsylvania.
-centre_county = [-77.82, 40.91];
+import React, { Component } from 'react'
 
+export default class PAMap extends Component {
 
-//Define map projection
-var projection = d3.geo.mercator()
-                       .scale([scale_thousand * 7])
-                       .center(centre_county);
+  constructor() {
+    super()
+    this.state = {
+      worldData: []
+    }
+  }
 
+  projection() {
+    const centre_county = [-77.82, 40.91],
+    scale_thousand = 1000
 
-//Create SVG element
-var svg_map_pa = d3.select(".wpd3-520-0")
-			.append("svg")
-			.attr("width", width)
-			.attr("height", height);
+    return geoMercator()
+      .scale([scale_thousand * 9])
+      .translate([ this.props.width / 2, this.props.height / 2 ])
+      .center(centre_county)
+  }
 
+  componentDidMount() {
 
-//Define path generator
-var path = d3.geo.path()
-             .projection(projection);
+    fetch('../data/counties.json')
+      .then(response => {
+        if (response.status !== 200) {
+          console.log(`There was a problem: ${response.status}`)
+          return
+        }
+        response.json().then(counties => {
+          this.setState({
+            worldData: counties.features
+          })
+        })
+      })
+  }
 
+  render () {
 
-//Load GeoJSON data
-d3.json("http://www.gary-pang.com/wp-content/uploads/2014/11/pa_counties.json", function(json){
+    return (
+      <svg width={ this.props.width } height={ this.props.height } viewBox={`0 0 ${this.props.width} ${this.props.height}`}>
+        <g className="counties">
+          {
+            this.state.worldData.map((d,i) => (
+              <path
+                key={ `path-${ i }` }
+                d={ geoPath().projection(this.projection())(d) }
+                className="county"
+                fill={ `rgba(255,255,255,${1 / this.state.worldData.length * i})` }
+                stroke="#FFFFFF"
+                strokeWidth={ 0.5 }
+              />
+            ))
+          }
+        </g>
+      </svg>
+    )
+  }
 
-    //Bind data and create one path per GeoJSON feature
-    svg_map_pa.selectAll("path")
-       .data(json.features)
-       .enter()
-       .append("path")
-       .attr("d", path)
-       .attr("fill", "#4b4a47")
-       .attr("stroke-width", .5)
-       .attr("stroke", "#f5f5f5")
-
-       .on("mousemove", function(d) {
-
-       //Update the tooltip position and value
-       d3.select("#tooltip")
-       .style("top", (d3.event.pageY) + 20 + "px")
-       .style("left", (d3.event.pageX) + 20 + "px")
-
-       .select("#value")
-       .text(d.properties.NAME);
-
-
-       //Show the tooltip
-       d3.select("#tooltip").classed("hidden", false);
-       })
-
-       .on("mouseout", function() {
-       //Hide the tooltip
-       d3.select("#tooltip").classed("hidden", true);
-       });
-});
+}
