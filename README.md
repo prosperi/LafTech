@@ -51,6 +51,10 @@ You may want to save this as an alias in `~/bash_profile` as `alias cs320db='ssh
 
 Once the ssh tunnel is enabled, configure `/config/database.yml` to use the port `5432`, your lafayette username and your LID as a password (copy from previous project). You can now proceed to the next steps.
 
+#### Rails setup
+
+Follow [this tutorial](https://gorails.com/setup/osx/10.13-high-sierra) to set up Ruby and Rails 
+
 #### Running the backend (Rails)
 
 To start the rails server, navigate to api directory:
