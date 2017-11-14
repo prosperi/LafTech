@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Image, Header, Icon, Dropdown, Divider } from 'semantic-ui-react'
 import Visualization3 from './Visualization3'
+import Visualization2 from './Visualization2'
 class App extends Component {
   constructor (props) {
     super(props)
@@ -30,7 +31,9 @@ class App extends Component {
           <Header as='h2' className='hint' style={{marginTop: '30px'}} >SELECT DISTRICT FROM MAP</Header>
         </Container>
 
-        <Visualization3 />
+        {/*}<Visualization3 />*/}
+
+        <Visualization2 />
 
       </Container>
     )
