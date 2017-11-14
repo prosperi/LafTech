@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { LineChart } from 'react-d3-basic'
-import { Container, Image, Header, Icon, Dropdown, Divider } from 'semantic-ui-react'
+import { ScatterPlot } from 'react-d3-basic'
 
 import data from '../data/data_03'
 
@@ -23,34 +22,44 @@ export default class Visualization3 extends Component {
 
     let width = 700
     let height = 300
-
     let margins = {
-      left: 10,
-      right: 100,
+      left: 50,
+      right: 50,
       top: 50,
       bottom: 50
     }
 
     let chartSeries = [
       {
-        field: 'age',
-        name: 'Age',
-        color: '#ff7f0e',
-        style: {
-          'stroke-width': 2,
-          'stroke-opacity': .2,
-          'fill-opacity': .2
-        }
-      }
+            field: 'satMath',
+            name: 'Sat Math',
+            color: '#ff2a2a',
+            symbolSize: 5
+          },
+          {
+            field: 'satReading',
+            name: 'Sat Reading',
+            color: '#2bbbff',
+            symbolSize: 5
+          },
+          {
+            field: 'satWriting',
+            name: 'Sat Writing',
+            color: '#53f442',
+            symbolSize: 5
+          }
     ]
-
     const x = d => {
       console.log(d)
       return d.index
     }
 
     return (
-      <LineChart
+      <ScatterPlot
+        showXGrid= {true}
+        showYGrid= {true}
+        xAxis={{innerTickSize: 6, label: "x-label"}}
+        yAxis={{label: "Total Revenue ($)"}}
         margins= {margins}
         title={title}
         width={width}
