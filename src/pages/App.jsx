@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Image, Header, Icon, Dropdown, Divider } from 'semantic-ui-react'
+import Visualization1 from './Visualization1'
 import Visualization3 from './Visualization3'
 import PAMap from './Map'
 
@@ -31,6 +32,10 @@ class App extends Component {
           <Divider horizontal className='or' >Or</Divider>
           <Header as='h2' className='hint' style={{marginTop: '30px'}} >SELECT DISTRICT FROM MAP</Header>
           <PAMap width='960' height='600' />
+        </Container>
+
+        <Container className='analysis-section' fluid>
+          <Visualization1 />
         </Container>
 
         <Container className='analysis-section' fluid>

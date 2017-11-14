@@ -24,10 +24,10 @@ export default class Visualization3 extends Component {
     let width = 700
     let height = 300
     let margins = {
-      left: 50,
+      left: 100,
       right: 50,
-      top: 50,
-      bottom: 50
+      top: 10,
+      bottom: 10
     }
 
     let chartSeries = [
