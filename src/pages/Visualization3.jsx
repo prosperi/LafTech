@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { ScatterPlot } from 'react-d3-basic'
-import { Container, Image, Header, Icon, Dropdown, Divider } from 'semantic-ui-react'
 
 import data from '../data/data_03'
 

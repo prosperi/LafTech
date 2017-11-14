@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Container, Image, Header, Icon, Dropdown, Divider } from 'semantic-ui-react'
 import Visualization3 from './Visualization3'
+import PAMap from './Map'
+
 class App extends Component {
   constructor (props) {
     super(props)
@@ -23,14 +25,17 @@ class App extends Component {
         </Container>
 
         <Container className='district-section' fluid>
-          <Header as='h2' className='hint' style={{marginTop: '80px'}} >TYPE SCHOOL / DISTRICT NAME</Header>
+          <Header as='h2' className='hint' >TYPE SCHOOL / DISTRICT NAME</Header>
           <Dropdown placeholder='Select a school / district'
           search selection options={districtOptions} className='district-filter'/>
           <Divider horizontal className='or' >Or</Divider>
           <Header as='h2' className='hint' style={{marginTop: '30px'}} >SELECT DISTRICT FROM MAP</Header>
+          <PAMap width='960' height='600' />
         </Container>
 
-        <Visualization3 />
+        <Container className='analysis-section' fluid>
+          <Visualization3 />
+        </Container>
 
       </Container>
     )
