@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'api/new'
 
   scope '/api' do
     scope '/v1' do
@@ -34,4 +33,6 @@ Rails.application.routes.draw do
       end
     end
   end
+  get '/' => 'api#index'
+
 end

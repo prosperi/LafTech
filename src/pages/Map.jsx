@@ -1,6 +1,4 @@
-import * as d3 from 'd3'
 import { geoMercator, geoPath } from 'd3-geo'
-import { feature } from 'topojson-client'
 
 import React, { Component } from 'react'
 
@@ -9,7 +7,8 @@ export default class PAMap extends Component {
   constructor() {
     super()
     this.state = {
-      worldData: []
+      worldData: [],
+      selected: ''
     }
   }
 
@@ -41,6 +40,7 @@ export default class PAMap extends Component {
 
   render () {
 
+
     return (
       <svg width={ this.props.width } height={ this.props.height } viewBox={`0 0 ${this.props.width} ${this.props.height}`}>
         <g className="counties">
@@ -50,9 +50,10 @@ export default class PAMap extends Component {
                 key={ `path-${ i }` }
                 d={ geoPath().projection(this.projection())(d) }
                 className="county"
-                fill={ `rgba(255,255,255,${1 / this.state.worldData.length * i})` }
-                stroke="#FFFFFF"
-                strokeWidth={ 0.5 }
+                fill={ this.state.selected == `path-${ i }` ? `rgb(120,120,120)` :  `rgb(40,40,40)` }
+                stroke="#666"
+                strokeWidth={ 1 }
+                onMouseOver={ () => { this.setState({selected: `path-${ i }`}) } }
               />
             ))
           }

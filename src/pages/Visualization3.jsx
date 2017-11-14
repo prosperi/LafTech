@@ -1,25 +1,26 @@
 import React, { Component } from 'react'
 import { ScatterPlot } from 'react-d3-basic'
 
-import data from '../data/data_03'
-
 export default class Visualization3 extends Component {
 
   constructor (props) {
     super(props)
 
     this.state = {
-
+      data: []
     }
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3001/api/v1/visualizations/1').then((res) => {
+      return res.json()
+    }).then((data) => {
+      this.setState({ data })
+    })
   }
 
   render () {
     let title = 'Visualization 3'
-    let schoolList = ['Huntington', 'Mason', 'Carter']
-    let satMath = [570.25, 640.00, 584.10]
-    let satReading = [590.20, 660.52, 543.30]
-    let satWriting = [600.25, 610.00, 575.10]
-
     let width = 700
     let height = 300
     let margins = {
@@ -31,27 +32,26 @@ export default class Visualization3 extends Component {
 
     let chartSeries = [
       {
-            field: 'satMath',
+            field: 'sat_math',
             name: 'Sat Math',
             color: '#ff2a2a',
             symbolSize: 5
           },
           {
-            field: 'satReading',
+            field: 'sat_reading',
             name: 'Sat Reading',
             color: '#2bbbff',
             symbolSize: 5
           },
           {
-            field: 'satWriting',
+            field: 'sat_writing',
             name: 'Sat Writing',
             color: '#53f442',
             symbolSize: 5
           }
     ]
     const x = d => {
-      console.log(d)
-      return d.index
+      return Number(d.revenue)
     }
 
     return (
@@ -59,13 +59,13 @@ export default class Visualization3 extends Component {
         showXGrid= {true}
         showYGrid= {true}
         xAxis={{innerTickSize: 6, label: "x-label"}}
-        yAxis={{label: "Total Revenue ($)"}}
+        yAxis={{label: "Total Pupil Expenditure ($)"}}
         margins= {margins}
         title={title}
         width={width}
         height={height}
         chartSeries={chartSeries}
-        data={data}
+        data={this.state.data}
         x={x}
       />
     )
