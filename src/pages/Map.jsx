@@ -1,6 +1,4 @@
-import * as d3 from 'd3'
 import { geoMercator, geoPath } from 'd3-geo'
-import { feature } from 'topojson-client'
 
 import React, { Component } from 'react'
 
