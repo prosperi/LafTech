@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Container, Image, Header, Icon, Dropdown, Divider } from 'semantic-ui-react'
 import Visualization1 from './Visualization1'
 import Visualization3 from './Visualization3'
+import Visualization2 from './Visualization2'
 import PAMap from './Map'
 
 class App extends Component {
@@ -34,6 +35,7 @@ class App extends Component {
           <PAMap width='960' height='600' />
         </Container>
 
+        {/*
         <Container className='analysis-section' fluid>
           <Visualization1 />
         </Container>
@@ -41,7 +43,10 @@ class App extends Component {
         <Container className='analysis-section' fluid>
           <Visualization3 />
         </Container>
-
+        */}
+        <Container className = 'analysis-section' fluid>
+          <Visualization2 />
+        </Container>
       </Container>
     )
   }

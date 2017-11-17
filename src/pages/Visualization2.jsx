@@ -24,8 +24,7 @@ class Visualization2 extends Component {
         }
         response.json().then(data => {
           this.setState({
-            nodeData: data,
-            colors: this.state.colors
+            nodeData: data
           })
         })
       })
@@ -83,13 +82,9 @@ class Visualization2 extends Component {
           return color(colors[d.data.name]);
         })
         .on('mouseover', this.mouseover);
-        console.log(g);
     return (
         <Container className='vis2'>
-          <span id='test-topic'></span>
-          <span id='proficiency-level'></span>
-          <span id='school-type'></span>
-          <span id='percentage'></span>
+          {g}
         </Container>
     )
   }
