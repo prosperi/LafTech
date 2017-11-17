@@ -5,6 +5,7 @@ import {hierarchy, partition} from 'd3-hierarchy'
 import {select, selectAll} from 'd3-selection'
 import {arc} from 'd3-shape'
 import {color} from 'd3-color'
+
 class Visualization2 extends Component {
   constructor (props) {
     super(props)
@@ -15,7 +16,6 @@ class Visualization2 extends Component {
   }
 
   componentDidMount () {
-
     fetch('../data/data_02_process.json')
       .then(response => {
         if (response.status !== 200) {
@@ -35,6 +35,7 @@ class Visualization2 extends Component {
     let width = 500;
     let height = 500;
     let radius = Math.min(width, height) / 2;
+
     const colors = {
             'CTC': '#38c742',
             'CS': '#303ce3',
@@ -65,6 +66,7 @@ class Visualization2 extends Component {
 
     // Size arcs
     partition(root);
+
     let varArc = arc()
         .startAngle(function (d) { return d.x0 })
         .endAngle(function (d) { return d.x1 })
@@ -142,7 +144,6 @@ class Visualization2 extends Component {
        select('#proficiency-level')
          .text(d.parent.data.name)
        select('#school-type')
-         .text(d.data.name)
      }
 
      // Fade all the segments.

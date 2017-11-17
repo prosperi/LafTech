@@ -4,7 +4,6 @@ import Visualization1 from './Visualization1'
 import Visualization3 from './Visualization3'
 import Visualization2 from './Visualization2'
 import PAMap from './Map'
-
 class App extends Component {
   constructor (props) {
     super(props)
@@ -39,7 +38,6 @@ class App extends Component {
         <Container className='analysis-section' fluid>
           <Visualization1 />
         </Container>
-
         <Container className='analysis-section' fluid>
           <Visualization3 />
         </Container>
