@@ -63,6 +63,9 @@
   "dependencies": {
     "core-js": "^2.0.0",
     "d3": "^4.11.0",
+    "d3-color": "^1.0.3",
+    "d3-hierarchy": "^1.1.5",
+    "d3-selection": "^1.1.0",
     "node-sass": "^4.6.0",
     "normalize.css": "^4.0.0",
     "react": "^15.0.0",
