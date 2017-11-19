@@ -43,7 +43,7 @@ class App extends Component {
         </Container>
         */}
         <Container className = 'analysis-section' fluid>
-          <Visualization2 />
+          <Visualization2 width ='960' height='600' />
         </Container>
       </Container>
     )

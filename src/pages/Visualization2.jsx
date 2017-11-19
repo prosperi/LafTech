@@ -34,7 +34,7 @@ class Visualization2 extends Component {
     // letiables
     let width = 500;
     let height = 500;
-    let radius = Math.min(width, height) / 2;
+    let radius = Math.min(this.props.width, this.props.height) / 2;
 
     const colors = {
             'CTC': '#38c742',
@@ -51,11 +51,11 @@ class Visualization2 extends Component {
           }
 
     // Create primary <g> element
-    let g = select('svg')
+    /*select('svg')
         .attr('width', width)
         .attr('height', height)
         .append('g')
-        .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+        .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');*/
 
     // Data strucure
     let varPartition = partition()
@@ -65,33 +65,58 @@ class Visualization2 extends Component {
         .sum(function (d) { return d.size});
 
     // Size arcs
-    partition(root);
+    varPartition(root);
 
-    let varArc = arc()
+    let arcGenerator = arc()
         .startAngle(function (d) { return d.x0 })
         .endAngle(function (d) { return d.x1 })
         .innerRadius(function (d) { return d.y0 })
         .outerRadius(function (d) { return d.y1 });
-
     // Put it all together
+    /*
     g.selectAll('path')
         .data(root.descendants())
-        .enter().append('path')
+        .enter()
+        .append('path')
         .attr('display', function (d) { return d.depth ? null : 'none'; })
         .attr('d', varArc)
         .style('stroke', '#fff')
         .style('fill', function (d) {
           return color(colors[d.data.name]);
         })
-        .on('mouseover', this.mouseover);
+        .on('mouseover', this.mouseover);*/
+        console.log(this.mouseover)
     return (
-        <Container className='vis2'>
-          {g}
-        </Container>
+      <div className="visContainer">
+        <span id="test-topic"></span>
+        <span id="proficiency-level"></span>
+        <span id="school-type"></span>
+        <span id="percentage"></span>
+        <br/>
+        <svg
+          width={ this.props.width }
+          height={ this.props.height }
+          viewBox={`0 0 ${this.props.width} ${this.props.height}`}
+        >
+          <g className="vis2"
+            transform={"translate(" + this.props.width/2 + "," + this.props.height/2 + ")"}>
+            {
+              root.descendants().map((d,i) => (
+                <path
+                  key={ `path-${ i }` }
+                  display={function (d) { return d.depth ? null : 'none'; }}
+                  d={arcGenerator(d)}
+                  onMouseOver = {() => {this.mouseover(d)}}
+                />
+              ))
+            }
+          </g>
+        </svg>
+      </div>
     )
   }
 
-  getAncestors(node) {
+  getAncestors = (node) => {
     let path = [];
     let current = node;
     while (current.parent) {
@@ -101,22 +126,22 @@ class Visualization2 extends Component {
     return path;
   }
 
-  isTopicNode(d){
+  isTopicNode = (d) => {
     let ancestorsArray = this.getAncestors(d);
     return ancestorsArray.length == 1;
   }
 
-  isProficiencyNode(d){
+  isProficiencyNode = (d) => {
     let ancestorsArray = this.getAncestors(d);
     return ancestorsArray.length == 2;
   }
 
-  isSchoolNode(d){
+  isSchoolNode = (d) => {
     let ancestorsArray = this.getAncestors(d);
     return ancestorsArray.length == 3;
   }
 
-  mouseover(d){
+  mouseover = (d) => {
      let sequenceArray = this.getAncestors(d);
      if(this.isTopicNode(d)){
        select('#percentage')
@@ -147,11 +172,11 @@ class Visualization2 extends Component {
      }
 
      // Fade all the segments.
-     selectAll('path')
+     select('svg').selectAll('path')
          .style('opacity', 0.3);
 
      // Then highlight only those that are an ancestor of the current segment.
-     g.selectAll('path')
+     select('svg').select('g').selectAll('path')
          .filter(function(node) {
                    return (sequenceArray.indexOf(node) >= 0);
                  })
