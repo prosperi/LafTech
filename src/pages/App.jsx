@@ -6,11 +6,32 @@ import PAMap from './Map'
 class App extends Component {
   constructor (props) {
     super(props)
+    this.state = {
+      countyList: [],
+      county: null
+    }
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3001/api/v1/county/list').then((res) => {
+      return res.json()
+    }).then((data) => {
+      const countyList = data.map((d) => {
+          return {
+            key: d,
+            value: d,
+            text: d
+          }
+        })
+      this.setState({ countyList })
+    })
+  }
+
+  changeCounty = (county) => {
+    this.setState({ county })
   }
 
   render () {
-    const districtOptions = [ { key: 'AL', value: 'AL', text: 'Alabama' } ]
-
     return (
 
       <Container fluid>
@@ -25,12 +46,18 @@ class App extends Component {
         </Container>
 
         <Container className='district-section' fluid>
-          <Header as='h2' className='hint' >TYPE SCHOOL / DISTRICT NAME</Header>
-          <Dropdown placeholder='Select a school / district'
-          search selection options={districtOptions} className='district-filter'/>
+          <Header as='h2' className='hint' >TYPE COUNTY NAME</Header>
+          <Dropdown
+            placeholder='Select a school / district'
+            search
+            selection
+            options={this.state.countyList}
+            className='district-filter'
+            onChange={(e, d) => { this.changeCounty(d.value) }}
+          />
           <Divider horizontal className='or' >Or</Divider>
-          <Header as='h2' className='hint' style={{marginTop: '30px'}} >SELECT DISTRICT FROM MAP</Header>
-          <PAMap width='960' height='600' />
+          <Header as='h2' className='hint' style={{marginTop: '30px'}} >SELECT COUNTY FROM MAP</Header>
+          <PAMap width='960' height='600' onChange={this.changeCounty} />
         </Container>
 
         <Container className='analysis-section' fluid>
