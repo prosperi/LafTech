@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router'
 import { Container, Header, Dropdown, Divider } from 'semantic-ui-react'
 import Visualization1 from './Visualization1'
 import Visualization3 from './Visualization3'
-import PAMap from './Map'
+import StateMap from './StateMap'
 
 class Landing extends Component {
   constructor (props) {
@@ -52,7 +52,7 @@ class Landing extends Component {
           />
           <Divider horizontal className='or' >Or</Divider>
           <Header as='h2' className='hint' style={{marginTop: '30px'}} >SELECT COUNTY FROM MAP</Header>
-          <PAMap onChange={this.changeCounty}  />
+          <StateMap onChange={this.changeCounty}  />
         </Container>
 
         <Container className='analysis-section' fluid>

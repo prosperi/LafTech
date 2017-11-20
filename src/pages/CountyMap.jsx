@@ -8,7 +8,6 @@ export default class PAMap extends Component {
     super()
     this.state = {
       worldData: [],
-      selected: '',
       containerWidth: null,
       containerHeight: null,
       selectedFeature: null
@@ -17,7 +16,7 @@ export default class PAMap extends Component {
 
   projection() {
     const center = this.props.county ? geoPath().centroid(this.state.selectedFeature) : [-77.82, 40.91]
-    const scale = 360*this.state.containerWidth/(this.props.county ? 10 : 38)
+    const scale = 360*this.state.containerWidth/10
 
     return geoMercator()
       .scale([scale])
@@ -55,7 +54,7 @@ export default class PAMap extends Component {
 
   fitParentContainer = () => {
     const { containerWidth } = this.state
-    const currentContainerWidth = window.innerWidth
+    const currentContainerWidth = this.refs.svg.parentNode.clientWidth
 
     const shouldResize = containerWidth !== Math.min(900, currentContainerWidth)
 
@@ -70,13 +69,14 @@ export default class PAMap extends Component {
   render () {
     return (
       <svg
+        ref="svg"
         width={ this.state.containerWidth }
         height={ this.state.containerHeight }
       >
         <g className="counties">
           {
             this.state.worldData.map((d,i) => {
-              if (this.props.county && d !== this.state.selectedFeature)
+              if (d !== this.state.selectedFeature)
                 return (<g key={ `path-container-${ i }` } />)
               const path = geoPath().projection(this.projection())
               return (
@@ -88,10 +88,9 @@ export default class PAMap extends Component {
                     key={ `path-${ i }` }
                     d={ path(d) }
                     className="county"
-                    fill={ this.state.selected == `path-${ i }` ? `rgb(120,120,120)` :  `rgb(40,40,40)` }
+                    fill={ 'rgb(40,40,40)' }
                     stroke="#666"
                     strokeWidth={ 1 }
-                    onMouseOver={ () => { this.setState({selected: `path-${ i }`}) } }
                   />
                   <text
                     key={ `path-label-${ i }` }

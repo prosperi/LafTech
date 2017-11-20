@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Grid, Container, Header, Menu, Label, Icon, Table, Rating } from 'semantic-ui-react'
-import PAMap from './Map'
+import CountyMap from './CountyMap'
 
 class County extends Component {
   constructor (props) {
@@ -11,16 +11,15 @@ class County extends Component {
 
     return (
 
-      <Container fluid>
-
-        <Container className='district-section' fluid>
-          <Grid columns='equal'>
-            <Grid.Column width={8}>
+      <Container className='district-section' fluid>
+        <Grid>
+          <Grid.Row columns={2}>
+            <Grid.Column className='padded-column'>
               <Header as='h2' className='hint' >{this.props.params.county} County</Header>
-              <PAMap onChange={this.changeCounty} county={this.props.params.county}  />
+              <CountyMap county={this.props.params.county}  />
             </Grid.Column>
 
-            <Grid.Column>
+            <Grid.Column className='padded-column'>
               <Header as='h2' className='hint' >Schools</Header>
               <Table celled padded>
                 <Table.Header>
@@ -90,11 +89,8 @@ class County extends Component {
 
               </Table>
             </Grid.Column>
-          </Grid>
-
-        </Container>
-
-
+          </Grid.Row>
+        </Grid>
       </Container>
     )
   }
