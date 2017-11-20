@@ -10,18 +10,19 @@ export default class PAMap extends Component {
       worldData: [],
       selected: '',
       containerWidth: null,
-      containerHeight: null
+      containerHeight: null,
+      selectedFeature: null
     }
   }
 
   projection() {
-    const centre_county = [-77.82, 40.91],
-    scale = 360*this.state.containerWidth/38
+    const center = this.props.county ? geoPath().centroid(this.state.selectedFeature) : [-77.82, 40.91]
+    const scale = 360*this.state.containerWidth/(this.props.county ? 10 : 38)
 
     return geoMercator()
       .scale([scale])
       .translate([ this.state.containerWidth / 2, this.state.containerHeight / 2 ])
-      .center(centre_county)
+      .center(center)
   }
 
   componentDidMount() {
@@ -36,8 +37,13 @@ export default class PAMap extends Component {
           return
         }
         response.json().then(counties => {
+          const selectedCounty = this.props.county || 'Centre'
+          const selectedFeature = counties.features.find((el) => {
+            return el.properties.NAME == selectedCounty
+          })
           this.setState({
-            worldData: counties.features
+            worldData: counties.features,
+            selectedFeature: selectedFeature
           })
         })
       })
@@ -62,8 +68,6 @@ export default class PAMap extends Component {
   }
 
   render () {
-
-
     return (
       <svg
         width={ this.state.containerWidth }
@@ -72,6 +76,8 @@ export default class PAMap extends Component {
         <g className="counties">
           {
             this.state.worldData.map((d,i) => {
+              if (this.props.county && d !== this.state.selectedFeature)
+                return (<g key={ `path-container-${ i }` } />)
               const path = geoPath().projection(this.projection())
               return (
                 <g
