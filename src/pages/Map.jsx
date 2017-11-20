@@ -8,21 +8,26 @@ export default class PAMap extends Component {
     super()
     this.state = {
       worldData: [],
-      selected: ''
+      selected: '',
+      containerWidth: null,
+      containerHeight: null
     }
   }
 
   projection() {
     const centre_county = [-77.82, 40.91],
-    scale_thousand = 1000
+    scale = 360*this.state.containerWidth/38
 
     return geoMercator()
-      .scale([scale_thousand * 9])
-      .translate([ this.props.width / 2, this.props.height / 2 ])
+      .scale([scale])
+      .translate([ this.state.containerWidth / 2, this.state.containerHeight / 2 ])
       .center(centre_county)
   }
 
   componentDidMount() {
+
+    this.fitParentContainer()
+    window.addEventListener('resize', this.fitParentContainer)
 
     fetch('../data/counties.json')
       .then(response => {
@@ -38,13 +43,31 @@ export default class PAMap extends Component {
       })
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.fitParentContainer)
+  }
+
+  fitParentContainer = () => {
+    const { containerWidth } = this.state
+    const currentContainerWidth = window.innerWidth
+
+    const shouldResize = containerWidth !== Math.min(900, currentContainerWidth)
+
+    if (shouldResize) {
+      this.setState({
+        containerWidth: Math.min(900, currentContainerWidth),
+        containerHeight: Math.min(900, currentContainerWidth) * (600/960)
+      })
+    }
+  }
+
   render () {
 
 
     return (
       <svg
-        width={ this.props.width }
-        height={ this.props.height }
+        width={ this.state.containerWidth }
+        height={ this.state.containerHeight }
       >
         <g className="counties">
           {
