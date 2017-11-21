@@ -11,8 +11,8 @@ class Visualization2 extends Component {
     super(props)
 
     this.state = {
-      root: null,
-      hovered: null
+      hovered: null,
+      selected: null,
     }
   }
 
@@ -25,12 +25,13 @@ class Visualization2 extends Component {
         }
         response.json().then(data => {
 
-          // Find data root
           let root = hierarchy(data)
-              .sum(function (d) { return d.size});
+              .sum(function (d) { return d.size })
 
           this.setState({
-            root: root
+            root: root,
+            hovered: null,
+            selected: root
           })
         })
       })
@@ -56,12 +57,13 @@ class Visualization2 extends Component {
             'Writing': '#458962',
             'SciBio': '#125592'
           }
+
     // Data strucure
     let varPartition = partition()
         .size([2 * Math.PI, radius]);
 
     // Size arcs
-    varPartition(this.state.root);
+    varPartition(this.state.selected);
 
     let arcGenerator = arc()
         .startAngle(function (d) { return d.x0 })
@@ -88,12 +90,13 @@ class Visualization2 extends Component {
           <g className="vis2"
             transform={"translate(" + this.props.width/2 + "," + this.props.height/2 + ")"}>
             {
-              this.state.root.descendants().map((d,i) => (
+              this.state.selected.descendants().map((d,i) => (
                 <path
                   key = { `path-${ i }` }
                   display = {function (d) { return d.depth ? null : 'none'; }}
                   d = {arcGenerator(d)}
                   onMouseOver = {() => {this.mouseover(d)}}
+                  onClick ={() => {this.onClick(d)}}
                   fill = {color(colors[d.data.name])}
                   opacity = {
                     sequenceArray.indexOf(d) >= 0 ? 1.0 : 0.3
@@ -132,8 +135,28 @@ class Visualization2 extends Component {
     return ancestorsArray.length == 3;
   }
 
+  onClick = (d) =>{
+    var newRoot = null;
+    console.log("D: " + d.data.name);
+    if(d === this.state.selected){
+      if(!d.parent){
+        console.log("D has no parent")
+        return;
+      } else {
+        console.log("D's Parent: " + d.parent.data.name)
+        newRoot = d.parent
+      }
+    } else {
+      console.log("New Root Selected")
+      newRoot = d;
+    }
+    this.setState({
+      selected: newRoot,
+    })
+    this.render()
+  }
+
   mouseover = (d) => {
-     let sequenceArray = this.getAncestors(d);
      if(this.isTopicNode(d)){
        select('#percentage')
          .text('')
