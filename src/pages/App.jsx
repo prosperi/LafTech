@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Image, Header, Icon, Dropdown, Divider } from 'semantic-ui-react'
+import Vis1Explanation from './Vis1Explanation'
+import Vis3Explanation from './Vis3Explanation'
 import Visualization1 from './Visualization1'
 import Visualization3 from './Visualization3'
 import PAMap from './Map'
@@ -35,11 +37,13 @@ class App extends Component {
         </Container>
 
         <Container className='analysis-section' fluid>
-          <Visualization1 />
+            <Vis1Explanation />
+            <Visualization1 />
         </Container>
 
         <Container className='analysis-section' fluid>
-          <Visualization3 />
+            <Vis3Explanation />
+            <Visualization3 />
         </Container>
 
       </Container>

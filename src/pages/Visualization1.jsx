@@ -21,7 +21,7 @@ export default class Visualization1 extends Component {
   let height = 300
   let margins = {
     left: 100,
-    right: 50,
+    right: 100,
     top: 10,
     bottom: 50
   }
@@ -30,32 +30,33 @@ export default class Visualization1 extends Component {
     {
           field: 'math_algebra_percent_proficient',
           name: 'PSSA Math',
-          color: '#ff2a2a'
+          color: '#828081'
         },
         {
           field: 'reading_percent_lit_proficient_pssa',
           name: 'PSSA Reading',
-          color: '#2bbbff'
+          color: '#E9C893'
         },
         {
           field: 'writing_percent_proficient_pssa',
           name: 'PSSA Writing',
-          color: '#53f442'
+          color: '#1E392A'
         },
         {
           field: 'scibio_percent_proficient_pssa',
           name: 'PSSA Sci/Bio',
-          color: '#ffed00'
+          color: '#3CC47C'
         }
   ]
   const x = d => {
-    console.log(d)
-    return d.index
+    //console.log(d)
+    return d.pupil_expenditure_total
   },
   xScale = 'ordinal',
   yScale = 'linear',
-  xLabel = "Pupil Expenditure",
-  yLabel = "Total PSSA Score",
+  xLabel = "Pupil Expenditure ($)",
+  yLabel = "Total PSSA Score (AVG)",
+  yTickFormat = d3.format(".2s"),
   xTicks = [10, "$"];
 
     return (
@@ -68,12 +69,14 @@ export default class Visualization1 extends Component {
         height={height}
         chartSeries={chartSeries}
         data={data}
+        x= {x}
         xLabel= {xLabel}
         yLabel = {yLabel}
         xScale= {xScale}
         yScale = {yScale}
         xTicks= {xTicks}
-        x= {x}
+        yTickFormat={yTickFormat}
+
       />
     )
   }
