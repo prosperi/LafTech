@@ -5,28 +5,14 @@ import Vis3Explanation from './Vis3Explanation'
 import Visualization1 from './Visualization1'
 import Visualization3 from './Visualization3'
 import PAMap from './Map'
+import HeaderSection from './HeaderSection'
 
 class App extends Component {
   constructor (props) {
     super(props)
   }
 
-  render () {
-    const districtOptions = [ { key: 'AL', value: 'AL', text: 'Alabama' } ]
-
-    return (
-
-      <Container fluid>
-
-        <Container className='index-header' fluid>
-          <Container className='content' fluid>
-            <Image src='../images/logo.png' className='logo' />
-            <Header as='h1' className='title' >LAFTECH PA SCHOOL DATA</Header>
-            <Header as='h3' className='hint' >EXPLORE OUR ANALYSIS</Header>
-            <Icon name='angle down' size='huge' className='down' />
-          </Container>
-        </Container>
-
+  componentDidMount () {
         <Container className='district-section' fluid>
           <Header as='h2' className='hint' >TYPE SCHOOL / DISTRICT NAME</Header>
           <Dropdown placeholder='Select a school / district'
@@ -45,7 +31,13 @@ class App extends Component {
             <Vis3Explanation />
             <Visualization3 />
         </Container>
+  }
 
+  render () {
+    return (
+      <Container fluid >
+        <HeaderSection />
+        {this.props.children}
       </Container>
     )
   }
