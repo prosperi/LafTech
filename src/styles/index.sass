@@ -11,9 +11,13 @@ svg
   g
     cursor: pointer
 
+.school_row, .school_marker
+  cursor: pointer
+  transition: all 1s
+
 .ui.grid
   margin: 0 !important
-  max-width: '100%'
+  max-width: 100%
 
 .padded-column
   padding: 20px
@@ -84,6 +88,7 @@ svg
     color: #B3B3B3
     width: 50%
     margin-top: 50px
+
 .analysis-section
     //height: 700px
     display: flex !important
@@ -109,3 +114,46 @@ svg
     padding-right: 100px
     text-align: center
     font-size: 18px
+
+.county-section
+    display: flex !important
+    flex-direction: column
+    justify-content: top
+    align-items: center
+    margin-top: 100px
+
+    .countyName
+      font-weight: normal !important
+      font-family: 'Avenir Next' !important
+      font-size: 28px !important
+      color: #3F3F3F !important
+      text-transform: uppercase !important
+      margin: 0 !important
+
+    .countyMap
+      border: none
+      margin-bottom: 100px !important
+
+    .stateName
+      font-weight: normal !important
+      font-family: 'Avenir Next' !important
+      text-transform: uppercase !important
+      color: #707070 !important
+      font-size: 24px !important
+      margin: 0 !important
+      margin-bottom: 100px !important
+
+      font-weight: normal !important
+      font-family: 'Avenir Next' !important
+      color: #989898 !important
+      font-size: 20px !important
+
+@media only screen and (max-width: 479px)
+   .mobile-hide
+     display: none !important
+   .ui.table
+     border-radius: 0px !important
+   .column
+     padding-bottom: 0px !important
+   .district-section
+     padding-bottom: 0px !important

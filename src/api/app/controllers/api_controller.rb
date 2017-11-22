@@ -6,7 +6,7 @@ class ApiController < ApplicationController
   end
 
   def list_schools
-    @schools = School.left_outer_joins(:Fact)
+    @schools = School.joins(:Fact)
     .where(school: {county: params[:county_id]})
     .select('data_school_facts.school_add_city,
              data_school_facts.school_enrollment,
@@ -14,11 +14,14 @@ class ApiController < ApplicationController
              data_school_facts.dropout_rate,data_school_facts.sat_math,
              data_school_facts.sat_reading,
              data_school_facts.sat_writing,
+             data_school_facts.website,
+             data_school_facts.school_add_city,
              school.school_name,
              school.latitude,
-             school.longitude
+             school.longitude,
+             school.state_lea_id
             ')
-            .distinct()
+            .uniq
     # .distinct()
     json_response(@schools)
   end
