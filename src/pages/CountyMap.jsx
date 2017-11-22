@@ -24,11 +24,8 @@ export default class PAMap extends Component {
       .center(center)
   }
 
-  componentDidMount() {
-
-    this.fitParentContainer()
-    window.addEventListener('resize', this.fitParentContainer)
-
+  componentWillMount() {
+    // Get data for the map
     fetch('../data/counties.json')
       .then(response => {
         if (response.status !== 200) {
@@ -46,6 +43,11 @@ export default class PAMap extends Component {
           })
         })
       })
+  }
+
+  componentDidMount() {
+    this.fitParentContainer()
+    window.addEventListener('resize', this.fitParentContainer)
   }
 
   componentWillUnmount() {
@@ -105,6 +107,14 @@ export default class PAMap extends Component {
                 </g>
               )
             })
+          }
+          {
+            this.props.currentSchools.map(({school_name, state_lea_id}) => (
+                <circle
+                  key = {`circle-${state_lea_id}`}
+                  x = {}
+              )
+            )
           }
         </g>
       </svg>

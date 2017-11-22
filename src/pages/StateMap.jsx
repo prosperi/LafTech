@@ -24,11 +24,7 @@ export default class PAMap extends Component {
       .center(center)
   }
 
-  componentDidMount() {
-
-    this.fitParentContainer()
-    window.addEventListener('resize', this.fitParentContainer)
-
+  componentWillMount() {
     fetch('../data/counties.json')
       .then(response => {
         if (response.status !== 200) {
@@ -41,6 +37,13 @@ export default class PAMap extends Component {
           })
         })
       })
+  }
+
+  componentDidMount() {
+
+    this.fitParentContainer()
+    window.addEventListener('resize', this.fitParentContainer)
+
   }
 
   componentWillUnmount() {

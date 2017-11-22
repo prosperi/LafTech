@@ -5,6 +5,24 @@ class ApiController < ApplicationController
     json_response(@counties)
   end
 
+  def list_schools
+    @schools = School.left_outer_joins(:Fact)
+    .where(school: {county: params[:county_id]})
+    .select('data_school_facts.school_add_city,
+             data_school_facts.school_enrollment,
+             data_school_facts.grades_offered,
+             data_school_facts.dropout_rate,data_school_facts.sat_math,
+             data_school_facts.sat_reading,
+             data_school_facts.sat_writing,
+             school.school_name,
+             school.latitude,
+             school.longitude
+            ')
+            .distinct()
+    # .distinct()
+    json_response(@schools)
+  end
+
   def visualization_1
     @fiscal_information = School.joins(:Fiscal, :Fact)
               .select('

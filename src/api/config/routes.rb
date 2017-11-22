@@ -23,6 +23,9 @@ Rails.application.routes.draw do
         scope '/list' do
           get '/' => 'api#list_counties'
         end
+        scope '/:county_id/schools' do
+          get '/' => 'api#list_schools'
+        end
         scope '/details' do
           scope '/:county_id' do
             get '/' => 'api#details_county'
@@ -30,13 +33,8 @@ Rails.application.routes.draw do
         end
       end
       scope '/school' do
-        scope '/list' do
-          get '/' => 'api#list_schools'
-        end
-        scope '/details' do
-          scope '/:school_id' do
-            get '/' => 'api#details_school'
-          end
+        scope '/:school_id' do
+          get '/' => 'api#school_details'
         end
       end
     end
