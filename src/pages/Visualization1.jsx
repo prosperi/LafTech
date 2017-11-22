@@ -49,6 +49,7 @@ export default class Visualization1 extends Component {
         }
   ]
   const x = d => {
+    console.log(d)
     return d.index
   },
   xScale = 'ordinal',
