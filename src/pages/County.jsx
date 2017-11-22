@@ -1,14 +1,21 @@
 import React, { Component } from 'react'
-import { Grid, Container, Header, Menu, Label, Icon, Table, Rating } from 'semantic-ui-react'
+import { Grid, Container, Header, Menu, Label, Icon, Table } from 'semantic-ui-react'
+import { browserHistory } from 'react-router'
 import CountyMap from './CountyMap'
 import capitalize from 'capitalize'
 import _ from 'lodash'
+
+const label_colors = [
+  'red', 'orange', 'yellow', 'olive', 'green', 'teal',
+  'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black',
+]
 
 class County extends Component {
   constructor (props) {
     super(props)
     this.state = {
       schools: [],
+      selected: null,
       page: 1
     }
     this._perPage = 5
@@ -64,44 +71,59 @@ class County extends Component {
       <Container className='district-section' fluid>
         <Grid>
           <Grid.Row columns={2}>
-            <Grid.Column className='padded-column'>
+            <Grid.Column width={6} verticalAlign={'middle'} className='padded-column'>
               <Header as='h2' className='hint' >{this.props.params.county} County</Header>
-              <CountyMap county={this.props.params.county} schools={currentSchools}  />
+              <CountyMap
+                county={this.props.params.county}
+                currentSchools={currentSchools}
+                schools={this.state.schools}
+                selected={this.state.selected}
+              />
             </Grid.Column>
 
-            <Grid.Column className='padded-column'>
+            <Grid.Column width={10} className='padded-column'>
               <Header as='h2' className='hint' >Schools</Header>
               <Table celled padded>
                 <Table.Header>
                   <Table.Row>
-                    <Table.HeaderCell singleLine>Evidence Rating</Table.HeaderCell>
-                    <Table.HeaderCell>Effect</Table.HeaderCell>
-                    <Table.HeaderCell>Efficacy</Table.HeaderCell>
-                    <Table.HeaderCell>Consensus</Table.HeaderCell>
-                    <Table.HeaderCell>Comments</Table.HeaderCell>
+                    <Table.HeaderCell>School</Table.HeaderCell>
+                    <Table.HeaderCell>Grades</Table.HeaderCell>
+                    <Table.HeaderCell>City</Table.HeaderCell>
+                    <Table.HeaderCell>Website</Table.HeaderCell>
                   </Table.Row>
                 </Table.Header>
 
                 <Table.Body>
-                  {currentSchools.map(({school_name, state_lea_id}) => (
-                    <Table.Row>
-                      <Table.Cell>
-                        <Header as='h2' textAlign='center'>A</Header>
-                      </Table.Cell>
-                      <Table.Cell>{capitalize.words(school_name.toLowerCase())}</Table.Cell>
-                      <Table.Cell>
-                        <Rating icon='star' defaultRating={3} maxRating={3} />
-                      </Table.Cell>
-                      <Table.Cell textAlign='right'>
-                          100% <br />
-                        <a href='#'>65 studies</a>
-                      </Table.Cell>
-                      <Table.Cell>
-                          Creatine is the reference compound for power improvement, with numbers from one meta-analysis to assess
-                          potency
-                      </Table.Cell>
-                    </Table.Row>
-                  ))}
+                  {currentSchools.map((school) => {
+                    const {school_name, state_lea_id, grades_offered, website, school_add_city} = school
+                    return (
+                      <Table.Row
+                        key={`row-${state_lea_id}`}
+                        onMouseEnter={() => this.setState({selected: school})}
+                        onMouseLeave={() => this.setState({selected: null})}
+                        onClick={() => browserHistory.push(`/school/${state_lea_id}`)}
+                        className={'school_row'}
+                      >
+                        <Table.Cell>{capitalize.words(school_name.toLowerCase())}</Table.Cell>
+                        <Table.Cell singleLine>
+                          {
+                            grades_offered.slice(0, 5).map((grade) => (
+                              <Label circular color={label_colors[Number(grade)]} key={grade}>{grade}</Label>
+                            ))
+                          }
+                          {
+                            grades_offered.length > 5 ? ' + ' + (grades_offered.length - 5) + ' more' : ''
+                          }
+                        </Table.Cell>
+                        <Table.Cell>
+                            { school_add_city }
+                        </Table.Cell>
+                        <Table.Cell>
+                          <a href={ website }>{ website }</a>
+                        </Table.Cell>
+                      </Table.Row>
+                    )
+                  })}
                 </Table.Body>
                 <Table.Footer>
                   <Table.Row>

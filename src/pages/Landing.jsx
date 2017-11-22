@@ -9,8 +9,7 @@ class Landing extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      countyList: [],
-      county: null
+      countyList: []
     }
   }
 
@@ -30,7 +29,6 @@ class Landing extends Component {
   }
 
   changeCounty = (county) => {
-    this.setState({ county })
     browserHistory.push(`/county/${county}`)
   }
 
