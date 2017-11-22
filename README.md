@@ -11,7 +11,7 @@ In addition to React we are using [ES6](http://ccoenraets.github.io/es6-tutorial
 - `src` directory contains all the source files
 - `dist` directory keeps production versions
 - `test` directory is supposed to store all the unit and integration tests
-- `cfg` provides *webpack* configuration for * test, production* and *development* builds
+- `cfg` provides *webpack* configuration for *test, production* and *development* builds
 
 #### React
 - `src/actions` contains all the [Redux](https://redux.js.org/) actions
