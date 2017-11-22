@@ -14,7 +14,7 @@ class Landing extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     fetch('http://localhost:3001/api/v1/county/list').then((res) => {
       return res.json()
     }).then((data) => {
