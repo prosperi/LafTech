@@ -19,15 +19,23 @@ Rails.application.routes.draw do
           get '/' => 'api#map_county'
         end
       end
-      scope '/details' do
-        scope '/county' do
+      scope '/county' do
+        scope '/list' do
+          get '/' => 'api#list_counties'
+        end
+        scope '/details' do
           scope '/:county_id' do
             get '/' => 'api#details_county'
           end
         end
-        scope '/school' do
+      end
+      scope '/school' do
+        scope '/list' do
+          get '/' => 'api#list_schools'
+        end
+        scope '/details' do
           scope '/:school_id' do
-            get '/' => 'api#details_county'
+            get '/' => 'api#details_school'
           end
         end
       end
