@@ -16,6 +16,7 @@ class App extends Component {
       <Container fluid >
         <HeaderSection />
         {this.props.children}
+
       </Container>
     )
   }

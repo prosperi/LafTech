@@ -28,7 +28,6 @@ export default class PAMap extends Component {
     fetch('../data/counties.json')
       .then(response => {
         if (response.status !== 200) {
-          console.log(`There was a problem: ${response.status}`)
           return
         }
         response.json().then(counties => {
@@ -62,11 +61,11 @@ export default class PAMap extends Component {
   render () {
     return (
       <svg
-        ref="svg"
+        ref='svg'
         width={ this.state.containerWidth }
         height={ this.state.containerHeight }
       >
-        <g className="counties">
+        <g className='counties'>
           {
             this.state.worldData.map((d,i) => {
               const path = geoPath().projection(this.projection())
@@ -78,19 +77,19 @@ export default class PAMap extends Component {
                   <path
                     key={ `path-${ i }` }
                     d={ path(d) }
-                    className="county"
-                    fill={ this.state.selected == `path-${ i }` ? `rgb(120,120,120)` :  `rgb(40,40,40)` }
-                    stroke="#666"
+                    className='county'
+                    fill={ this.state.selected == `path-${ i }` ? 'rgb(120,120,120)' :  'rgb(40,40,40)' }
+                    stroke='#666'
                     strokeWidth={ 1 }
                     onMouseOver={ () => { this.setState({selected: `path-${ i }`}) } }
                   />
                   <text
                     key={ `path-label-${ i }` }
-                    fill="#CCC"
+                    fill='#CCC'
                     x={ path.centroid(d)[0] }
                     y={ path.centroid(d)[1] }
-                    textAnchor="middle"
-                    fontSize="12"
+                    textAnchor='middle'
+                    fontSize='12'
                   >
                     { d.properties.NAME }
                   </text>

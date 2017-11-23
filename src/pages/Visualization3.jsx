@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { ScatterPlot } from 'react-d3-basic'
 
+import data from '../data/data_03'
 export default class Visualization3 extends Component {
 
   constructor (props) {
@@ -27,46 +28,50 @@ export default class Visualization3 extends Component {
       left: 100,
       right: 50,
       top: 10,
-      bottom: 10
+      bottom: 50
     }
 
     let chartSeries = [
       {
             field: 'sat_math',
             name: 'Sat Math',
-            color: '#ff2a2a',
+            color: '#E9C893',
             symbolSize: 5
           },
           {
             field: 'sat_reading',
             name: 'Sat Reading',
-            color: '#2bbbff',
+            color: '#1E392A',
             symbolSize: 5
           },
           {
             field: 'sat_writing',
             name: 'Sat Writing',
-            color: '#53f442',
+            color: '#3CC47C',
             symbolSize: 5
           }
     ]
     const x = d => {
-      return Number(d.revenue)
-    }
+      return d.totalRevenue//Number(d.revenue)
+    },
+    xLabel = 'Total Revenue ($)',
+    yLabel = 'SAT Score (AVG)',
+    xScale = 'linear'
 
     return (
       <ScatterPlot
         showXGrid= {true}
         showYGrid= {true}
-        xAxis={{innerTickSize: 6, label: "x-label"}}
-        yAxis={{label: "Total Pupil Expenditure ($)"}}
+        xLabel= {xLabel}
+        yLabel= {yLabel}
         margins= {margins}
         title={title}
         width={width}
         height={height}
         chartSeries={chartSeries}
-        data={this.state.data}
+        data={data}
         x={x}
+        xScale = {xScale}
       />
     )
   }
