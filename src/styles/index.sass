@@ -7,9 +7,25 @@ body
 svg
   max-height: 100%
 
+.ui.large.breadcrumb
+    font-family: 'Avenir Next'
+
+.ui.breadcrumb .active.section
+    font-weight: normal !important
+
+.ui.breadcrumb a.section
+    color: #bfbebe
+
 .counties
   g
     cursor: pointer
+  g:hover
+    .county
+      fill: rgb(120,120,120)
+
+.mainMenu
+  padding: 20px
+  margin: 0px !important
 
 .school_row, .school_marker
   cursor: pointer
@@ -107,7 +123,7 @@ svg
       font-family: 'Avenir Next' !important
       font-size: 28px !important
       color: #3F3F3F !important
-      text-transform: uppercase !important
+      text-transform: capitalize !important
       margin: 0 !important
 
     .countyMap
@@ -117,7 +133,7 @@ svg
     .stateName
       font-weight: normal !important
       font-family: 'Avenir Next' !important
-      text-transform: uppercase !important
+      text-transform: capitalize !important
       color: #707070 !important
       font-size: 24px !important
       margin: 0 !important
@@ -128,6 +144,60 @@ svg
       font-family: 'Avenir Next' !important
       color: #989898 !important
       font-size: 20px !important
+
+.school-section
+    display: flex !important
+    flex-direction: column
+    justify-content: top
+    margin-top: 40px
+    margin-bottom: 40px
+    .schoolName
+      font-weight: normal !important
+      font-family: 'Avenir Next' !important
+      font-size: 28px !important
+      color: #3F3F3F !important
+      text-transform: capitalize !important
+      margin: 0 !important
+      margin-top: 40px !important
+
+    .schoolMap
+      border: none
+      margin-bottom: 100px !important
+
+    .countyName
+      font-weight: normal !important
+      font-family: 'Avenir Next' !important
+      text-transform: capitalize !important
+      color: #707070 !important
+      font-size: 24px !important
+      margin: 0 !important
+      margin-bottom: 40px !important
+
+    p
+      font-weight: normal !important
+      font-family: 'Avenir Next' !important
+      color: #989898 !important
+      font-size: 20px !important
+
+.ui.statistic>.value, .ui.statistics .statistic>.value
+    font-size: 20px !important
+    font-weight: 300
+
+.ui.statistic>.label, .ui.statistics .statistic>.label
+    color: #b5b5b5
+    font-weight: 300
+    margin-bottom: 10px
+
+.ui.statistics>.statistic
+    border-right: 1px solid #eee
+    margin: 20px 0px 0px 0px !important
+    padding: 0 1.5em 1em
+
+.ui.statistics>.statistic:last-child
+    border-right: none !important
+
+.ui.statistic>.value, .ui.statistics .statistic>.value
+    text-transform: capitalize !important
 
 @media only screen and (max-width: 479px)
    .mobile-hide

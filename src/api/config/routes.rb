@@ -36,6 +36,9 @@ Rails.application.routes.draw do
         scope '/:school_id' do
           get '/' => 'api#school_details'
         end
+        scope '/search/:query' do
+          get '/' => 'api#search_schools'
+        end
       end
     end
   end

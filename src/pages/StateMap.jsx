@@ -79,10 +79,9 @@ export default class PAMap extends Component {
                     key={ `path-${ i }` }
                     d={ path(d) }
                     className="county"
-                    fill={ this.state.selected == `path-${ i }` ? `rgb(120,120,120)` :  `rgb(40,40,40)` }
+                    fill={ `rgb(40,40,40)` }
                     stroke="#666"
                     strokeWidth={ 1 }
-                    onMouseOver={ () => { this.setState({selected: `path-${ i }`}) } }
                   />
                   <text
                     key={ `path-label-${ i }` }

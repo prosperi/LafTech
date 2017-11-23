@@ -11,7 +11,8 @@ class ApiController < ApplicationController
     .select('data_school_facts.school_add_city,
              data_school_facts.school_enrollment,
              data_school_facts.grades_offered,
-             data_school_facts.dropout_rate,data_school_facts.sat_math,
+             data_school_facts.dropout_rate,
+             data_school_facts.sat_math,
              data_school_facts.sat_reading,
              data_school_facts.sat_writing,
              data_school_facts.website,
@@ -23,6 +24,34 @@ class ApiController < ApplicationController
             ')
             .uniq
     # .distinct()
+    json_response(@schools)
+  end
+
+  def search_schools
+    @schools = School.where('school_name LIKE UPPER(?) AND county IS NOT NULL', "%#{params[:query]}%").uniq
+    json_response(@schools)
+  end
+
+  def school_details
+    @schools = School.joins(:Fact)
+    .where('school.state_lea_id = ?', params[:school_id])
+    .select('data_school_facts.school_add_city,
+             data_school_facts.school_enrollment,
+             data_school_facts.grades_offered,
+             data_school_facts.male,
+             data_school_facts.female,
+             data_school_facts.dropout_rate,
+             data_school_facts.website,
+             data_school_facts.school_add_city,
+             data_school_facts.telephone_no,
+             school.school_name,
+             school.county,
+             school.latitude,
+             school.longitude,
+             school.state_lea_id,
+             school.lea_type
+            ')
+    .first
     json_response(@schools)
   end
 
