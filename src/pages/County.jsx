@@ -7,7 +7,7 @@ import _ from 'lodash'
 
 const label_colors = [
   'red', 'orange', 'yellow', 'olive', 'green', 'teal',
-  'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black',
+  'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black'
 ]
 
 class County extends Component {
@@ -26,7 +26,6 @@ class County extends Component {
     fetch(`http://localhost:3001/api/v1/county/${this.props.params.county}/schools`)
       .then(response => {
         if (response.status !== 200) {
-          console.log(`There was a problem: ${response.status}`)
           return
         }
         response.json().then(schools => {

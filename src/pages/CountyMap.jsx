@@ -1,5 +1,4 @@
 import { geoMercator, geoPath } from 'd3-geo'
-import { tooltip } from 'd3'
 import { browserHistory } from 'react-router'
 import React, { Component } from 'react'
 
@@ -31,7 +30,6 @@ export default class PAMap extends Component {
     fetch('../data/counties.json')
       .then(response => {
         if (response.status !== 200) {
-          console.log(`There was a problem: ${response.status}`)
           return
         }
         response.json().then(counties => {
@@ -74,11 +72,11 @@ export default class PAMap extends Component {
   render () {
     return (
       <svg
-        ref="svg"
+        ref='svg'
         width={ this.state.containerWidth }
         height={ this.state.containerHeight }
       >
-        <g className="schools">
+        <g className='schools'>
           {
             this.state.worldData.map((d,i) => {
               if (d !== this.state.selectedFeature)
@@ -91,9 +89,9 @@ export default class PAMap extends Component {
                   <path
                     key={ `path-${ i }` }
                     d={ path(d) }
-                    className="county"
+                    className='county'
                     fill={ 'rgb(40,40,40)' }
-                    stroke="#666"
+                    stroke='#666'
                     strokeWidth={ 1 }
                   />
                 </g>
@@ -124,32 +122,32 @@ export default class PAMap extends Component {
                       key = {`biggest-circle-${state_lea_id}`}
                       cx = { cx }
                       cy = { cy }
-                      fill="rgba(255, 204, 26, 0.04)"
-                      r = "24px"
+                      fill='rgba(255, 204, 26, 0.04)'
+                      r = '24px'
                     />
                     <circle
                       key = {`medium-circle-${state_lea_id}`}
                       cx = { cx }
                       cy = { cy }
-                      fill="rgba(255, 204, 26, 0.09)"
-                      r = "16px"
+                      fill='rgba(255, 204, 26, 0.09)'
+                      r = '16px'
                     />
                     <circle
                       key = {`smallest-circle-${state_lea_id}`}
                       cx = { cx }
                       cy = { cy }
-                      fill="yellow"
-                      r = "4px"
+                      fill='yellow'
+                      r = '4px'
                     />
                     {(this.state.selected == school || this.props.selected == school)
                       &&
                       (<text
                         key={ `school-name-${state_lea_id}` }
-                        fill="#CCC"
+                        fill='#CCC'
                         x={ cx }
                         y={ cy - 20 }
-                        textAnchor="middle"
-                        fontSize="12"
+                        textAnchor='middle'
+                        fontSize='12'
                         className={'tooltip'}
                       >
                         { school_name }

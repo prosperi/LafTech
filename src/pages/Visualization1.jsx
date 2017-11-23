@@ -1,6 +1,6 @@
+/* global d3 */
 import React, { Component } from 'react'
 import { BarStackChart } from 'react-d3-basic'
-import { Container, Image, Header, Icon, Dropdown, Divider } from 'semantic-ui-react'
 
 import data from '../data/data_01'
 
@@ -53,10 +53,10 @@ export default class Visualization1 extends Component {
   },
   xScale = 'ordinal',
   yScale = 'linear',
-  xLabel = "Pupil Expenditure ($)",
-  yLabel = "Total PSSA Score (AVG)",
-  yTickFormat = d3.format(".2s"),
-  xTicks = [10, "$"];
+  xLabel = 'Pupil Expenditure ($)',
+  yLabel = 'Total PSSA Score (AVG)',
+  yTickFormat = d3.format('.2s'),
+  xTicks = [10, '$']
 
     return (
       <BarStackChart

@@ -54,9 +54,9 @@ export default class Visualization3 extends Component {
     const x = d => {
       return d.totalRevenue//Number(d.revenue)
     },
-    xLabel = "Total Revenue ($)",
-    yLabel = "SAT Score (AVG)",
-    xScale = 'linear';
+    xLabel = 'Total Revenue ($)',
+    yLabel = 'SAT Score (AVG)',
+    xScale = 'linear'
 
     return (
       <ScatterPlot

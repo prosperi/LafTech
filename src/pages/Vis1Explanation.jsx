@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Image, Header, Icon, Dropdown, Divider } from 'semantic-ui-react'
+import { Container, Header } from 'semantic-ui-react'
 
 export default class Vis1Explanation extends Component {
 
