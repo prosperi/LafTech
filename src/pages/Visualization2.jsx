@@ -105,6 +105,18 @@ class Visualization2 extends Component {
               ))
             }
           </g>
+          <text textAnchor="middle" x={this.props.width/2} y={this.props.height/2 - 30}>
+            {this.state.testTopic}
+          </text>
+          <text textAnchor="middle" x={this.props.width/2} y={this.props.height/2 -10}>
+            {this.state.profLevel}
+          </text>
+          <text textAnchor="middle" x={this.props.width/2} y={this.props.height/2 + 10}>
+            {this.state.schoolType}
+          </text>
+          <text textAnchor="middle" x={this.props.width/2} y={this.props.height/2 + 30}>
+            {Math.ceil(this.state.percentage * 100) / 100}
+          </text>
         </svg>
       </div>
     )
@@ -158,31 +170,26 @@ class Visualization2 extends Component {
 
   mouseover = (d) => {
      if(this.isTopicNode(d)){
-       select('#percentage')
-         .text('')
-       select('#test-topic')
-         .text(d.data.name)
-       select('#proficiency-level')
-         .text('')
-       select('#school-type')
-         .text('')
+       this.setState({
+         testTopic: d.data.name,
+         percentage: '',
+         profLevel: '',
+         schoolType: ''
+       })
      } else if(this.isProficiencyNode(d)) {
-       select('#percentage')
-         .text(d.value/d.parent.value)
-       select('#test-topic')
-         .text(d.parent.data.name)
-       select('#proficiency-level')
-         .text(d.data.name)
-       select('#school-type')
-         .text('')
+       this.setState({
+         testTopic: d.parent.data.name,
+         percentage: d.value/d.parent.value,
+         profLevel: d.data.name,
+         schoolType: ''
+       })
      } else if(this.isSchoolNode(d)) {
-       select('#percentage')
-         .text(d.value / d.parent.parent.value)
-       select('#test-topic')
-         .text(d.parent.parent.data.name)
-       select('#proficiency-level')
-         .text(d.parent.data.name)
-       select('#school-type')
+       this.setState({
+         testTopic: d.parent.parent.data.name,
+         percentage: d.value/d.parent.parent.value,
+         profLevel: d.parent.data.name,
+         schoolType: d.data.name
+       })
      }
      this.setState({
        hovered: d
