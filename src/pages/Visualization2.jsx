@@ -76,11 +76,6 @@ class Visualization2 extends Component {
     return (
 
       <div className="visContainer">
-        <span id="test-topic"></span>
-        <span id="proficiency-level"></span>
-        <span id="school-type"></span>
-        <span id="percentage"></span>
-        <br/>
         <svg
           className="vis2svg"
           width={ this.props.width }
