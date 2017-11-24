@@ -13,7 +13,7 @@ export default class Visualization3 extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/v1/visualizations/1').then((res) => {
+    fetch('http://localhost:3001/api/v1/visualizations/3').then((res) => {
       return res.json()
     }).then((data) => {
       this.setState({ data })

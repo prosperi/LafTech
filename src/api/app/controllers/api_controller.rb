@@ -56,6 +56,16 @@ class ApiController < ApplicationController
   end
 
   def visualization_1
+    hash = { a: true, b: false, c: nil }
+    json_response([[1,2,3,4], [1,2], hash])
+  end
+
+  def visualization_2
+    hash = { a: true, b: false, c: nil }
+    json_response([[1,2,3,4], [1,2], hash])
+  end
+
+  def visualization_3
     @fiscal_information = School.joins(:Fiscal, :Fact)
               .select('
                 (local_revenue + state_revenue + other_revenue + fed_revenue) AS revenue,
@@ -71,15 +81,5 @@ class ApiController < ApplicationController
               .order('revenue ASC')
               .all()
     json_response(@fiscal_information)
-  end
-
-  def visualization_2
-    hash = { a: true, b: false, c: nil }
-    json_response([[1,2,3,4], [1,2], hash])
-  end
-
-  def visualization_3
-    hash = { a: true, b: false, c: nil }
-    json_response([[1,2,3,4], [1,2], hash])
   end
 end
