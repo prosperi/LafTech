@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { Container, Header, Dropdown, Divider } from 'semantic-ui-react'
+
+import StateMap from './StateMap'
+import Vis1Explanation from './Vis1Explanation'
+import Vis3Explanation from './Vis3Explanation'
 import Visualization1 from './Visualization1'
 import Visualization3 from './Visualization3'
-import StateMap from './StateMap'
 
 class Landing extends Component {
   constructor (props) {
@@ -54,10 +57,12 @@ class Landing extends Component {
         </Container>
 
         <Container className='analysis-section' fluid>
+          <Vis1Explanation />
           <Visualization1 />
         </Container>
 
         <Container className='analysis-section' fluid>
+          <Vis3Explanation />
           <Visualization3 />
         </Container>
 
