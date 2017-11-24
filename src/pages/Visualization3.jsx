@@ -16,7 +16,7 @@ export default class Visualization3 extends Component {
     fetch('http://localhost:3001/api/v1/visualizations/3').then((res) => {
       return res.json()
     }).then((data) => {
-      console.log("Data Received: " + JSON.stringify(data))
+      // console.log("Data Received: " + JSON.stringify(data))
       this.setState({ data: data })
     })
   }
@@ -25,7 +25,7 @@ export default class Visualization3 extends Component {
     if(!this.state.data){
       return(<div></div>)
     }
-    console.log("Render Called")
+
     let title = 'Visualization 3'
     let width = 700
     let height = 300
