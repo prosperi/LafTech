@@ -44,7 +44,7 @@ class Landing extends Component {
         <Container className='district-section' fluid>
           <Header as='h2' className='hint' >TYPE COUNTY NAME</Header>
           <Dropdown
-            placeholder='Select a school / district'
+            placeholder='Select a county'
             search
             selection
             options={this.state.countyList}

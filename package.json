@@ -61,6 +61,7 @@
     "webpack-dev-server": "^1.12.0"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "capitalize": "^1.0.0",
     "core-js": "^2.0.0",
     "d3": "^4.11.0",

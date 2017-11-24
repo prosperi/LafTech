@@ -1,17 +1,76 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import { Container, Image, Header, Icon } from 'semantic-ui-react'
+import { Container, Menu, Image, Header, Icon, Search } from 'semantic-ui-react'
+import { browserHistory } from 'react-router'
+import axios from 'axios'
 
 class HeaderSection extends Component {
   constructor (props) {
     super(props)
+    this.state = {
+      isLoading: false,
+      value: '',
+      results: []
+    }
+    this.cancelToken = axios.CancelToken
+    this.source = this.cancelToken.source
+  }
+
+  resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
+
+  handleResultSelect = (e, { result }) => browserHistory.push(`/school/${result.key}`)
+
+  handleSearchChange = (e, { value }) => {
+    if (this.source.cancel) {
+      this.source.cancel()
+    }
+    this.setState({ isLoading: true, value, results: [] }, () => {
+      if (this.state.value.length < 3) return this.setState({isLoading: false, results: []})
+      axios.get(`http://localhost:3001/api/v1/school/search/${this.state.value}/`, {
+        cancelToken: this.source.token,
+        responseType: 'json'
+      })
+      .then(response => {
+        const results = response.data.map(({state_lea_id, school_add_city, school_name}) => {
+          return {
+            key: state_lea_id,
+            title: school_name,
+            description: school_add_city
+          }
+        })
+
+        this.setState({
+          results: results,
+          isLoading: false
+        }, () => {
+          this.forceUpdate()
+        })
+      })
+    })
   }
 
   render () {
-
+    const { isLoading, value, results } = this.state
     return (
 
       <Container className='header-container' fluid>
+        <Menu secondary className='mainMenu'>
+          <Menu.Item name='lafTechVisualization' active as={Link} to='/' />
+          <Menu.Item name='dataset' as={Link} target='_blank' to='http://www.laf-tech.org' />
+          <Menu.Menu position='right'>
+            <Menu.Item>
+              <Search
+                loading={isLoading}
+                onResultSelect={this.handleResultSelect}
+                onSearchChange={this.handleSearchChange}
+                results={results}
+                value={value}
+                placeholder='Search for schools...'
+              />
+            </Menu.Item>
+            <Menu.Item name='contact us' as={Link} to='mailto:info@laf-tech.edu' />
+          </Menu.Menu>
+        </Menu>
 
         <Container className='index-header' fluid>
           <Container className='content' fluid>
