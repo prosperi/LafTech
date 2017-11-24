@@ -8,7 +8,7 @@ export default class Visualization3 extends Component {
     super(props)
 
     this.state = {
-      data: []
+      data: null
     }
   }
 
@@ -16,11 +16,16 @@ export default class Visualization3 extends Component {
     fetch('http://localhost:3001/api/v1/visualizations/3').then((res) => {
       return res.json()
     }).then((data) => {
-      this.setState({ data })
+      console.log("Data Received: " + JSON.stringify(data))
+      this.setState({ data: data })
     })
   }
 
   render () {
+    if(!this.state.data){
+      return(<div></div>)
+    }
+    console.log("Render Called")
     let title = 'Visualization 3'
     let width = 700
     let height = 300
@@ -69,7 +74,7 @@ export default class Visualization3 extends Component {
         width={width}
         height={height}
         chartSeries={chartSeries}
-        data={data}
+        data={this.state.data}
         x={x}
         xScale = {xScale}
       />

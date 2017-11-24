@@ -68,9 +68,8 @@ class ApiController < ApplicationController
   def visualization_3
     @fiscal_information = School.joins(:Fiscal, :Fact)
               .select('
-                (local_revenue + state_revenue + other_revenue + fed_revenue) AS revenue,
-                school.state_lea_id,
                 school_name,
+                (local_revenue + state_revenue + other_revenue + fed_revenue) AS totalRevenue,
                 sat_math,
                 sat_reading,
                 sat_writing
@@ -78,8 +77,23 @@ class ApiController < ApplicationController
               .where.not(data_school_facts: { sat_math: nil })
               .where.not(data_school_facts: { sat_reading: nil })
               .where.not(data_school_facts: { sat_writing: nil })
-              .order('revenue ASC')
+              .order('totalRevenue ASC')
               .all()
-    json_response(@fiscal_information)
+
+    json_response(visualization_3_custom_json(@fiscal_information))
   end
+
+  def visualization_3_custom_json(data)
+    @dataResult = data.map do |tuple|
+      {
+        :schoolName => tuple.school_name, :totalRevenue => tuple.totalrevenue,
+        :sat_math => tuple.sat_math, :sat_reading => tuple.sat_reading,
+        :sat_writing => tuple.sat_writing
+      }
+    end
+
+    @dataResult.as_json
+  end
+
+
 end
