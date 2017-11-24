@@ -14,6 +14,14 @@ export default class Visualization1 extends Component {
     }
   }
 
+  componentDidMount() {
+    fetch('http://localhost:3001/api/v1/visualizations/1').then((res) => {
+      return res.json()
+    }).then((data) => {
+      this.setState({ data })
+    })
+  }
+
   render () {
   let title = 'Visualization 1'
 
