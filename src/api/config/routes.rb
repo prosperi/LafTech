@@ -6,7 +6,7 @@ Rails.application.routes.draw do
         scope '/1' do
           get '/' => 'api#visualization_1'
         end
-        scope '/2' do
+        scope '/2/:grade/:academic_year_start' do
           get '/' => 'api#visualization_2'
         end
         scope '/3' do
