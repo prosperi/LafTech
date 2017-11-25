@@ -27,6 +27,9 @@ gem 'rack-cors', :require => 'rack/cors'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
+# Use composite_primary_keys to have multiple column keys in rails
+gem 'composite_primary_keys', '=10.0.1'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
