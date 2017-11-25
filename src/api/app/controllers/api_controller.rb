@@ -61,8 +61,27 @@ class ApiController < ApplicationController
   end
 
   def visualization_2
-    hash = { a: true, b: false, c: nil }
-    json_response([[1,2,3,4], [1,2], hash])
+    @pssa_performance_information = Exam.joins(:School)
+              .select('
+                subject,
+                lea_type,
+                AVG(pctadvanced) AS avgpctadvanced,
+                AVG(pctproficient) AS avgpctproficient,
+                AVG(pctbasic) AS avgpctbasic,
+                AVG(pctbelowbasic) AS avgpctbelowbasic
+              ')
+              .where.not(data_exam: { pctadvanced: nil })
+              .where.not(data_exam: { pctproficient: nil })
+              .where.not(data_exam: { pctbasic: nil })
+              .where.not(data_exam: { pctbelowbasic: nil })
+              .where(data_exam: { student_group: "All Students" })
+              .where(data_exam: { source: ["pssa"] })
+              .where(data_exam: { grade: params[:grade] })
+              .where(data_exam: { academic_year_start: params[:academic_year_start] })
+              .group("lea_type")
+              .group("subject")
+
+    json_response(@pssa_performance_information)
   end
 
   def visualization_3
