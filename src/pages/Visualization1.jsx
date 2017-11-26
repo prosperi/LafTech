@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { BarStackChart } from 'react-d3-basic'
 
-import data from '../data/data_01'
+//import data from '../data/data_01'
 
 export default class Visualization1 extends Component {
 
@@ -10,8 +10,16 @@ export default class Visualization1 extends Component {
     super(props)
 
     this.state = {
-
+      data: []
     }
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3001/api/v1/visualizations/1').then((res) => {
+      return res.json()
+    }).then((data) => {
+      this.setState({ data })
+    })
   }
 
   render () {
@@ -33,14 +41,9 @@ export default class Visualization1 extends Component {
           color: '#828081'
         },
         {
-          field: 'reading_percent_lit_proficient_pssa',
+          field: 'reading_lit_percent_proficient_pssa',
           name: 'PSSA Reading',
           color: '#E9C893'
-        },
-        {
-          field: 'writing_percent_proficient_pssa',
-          name: 'PSSA Writing',
-          color: '#1E392A'
         },
         {
           field: 'scibio_percent_proficient_pssa',
@@ -49,7 +52,7 @@ export default class Visualization1 extends Component {
         }
   ]
   const x = d => {
-    return d.pupil_expenditure_total
+    return Number(d.pupil_expenditure_total)
   },
   xScale = 'ordinal',
   yScale = 'linear',
@@ -67,7 +70,7 @@ export default class Visualization1 extends Component {
         width={width}
         height={height}
         chartSeries={chartSeries}
-        data={data}
+        data={this.state.data}
         x= {x}
         xLabel= {xLabel}
         yLabel = {yLabel}
@@ -78,5 +81,6 @@ export default class Visualization1 extends Component {
 
       />
     )
+    console.log(this.state.data)
   }
   }

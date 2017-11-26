@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ScatterPlot } from 'react-d3-basic'
 
-import data from '../data/data_03'
+//import data from '../data/data_03'
 export default class Visualization3 extends Component {
 
   constructor (props) {
@@ -13,7 +13,7 @@ export default class Visualization3 extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/v1/visualizations/1').then((res) => {
+    fetch('http://localhost:3001/api/v1/visualizations/3').then((res) => {
       return res.json()
     }).then((data) => {
       this.setState({ data })
@@ -22,7 +22,7 @@ export default class Visualization3 extends Component {
 
   render () {
     let title = 'Visualization 3'
-    let width = 700
+    let width = 800
     let height = 300
     let margins = {
       left: 100,
@@ -33,30 +33,19 @@ export default class Visualization3 extends Component {
 
     let chartSeries = [
       {
-            field: 'sat_math',
-            name: 'Sat Math',
-            color: '#E9C893',
-            symbolSize: 5
-          },
-          {
-            field: 'sat_reading',
-            name: 'Sat Reading',
-            color: '#1E392A',
-            symbolSize: 5
-          },
-          {
-            field: 'sat_writing',
-            name: 'Sat Writing',
+            field: 'sat_total',
+            name: 'Sat Total Score',
             color: '#3CC47C',
             symbolSize: 5
           }
     ]
     const x = d => {
-      return d.totalRevenue//Number(d.revenue)
+      return Number(d.revenue)
     },
     xLabel = 'Total Revenue ($)',
     yLabel = 'SAT Score (AVG)',
-    xScale = 'linear'
+    xScale = 'linear',
+    xTicks = [10, '$']
 
     return (
       <ScatterPlot
@@ -69,8 +58,9 @@ export default class Visualization3 extends Component {
         width={width}
         height={height}
         chartSeries={chartSeries}
-        data={data}
+        data={this.state.data}
         x={x}
+        xTicks={xTicks}
         xScale = {xScale}
       />
     )

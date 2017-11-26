@@ -27,14 +27,36 @@ class ApiController < ApplicationController
   end
 
   def visualization_1
+    @pssa_information = School.joins(:Fiscal, :Performance_Measure)
+            .select('
+              pupil_expenditure_total,
+              school.state_lea_id,
+              school_name,
+              math_algebra_percent_proficient,
+              reading_lit_percent_proficient_pssa,
+              scibio_percent_proficient_pssa
+            ')
+            .where.not(data_school_fiscal: { pupil_expenditure_total: nil})
+            .where.not(data_school_performance_measure: { math_algebra_percent_proficient: nil })
+            .where.not(data_school_performance_measure: { reading_lit_percent_proficient_pssa: nil })
+            .where.not(data_school_performance_measure: { scibio_percent_proficient_pssa: nil })
+            .order('pupil_expenditure_total ASC')
+            .all()
+  json_response(@pssa_information)
+  end
+
+  def visualization_2
+    hash = { a: true, b: false, c: nil }
+    json_response([[1,2,3,4], [1,2], hash])
+  end
+
+  def visualization_3
     @fiscal_information = School.joins(:Fiscal, :Fact)
               .select('
                 (local_revenue + state_revenue + other_revenue + fed_revenue) AS revenue,
                 school.state_lea_id,
                 school_name,
-                sat_math,
-                sat_reading,
-                sat_writing
+                (sat_math + sat_reading + sat_writing) AS sat_total
               ')
               .where.not(data_school_facts: { sat_math: nil })
               .where.not(data_school_facts: { sat_reading: nil })
@@ -44,13 +66,5 @@ class ApiController < ApplicationController
     json_response(@fiscal_information)
   end
 
-  def visualization_2
-    hash = { a: true, b: false, c: nil }
-    json_response([[1,2,3,4], [1,2], hash])
-  end
 
-  def visualization_3
-    hash = { a: true, b: false, c: nil }
-    json_response([[1,2,3,4], [1,2], hash])
-  end
 end
