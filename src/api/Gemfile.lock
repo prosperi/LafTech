@@ -41,6 +41,8 @@ GEM
     arel (8.0.0)
     builder (3.2.3)
     byebug (9.1.0)
+    composite_primary_keys (10.0.1)
+      activerecord (~> 5.1.0)
     concurrent-ruby (1.0.5)
     crass (1.0.3)
     erubi (1.7.0)
@@ -127,6 +129,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  composite_primary_keys (= 10.0.1)
   listen (>= 3.0.5, < 3.2)
   pg (~> 0.18)
   puma (~> 3.7)

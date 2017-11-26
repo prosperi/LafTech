@@ -6,7 +6,8 @@ Rails.application.routes.draw do
         scope '/1' do
           get '/' => 'api#visualization_1'
         end
-        scope '/2' do
+        scope '/2/(:grade)/(:academic_year_start)',
+        :defaults => {:grade => "School Total", :academic_year_start => "2014"} do          
           get '/' => 'api#visualization_2'
         end
         scope '/3' do
@@ -35,6 +36,9 @@ Rails.application.routes.draw do
       scope '/school' do
         scope '/:school_id' do
           get '/' => 'api#school_details'
+        end
+        scope '/search/:query' do
+          get '/' => 'api#search_schools'
         end
       end
     end
