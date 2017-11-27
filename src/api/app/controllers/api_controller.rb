@@ -1,10 +1,15 @@
+# Main class for the application, handles all requests for data
 class ApiController < ApplicationController
 
+  # Returns the list of countines available in the database as a json object
   def list_counties
     @counties = School.select('county').group('county').all().pluck('county')
+
     json_response(@counties)
   end
 
+  # Returns the list of schools, along with some summary information, as a json
+  # object
   def list_schools
     @schools = School.joins(:Fact)
     .where(school: {county: params[:county_id]})
@@ -23,15 +28,20 @@ class ApiController < ApplicationController
              school.state_lea_id
             ')
             .uniq
-    # .distinct()
+
     json_response(@schools)
   end
 
+  # Returns a list of schools given an input parameter as a json object.
+  # This is used in the search-box on the main page.
   def search_schools
-    @schools = School.where('school_name LIKE UPPER(?) AND county IS NOT NULL', "%#{params[:query]}%").uniq
+    @schools = School.where('school_name LIKE UPPER(?) AND county IS NOT NULL',
+      "%#{params[:query]}%").uniq
+
     json_response(@schools)
   end
 
+  # Given a school's state_lea_id, returns summary information as a json object
   def school_details
     @schools = School.joins(:Fact)
     .where('school.state_lea_id = ?', params[:school_id])
@@ -52,9 +62,12 @@ class ApiController < ApplicationController
              school.lea_type
             ')
     .first
+
     json_response(@schools)
   end
 
+  # Returns the pupil expenditure and pssa proficiency percentages summary information
+  # for visualization_1 as a json object.
   def visualization_1
     @pssa_information = School.joins(:Fiscal, :Performance_Measure)
             .select('
@@ -71,9 +84,12 @@ class ApiController < ApplicationController
             .where.not(data_school_performance_measure: { scibio_percent_proficient_pssa: nil })
             .order('pupil_expenditure_total ASC')
             .all()
+
   json_response(@pssa_information)
   end
-  
+
+  # Returns the the average pssas performances for each lea_type, for
+  # visualization_2 as a json object.
   def visualization_2
     @pssa_performance_information = Exam.joins(:School)
               .select('
@@ -96,9 +112,10 @@ class ApiController < ApplicationController
               .group("subject")
 
     json_response(@pssa_performance_information)
-
   end
 
+  # Returns the average sat scores and total revenues for each school, for
+  # visualization_3 as a json object.
   def visualization_3
     @fiscal_information = School.joins(:Fiscal, :Fact)
               .select('
@@ -111,6 +128,7 @@ class ApiController < ApplicationController
               .where.not(data_school_facts: { sat_writing: nil })
               .order('totalRevenue ASC')
               .all()
+
     json_response(visualization_3_custom_json(@fiscal_information))
   end
 
