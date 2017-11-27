@@ -1,22 +1,12 @@
 import React, { Component } from 'react'
 import { Segment, Container, Label, Breadcrumb, Header, Icon, Statistic } from 'semantic-ui-react'
 import { PieChart } from 'react-d3-basic'
-import { browserHistory } from 'react-router'
 import _ from 'lodash'
 
 const label_colors = [
   'red', 'orange', 'yellow', 'olive', 'green', 'teal',
-  'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black',
+  'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black'
 ]
-
-/*
-COMCTC - Comprehensive CTC
-CS - Charter School
-IU - Intermediate Unit
-OCCCTC - Occupational CTC
-SD - School District
-SJCI - State Juvenile Correctional Institution
-*/
 
 const school_types = {
   CTC: 'Technical Center',
@@ -43,7 +33,6 @@ class County extends Component {
     fetch(`http://localhost:3001/api/v1/school/${this.props.params.school}/`)
       .then(response => {
         if (response.status !== 200) {
-          console.log(`There was a problem: ${response.status}`)
           return
         }
         response.json().then(details => {

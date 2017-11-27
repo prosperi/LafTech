@@ -3,10 +3,6 @@ import { browserHistory } from 'react-router'
 import { Container, Header, Dropdown, Divider } from 'semantic-ui-react'
 
 import StateMap from './StateMap'
-import Vis1Explanation from './Vis1Explanation'
-import Vis3Explanation from './Vis3Explanation'
-import Visualization1 from './Visualization1'
-import Visualization3 from './Visualization3'
 
 class Landing extends Component {
   constructor (props) {
@@ -17,9 +13,9 @@ class Landing extends Component {
   }
 
   componentWillMount() {
-    fetch('http://localhost:3001/api/v1/county/list').then((res) => {
-      return res.json()
-    }).then((data) => {
+    fetch('http://localhost:3001/api/v1/county/list')
+    .then(res => res.json())
+    .then(data => {
       const countyList = data.map((d) => {
           return {
             key: d,
@@ -55,17 +51,6 @@ class Landing extends Component {
           <Header as='h2' className='hint' style={{marginTop: '30px'}} >SELECT COUNTY FROM MAP</Header>
           <StateMap onChange={this.changeCounty}  />
         </Container>
-
-        <Container className='analysis-section' fluid>
-          <Vis1Explanation />
-          <Visualization1 />
-        </Container>
-
-        <Container className='analysis-section' fluid>
-          <Vis3Explanation />
-          <Visualization3 />
-        </Container>
-
       </Container>
     )
   }
