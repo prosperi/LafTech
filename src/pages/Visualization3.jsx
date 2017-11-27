@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { ScatterPlot } from 'react-d3-basic'
 
-//import data from '../data/data_03'
 export default class Visualization3 extends Component {
 
   constructor (props) {
@@ -16,7 +15,6 @@ export default class Visualization3 extends Component {
     fetch('http://localhost:3001/api/v1/visualizations/3').then((res) => {
       return res.json()
     }).then((data) => {
-      // console.log("Data Received: " + JSON.stringify(data))
       this.setState({ data: data })
     })
   }
@@ -27,8 +25,10 @@ export default class Visualization3 extends Component {
     }
 
     let title = 'Visualization 3'
+
     let width = 800
     let height = 300
+
     let margins = {
       left: 100,
       right: 50,
@@ -38,15 +38,17 @@ export default class Visualization3 extends Component {
 
     let chartSeries = [
       {
-            field: 'sat_total',
-            name: 'Sat Total Score',
-            color: '#3CC47C',
-            symbolSize: 5
-          }
+        field: 'sat_total',
+        name: 'Sat Total Score',
+        color: '#3CC47C',
+        symbolSize: 5
+      }
     ]
+
     const x = d => {
       return Number(d.revenue)
     },
+    
     xLabel = 'Total Revenue ($)',
     yLabel = 'SAT Score (AVG)',
     xScale = 'linear',
