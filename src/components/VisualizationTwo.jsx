@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Header } from 'semantic-ui-react'
-import {hierarchy, partition, style} from 'd3-hierarchy'
-import {select, selectAll} from 'd3-selection'
+import {hierarchy, partition} from 'd3-hierarchy'
 import {arc} from 'd3-shape'
 import {color} from 'd3-color'
 
@@ -11,7 +9,7 @@ class Visualization2 extends Component {
     this.root = null
     this.state = {
       hovered: null,
-      selected: null,
+      selected: null
     }
   }
 
@@ -40,7 +38,7 @@ class Visualization2 extends Component {
   render () {
 
     if(!this.state.selected){
-      return (<div className="visContainer"></div>);
+      return (<div className='visContainer'></div>);
     }
     let radius = Math.min(this.props.width, this.props.height) / 2;
 
@@ -72,15 +70,15 @@ class Visualization2 extends Component {
 
     return (
 
-      <div className="visContainer">
+      <div className='visContainer'>
         <svg
-          className="vis2svg"
+          className='vis2svg'
           width={ this.props.width }
           height={ this.props.height }
           viewBox={`0 0 ${this.props.width} ${this.props.height}`}
         >
-          <g className="vis2"
-            transform={"translate(" + this.props.width/2 + "," + this.props.height/2 + ")"}>
+          <g className='vis2'
+            transform={'translate(' + this.props.width/2 + ',' + this.props.height/2 + ')'}>
             {
               this.state.selected.descendants().map((d,i) => (
                 <path
@@ -97,16 +95,16 @@ class Visualization2 extends Component {
               ))
             }
           </g>
-          <text textAnchor="middle" x={this.props.width/2} y={this.props.height/2 - 30}>
+          <text textAnchor='middle' x={this.props.width/2} y={this.props.height/2 - 30}>
             {this.state.testTopic}
           </text>
-          <text textAnchor="middle" x={this.props.width/2} y={this.props.height/2 -10}>
+          <text textAnchor='middle' x={this.props.width/2} y={this.props.height/2 -10}>
             {this.state.profLevel}
           </text>
-          <text textAnchor="middle" x={this.props.width/2} y={this.props.height/2 + 10}>
+          <text textAnchor='middle' x={this.props.width/2} y={this.props.height/2 + 10}>
             {this.state.schoolType}
           </text>
-          <text textAnchor="middle" x={this.props.width/2} y={this.props.height/2 + 30}>
+          <text textAnchor='middle' x={this.props.width/2} y={this.props.height/2 + 30}>
             {Math.round(this.state.percentage * 1000) / 1000}
           </text>
         </svg>
@@ -254,8 +252,7 @@ class Visualization2 extends Component {
   }
 
   formatDataFromApi = (data) =>{
-    var subjects = ["Math", "English Language Arts", "Science"];
-    var profLevels = ["A", "P", "B", "BB"]
+    var profLevels = ['A', 'P', 'B', 'BB']
     var result = {}
     for(var tuple of data){
 
@@ -266,10 +263,10 @@ class Visualization2 extends Component {
       var leaType = tuple.lea_type
       if(!result.hasOwnProperty(subject)){
         result[subject] = {
-          "A": {},
-          "P": {},
-          "B": {},
-          "BB": {}
+          'A': {},
+          'P': {},
+          'B': {},
+          'BB': {}
         };
       }
 
@@ -279,10 +276,10 @@ class Visualization2 extends Component {
         }
       }
 
-      result[subject]["A"][leaType] = tuple.avgpctadvanced/100
-      result[subject]["P"][leaType] = tuple.avgpctproficient/100
-      result[subject]["B"][leaType] = tuple.avgpctbasic/100
-      result[subject]["BB"][leaType] = tuple.avgpctbelowbasic/100
+      result[subject]['A'][leaType] = tuple.avgpctadvanced/100
+      result[subject]['P'][leaType] = tuple.avgpctproficient/100
+      result[subject]['B'][leaType] = tuple.avgpctbasic/100
+      result[subject]['BB'][leaType] = tuple.avgpctbelowbasic/100
     }
 
     return this.visFormatData(result);
@@ -290,27 +287,27 @@ class Visualization2 extends Component {
 
   visFormatData = (data) => {
     var result = {
-      "name": "TOPICS",
-      "children": []
+      'name': 'TOPICS',
+      'children': []
     }
 
     for(var subject in data){
       if(data.hasOwnProperty(subject)){
         var subjectEntry = {
-          "name": subject,
-          "children": []
+          'name': subject,
+          'children': []
         }
         for(var profLevel in data[subject]){
           if(data[subject].hasOwnProperty(profLevel)){
             var profLevelEntry = {
-              "name": profLevel,
-              "children": []
+              'name': profLevel,
+              'children': []
             }
             for(var leaType in data[subject][profLevel]){
               if(data[subject][profLevel].hasOwnProperty(leaType)){
                 var leaTypeEntry = {
-                  "name": leaType,
-                  "size": data[subject][profLevel][leaType]
+                  'name': leaType,
+                  'size': data[subject][profLevel][leaType]
                 }
                 profLevelEntry.children.push(leaTypeEntry)
               }

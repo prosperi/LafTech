@@ -64,7 +64,8 @@ class Landing extends Component {
         </Container>
 
         <Container className='analysis-section' fluid>
-          <Visualization2 width={700} height={400} />
+          <Vis2Explanation />
+          <Visualization2 width={700} height={500} />
         </Container>
 
         <Container className='analysis-section' fluid>
