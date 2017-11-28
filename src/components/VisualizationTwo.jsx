@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Header } from 'semantic-ui-react'
-//import * as d3 from 'd3'
-import {hierarchy, partition, style} from 'd3-hierarchy'
-import {select, selectAll} from 'd3-selection'
+import {hierarchy, partition} from 'd3-hierarchy'
 import {arc} from 'd3-shape'
 import {color} from 'd3-color'
 
@@ -12,7 +9,7 @@ class Visualization2 extends Component {
 
     this.state = {
       hovered: null,
-      selected: null,
+      selected: null
     }
   }
 
@@ -20,7 +17,6 @@ class Visualization2 extends Component {
     fetch('../data/data_02_process.json')
       .then(response => {
         if (response.status !== 200) {
-          console.log(`There was a problem: ${response.status}`)
           return
         }
         response.json().then(data => {
@@ -83,7 +79,7 @@ class Visualization2 extends Component {
           viewBox={`0 0 ${this.props.width} ${this.props.height}`}
         >
           <g className="vis2"
-            transform={"translate(" + this.props.width/2 + "," + this.props.height/2 + ")"}>
+            transform={'translate(' + this.props.width/2 + ',' + this.props.height/2 + ')'}>
             {
               this.state.selected.descendants().map((d,i) => (
                 <path
@@ -144,21 +140,17 @@ class Visualization2 extends Component {
 
   onClick = (d) =>{
     var newRoot = null;
-    console.log("D: " + d.data.name);
     if(d === this.state.selected){
       if(!d.parent){
-        console.log("D has no parent")
         return;
       } else {
-        console.log("D's Parent: " + d.parent.data.name)
         newRoot = d.parent
       }
     } else {
-      console.log("New Root Selected")
       newRoot = d;
     }
     this.setState({
-      selected: newRoot,
+      selected: newRoot
     })
     this.render()
   }

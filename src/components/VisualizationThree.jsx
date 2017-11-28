@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { ScatterPlot } from 'react-d3-basic'
-import { Yaxis } from 'react-d3-core'
 
 export default class Visualization3 extends Component {
 
@@ -26,8 +25,8 @@ export default class Visualization3 extends Component {
     }
 
     let title = 'Visualization 3'
-    let width = 800
-    let height = 300
+    let width = this.props.width
+    let height = this.props.height
     let margins = {
       left: 100,
       right: 50,
@@ -43,6 +42,7 @@ export default class Visualization3 extends Component {
         symbolSize: 5
       }
     ]
+
     const x = d => {
       return Number(d.totalrevenue)
     },
