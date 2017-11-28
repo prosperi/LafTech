@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Container, Header } from 'semantic-ui-react'
-//import * as d3 from 'd3'
 import {hierarchy, partition, style} from 'd3-hierarchy'
 import {select, selectAll} from 'd3-selection'
 import {arc} from 'd3-shape'
@@ -17,7 +16,7 @@ class Visualization2 extends Component {
   }
 
   componentWillMount () {
-    fetch('../data/data_02_process.json')
+    fetch('http://localhost:3001/api/v1/visualizations/2')
       .then(response => {
         if (response.status !== 200) {
           console.log(`There was a problem: ${response.status}`)
@@ -25,7 +24,7 @@ class Visualization2 extends Component {
         }
         response.json().then(data => {
 
-          this.root = hierarchy(data)
+          this.root = hierarchy(this.formatDataFromApi(data))
               .sum(function (d) { return d.size })
 
           this.setState({
@@ -46,17 +45,16 @@ class Visualization2 extends Component {
     let radius = Math.min(this.props.width, this.props.height) / 2;
 
     const colors = {
-      'CTC': '#38c742',
+      'FUTURE': '#38c742',
       'CS': '#303ce3',
-      'PS': '#114183',
+      'SD': '#114183',
       'A': '#259ee7',
       'P': '#7ab6db',
       'B': '#d8d8d8',
       'BB': '#db7712',
       'Math': '#c35b48',
-      'Reading': '#e5c027',
-      'Writing': '#458962',
-      'SciBio': '#125592'
+      'English': '#e5c027',
+      'Science': '#125592'
     }
 
     // Data strucure
@@ -93,7 +91,7 @@ class Visualization2 extends Component {
                   onClick ={() => {this.onClick(d)}}
                   fill = {color(colors[d.data.name])}
                   opacity = {
-                    sequenceArray.indexOf(d) >= 0 ? 1.0 : 0.3
+                    sequenceArray.indexOf(d) >= 0 ? 1.0 : 0.6
                   }
                 />
               ))
@@ -109,7 +107,7 @@ class Visualization2 extends Component {
             {this.state.schoolType}
           </text>
           <text textAnchor="middle" x={this.props.width/2} y={this.props.height/2 + 30}>
-            {Math.ceil(this.state.percentage * 100) / 100}
+            {Math.round(this.state.percentage * 1000) / 1000}
           </text>
         </svg>
       </div>
@@ -156,7 +154,6 @@ class Visualization2 extends Component {
       newRoot = this.findDataNode(d);
     }
 
-    console.log("Setting newRoot to : " + newRoot.data.name);
     this.setState({
       // the selected node becomes the root of a copied subtree
       selected: newRoot.copy(),
@@ -172,17 +169,14 @@ class Visualization2 extends Component {
   findDataNode = (d) => {
     // since we know the topic node for sure, the children's names are not
     // ambiguous.
-    console.log("FindDataNode in topic: " + this.state.testTopic)
-    console.log("FindDataNode on d: " + d.data.name)
     let topicNode = this.recursiveFind(this.state.dataRoot, this.state.testTopic)
-    console.log("Found topic node: " + topicNode.data.name)
+
     return this.recursiveFind(topicNode, d.data.name)
   }
 
   // pass in the name of the node u want to find
   // and the node you want to recursively search
   recursiveFind = (d, name) => {
-    console.log(d.data.name + ", " + name)
     // base case, current node is the node to find
     if(d.data.name === name){
       return d;
@@ -193,10 +187,6 @@ class Visualization2 extends Component {
     // remove d from the descendants
     desc.shift();
 
-
-    for(var child in desc){
-      console.log("desc["+child+"]: " + desc[child].data.name)
-    }
     // base case, current node has no children and is not the node to find
     if(desc.length == 0){
       return null;
@@ -223,21 +213,21 @@ class Visualization2 extends Component {
       if(this.isTopicNode(d)){
         this.setState({
           testTopic: d.data.name,
-          percentage: '',
+          percentage: 1,
           profLevel: '',
           schoolType: ''
         })
       } else if(this.isProficiencyNode(d)) {
         this.setState({
           testTopic: d.parent.data.name,
-          percentage: d.value/this.state.selectedReal.value,
+          percentage: d.value/d.parent.value,
           profLevel: d.data.name,
           schoolType: ''
         })
       } else if(this.isSchoolNode(d)) {
         this.setState({
           testTopic: d.parent.parent.data.name,
-          percentage: d.value/this.state.selectedReal.value,
+          percentage: d.value/d.parent.parent.value,
           profLevel: d.parent.data.name,
           schoolType: d.data.name
         })
@@ -261,6 +251,78 @@ class Visualization2 extends Component {
       hovered: d
     })
     this.render()
+  }
+
+  formatDataFromApi = (data) =>{
+    var subjects = ["Math", "English Language Arts", "Science"];
+    var profLevels = ["A", "P", "B", "BB"]
+    var result = {}
+    for(var tuple of data){
+
+      var subject = tuple.subject
+      if(subject == 'English Language Arts'){
+        subject = 'English'
+      }
+      var leaType = tuple.lea_type
+      if(!result.hasOwnProperty(subject)){
+        result[subject] = {
+          "A": {},
+          "P": {},
+          "B": {},
+          "BB": {}
+        };
+      }
+
+      for(var profLevel of profLevels){
+        if(!profLevel.hasOwnProperty(leaType)){
+          result[subject][profLevel][leaType] = {};
+        }
+      }
+
+      result[subject]["A"][leaType] = tuple.avgpctadvanced/100
+      result[subject]["P"][leaType] = tuple.avgpctproficient/100
+      result[subject]["B"][leaType] = tuple.avgpctbasic/100
+      result[subject]["BB"][leaType] = tuple.avgpctbelowbasic/100
+    }
+
+    return this.visFormatData(result);
+  }
+
+  visFormatData = (data) => {
+    var result = {
+      "name": "TOPICS",
+      "children": []
+    }
+
+    for(var subject in data){
+      if(data.hasOwnProperty(subject)){
+        var subjectEntry = {
+          "name": subject,
+          "children": []
+        }
+        for(var profLevel in data[subject]){
+          if(data[subject].hasOwnProperty(profLevel)){
+            var profLevelEntry = {
+              "name": profLevel,
+              "children": []
+            }
+            for(var leaType in data[subject][profLevel]){
+              if(data[subject][profLevel].hasOwnProperty(leaType)){
+                var leaTypeEntry = {
+                  "name": leaType,
+                  "size": data[subject][profLevel][leaType]
+                }
+                profLevelEntry.children.push(leaTypeEntry)
+              }
+            }
+            subjectEntry.children.push(profLevelEntry)
+          }
+        }
+        result.children.push(subjectEntry)
+      }
+    }
+
+    return result;
   }
 
 }
