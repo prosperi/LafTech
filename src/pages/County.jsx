@@ -93,13 +93,13 @@ class County extends Component {
 
                   <Table.Body>
                     {currentSchools.map((school) => {
-                      const {school_name, state_lea_id, grades_offered, website, school_add_city} = school
+                      const {school_name, state_school_id, grades_offered, website, school_add_city} = school
                       return (
                         <Table.Row
-                          key={`row-${state_lea_id}`}
+                          key={`row-${state_school_id}`}
                           onMouseEnter={() => this.setState({selected: school})}
                           onMouseLeave={() => this.setState({selected: null})}
-                          onClick={() => browserHistory.push(`/school/${state_lea_id}`)}
+                          onClick={() => browserHistory.push(`/school/${state_school_id}`)}
                           className={'school_row'}
                         >
                           <Table.Cell>{capitalize.words(school_name.toLowerCase())}</Table.Cell>

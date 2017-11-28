@@ -3,12 +3,12 @@ import { browserHistory } from 'react-router'
 import { Container, Header, Dropdown, Divider } from 'semantic-ui-react'
 
 import StateMap from './StateMap'
-import Vis1Explanation from './Vis1Explanation'
-import Vis2Explanation from './Vis2Explanation'
-import Vis3Explanation from './Vis3Explanation'
-import Visualization1 from './Visualization1'
-import Visualization2 from './Visualization2'
-import Visualization3 from './Visualization3'
+import Vis1Explanation from '../components/Vis1Explanation'
+import Vis2Explanation from '../components/Vis2Explanation'
+import Vis3Explanation from '../components/Vis3Explanation'
+import Visualization1 from '../components/VisualizationOne'
+import Visualization2 from '../components/VisualizationTwo'
+import Visualization3 from '../components/VisualizationThree'
 
 class Landing extends Component {
   constructor (props) {

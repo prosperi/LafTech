@@ -9,7 +9,7 @@ import {color} from 'd3-color'
 class Visualization2 extends Component {
   constructor (props) {
     super(props)
-
+    this.root = null
     this.state = {
       hovered: null,
       selected: null,
@@ -25,13 +25,13 @@ class Visualization2 extends Component {
         }
         response.json().then(data => {
 
-          let root = hierarchy(data)
+          this.root = hierarchy(data)
               .sum(function (d) { return d.size })
 
           this.setState({
-            root: root,
             hovered: null,
-            selected: root
+            selected: this.root,
+            selectedIntact: this.root
           })
         })
       })
@@ -39,7 +39,7 @@ class Visualization2 extends Component {
 
   render () {
 
-    if(!this.state.root){
+    if(!this.state.selected){
       return (<div className="visContainer"></div>);
     }
     let radius = Math.min(this.props.width, this.props.height) / 2;
@@ -59,11 +59,9 @@ class Visualization2 extends Component {
           }
 
     // Data strucure
-    let varPartition = partition()
-        .size([2 * Math.PI, radius]);
-
-    // Size arcs
-    varPartition(this.state.selected);
+    this.state.selected.sum(function (d) { return d.size });
+    let partitionGraph = partition().size([2 * Math.PI, radius]);
+    partitionGraph(this.state.selected)
 
     let arcGenerator = arc()
         .startAngle(function (d) { return d.x0 })
@@ -128,37 +126,31 @@ class Visualization2 extends Component {
   }
 
   isTopicNode = (d) => {
-    let ancestorsArray = this.getAncestors(d);
-    return ancestorsArray.length == 1;
+    return d.height == 2;
   }
 
   isProficiencyNode = (d) => {
-    let ancestorsArray = this.getAncestors(d);
-    return ancestorsArray.length == 2;
+    return d.height == 1;
   }
 
   isSchoolNode = (d) => {
-    let ancestorsArray = this.getAncestors(d);
-    return ancestorsArray.length == 3;
+    return d.height == 0;
   }
 
   onClick = (d) =>{
-    var newRoot = null;
-    console.log("D: " + d.data.name);
+    let newRoot = null;
     if(d === this.state.selected){
-      if(!d.parent){
-        console.log("D has no parent")
+      if(!this.state.selectedIntact.parent){
         return;
       } else {
-        console.log("D's Parent: " + d.parent.data.name)
-        newRoot = d.parent
+        newRoot = this.state.selectedIntact.parent
       }
     } else {
-      console.log("New Root Selected")
       newRoot = d;
     }
     this.setState({
-      selected: newRoot,
+      selected: newRoot.copy(),
+      selectedIntact: newRoot
     })
     this.render()
   }
@@ -173,15 +165,15 @@ class Visualization2 extends Component {
        })
      } else if(this.isProficiencyNode(d)) {
        this.setState({
-         testTopic: d.parent.data.name,
-         percentage: d.value/d.parent.value,
+         testTopic: this.state.selectedIntact.data.name,
+         percentage: d.value/this.state.selectedIntact.value,
          profLevel: d.data.name,
          schoolType: ''
        })
      } else if(this.isSchoolNode(d)) {
        this.setState({
-         testTopic: d.parent.parent.data.name,
-         percentage: d.value/d.parent.parent.value,
+         testTopic: this.state.selectedIntact.data.name,
+         percentage: d.value/this.state.selectedIntact.value,
          profLevel: d.parent.data.name,
          schoolType: d.data.name
        })
