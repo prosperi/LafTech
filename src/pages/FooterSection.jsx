@@ -27,7 +27,7 @@ const FooterSection = () => {
       </Grid>
 
       <p style={{marginTop: '30px', marginBottom: '10px', textAlign: 'center', color: 'rgba(255, 255, 255, .5)'}}>
-        Copyright(2017-2018) - Lafayette College
+        Copyright (2017-2018) - Lafayette College
       </p>
     </Container>
   )

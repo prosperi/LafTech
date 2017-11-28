@@ -12,16 +12,27 @@ class Visualization2 extends Component {
       hovered: null,
       selected: null
     }
+
+    this.getData = this.getData.bind(this)
   }
 
   componentWillMount () {
+    this.getData()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (JSON.stringify(this.props.url) !== JSON.stringify(nextProps.url)) {
+           this.getData()
+    }
+  }
+
+  getData () {
     fetch(this.props.url)
       .then(response => {
         if (response.status !== 200) {
           return
         }
         response.json().then(data => {
-
           this.root = hierarchy(this.formatDataFromApi(data))
               .sum(function (d) { return d.size })
 
@@ -36,7 +47,6 @@ class Visualization2 extends Component {
   }
 
   render () {
-
     if(!this.state.selected){
       return (<div className='visContainer'></div>);
     }
@@ -105,7 +115,7 @@ class Visualization2 extends Component {
             {this.state.schoolType}
           </text>
           <text textAnchor='middle' x={this.props.width/2} y={this.props.height/2 + 30}>
-            {Math.round(this.state.percentage * 1000) / 1000}
+            {isNaN(this.state.percentage) ? 0 : Math.round(this.state.percentage * 100)}%
           </text>
         </svg>
       </div>
@@ -276,10 +286,10 @@ class Visualization2 extends Component {
         }
       }
 
-      result[subject]['A'][leaType] = tuple.avgpctadvanced/100
-      result[subject]['P'][leaType] = tuple.avgpctproficient/100
-      result[subject]['B'][leaType] = tuple.avgpctbasic/100
-      result[subject]['BB'][leaType] = tuple.avgpctbelowbasic/100
+      result[subject]['A'][leaType] = tuple.avgpctadvanced
+      result[subject]['P'][leaType] = tuple.avgpctproficient
+      result[subject]['B'][leaType] = tuple.avgpctbasic
+      result[subject]['BB'][leaType] = tuple.avgpctbelowbasic
     }
 
     return this.visFormatData(result);

@@ -128,7 +128,10 @@ class County extends Component {
             ))
           }
           <Header as='h3' className='subHeaderText top'>Statistics</Header>
-          <Container style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}} fluid>
+          <Container
+            className='school-pies'
+            style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}
+            fluid>
             <div style={{margin: '30px'}}>
               <PieChart
                 data= {[{percent: Number(this.state.details.female), name: 'female'}, {percent: Number(this.state.details.male), name: 'male'}]}
@@ -144,6 +147,7 @@ class County extends Component {
             <div style={{margin: '30px'}}>
               <PieChart
                 svgClassName='pie-svg'
+                legendClassName='pie-title'
                 style={{flex: .5}}
                 data= {[
                   {percent: Number(this.state.details.americanindian_alaskan), name: 'americanindian_alaskan'},
@@ -172,7 +176,10 @@ class County extends Component {
               />
             </div>
           </Container>
-          <Container style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}} fluid>
+          <Container
+            className='school-bars'
+            style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}
+            fluid>
             <BarChart
               style={{flex: .5}}
               title={'ACT Scores'}
