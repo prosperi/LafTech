@@ -16,7 +16,7 @@ development:
   host: localhost
   username: gharbiw
   password: L04366319
-  port: 5432
+  port: 5555
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

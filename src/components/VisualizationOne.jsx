@@ -13,9 +13,10 @@ export default class Visualization1 extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/v1/visualizations/1').then((res) => {
+    fetch(this.props.url).then((res) => {
       return res.json()
     }).then((data) => {
+      console.log(data)
       this.setState({ data })
     })
   }

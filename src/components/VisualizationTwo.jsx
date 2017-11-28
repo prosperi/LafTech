@@ -14,7 +14,7 @@ class Visualization2 extends Component {
   }
 
   componentWillMount () {
-    fetch('../data/data_02_process.json')
+    fetch(this.props.url)
       .then(response => {
         if (response.status !== 200) {
           return

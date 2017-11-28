@@ -14,7 +14,8 @@ class Landing extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      countyList: []
+      countyList: [],
+      vis_01: []
     }
   }
 
@@ -60,17 +61,17 @@ class Landing extends Component {
 
         <Container className='analysis-section' fluid>
           <VisOneExplanation />
-          <VisualizationOne width={1000} height={400} />
+          <VisualizationOne width={1000} height={400} url='http://localhost:3001/api/v1/visualizations/1' />
         </Container>
 
         <Container className='analysis-section' fluid>
           <VisTwoExplanation />
-          <VisualizationTwo width={1000} height={400} />
+          <VisualizationTwo width={1000} height={400} url='../data/data_02_process.json' />
         </Container>
 
         <Container className='analysis-section' fluid>
           <VisThreeExplanation />
-          <VisualizationThree width={1000} height={400} />
+          <VisualizationThree width={1000} height={400} url='http://localhost:3001/api/v1/visualizations/3' />
         </Container>
 
       </Container>

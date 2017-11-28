@@ -11,7 +11,7 @@ export default class Vis3Explanation extends Component {
   return (
     <Container fluid>
       <center>
-        <Header as= 'hVis1' className='analysis-title'>VISUALIZATION 3</Header>
+        <Header as= 'hVis1' className='analysis-title'>VISUALIZATION #3</Header>
           <p className='paragraph'>
           <br/>
           This scatter plot compares the Total Revenue
