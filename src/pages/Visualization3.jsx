@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { ScatterPlot } from 'react-d3-basic'
+import { Yaxis } from 'react-d3-core'
 
 //import data from '../data/data_03'
 export default class Visualization3 extends Component {
@@ -38,14 +39,14 @@ export default class Visualization3 extends Component {
 
     let chartSeries = [
       {
-            field: 'sat_total',
+            field: 'sattotal',
             name: 'Sat Total Score',
             color: '#3CC47C',
             symbolSize: 5
           }
     ]
     const x = d => {
-      return Number(d.revenue)
+      return Number(d.totalrevenue)
     },
     xLabel = 'Total Revenue ($)',
     yLabel = 'SAT Score (AVG)',

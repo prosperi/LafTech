@@ -56,7 +56,7 @@ class ApiController < ApplicationController
   end
 
   def visualization_1
-    @pssa_information = School.joins(:Fiscal, :Performance_Measure)
+    @pssa_information = School.joins(:Fiscal, :Performance)
             .select('
               pupil_expenditure_total,
               school.state_lea_id,
@@ -73,7 +73,7 @@ class ApiController < ApplicationController
             .all()
   json_response(@pssa_information)
   end
-  
+
   def visualization_2
     @pssa_performance_information = Exam.joins(:School)
               .select('
@@ -103,26 +103,15 @@ class ApiController < ApplicationController
     @fiscal_information = School.joins(:Fiscal, :Fact)
               .select('
                 school_name,
-                (sat_math + sat_reading + sat_writing) AS sat_total,
-                (local_revenue + state_revenue + other_revenue + fed_revenue) AS totalRevenue
+                (sat_math + sat_reading + sat_writing) AS sattotal,
+                (local_revenue + state_revenue + other_revenue + fed_revenue) AS totalrevenue
               ')
               .where.not(data_school_facts: { sat_math: nil })
               .where.not(data_school_facts: { sat_reading: nil })
               .where.not(data_school_facts: { sat_writing: nil })
-              .order('totalRevenue ASC')
+              .order('totalrevenue ASC')
               .all()
-    json_response(visualization_3_custom_json(@fiscal_information))
+    json_response(@fiscal_information)
   end
 
-  def visualization_3_custom_json(data)
-    @dataResult = data.map do |tuple|
-      {
-        :schoolName => tuple.school_name, :totalRevenue => tuple.totalrevenue,
-        :sat_math => tuple.sat_math, :sat_reading => tuple.sat_reading,
-        :sat_writing => tuple.sat_writing
-      }
-    end
-
-    @dataResult.as_json
-  end
 end
