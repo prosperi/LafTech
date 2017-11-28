@@ -4,6 +4,7 @@ import { Container, Header, Dropdown, Divider } from 'semantic-ui-react'
 
 import StateMap from './StateMap'
 import Vis1Explanation from './Vis1Explanation'
+import Vis2Explanation from './Vis2Explanation'
 import Vis3Explanation from './Vis3Explanation'
 import Visualization1 from './Visualization1'
 import Visualization2 from './Visualization2'
@@ -18,9 +19,9 @@ class Landing extends Component {
   }
 
   componentWillMount() {
-    fetch('http://localhost:3001/api/v1/county/list').then((res) => {
-      return res.json()
-    }).then((data) => {
+    fetch('http://localhost:3001/api/v1/county/list')
+    .then(res => res.json())
+    .then(data => {
       const countyList = data.map((d) => {
           return {
             key: d,

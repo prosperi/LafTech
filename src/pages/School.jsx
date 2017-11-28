@@ -1,22 +1,13 @@
 import React, { Component } from 'react'
-import { Segment, Container, Label, Breadcrumb, Header, Icon, Statistic } from 'semantic-ui-react'
-import { PieChart } from 'react-d3-basic'
 import { browserHistory } from 'react-router'
+import { Segment, Container, Label, mb, Header, Icon, Statistic, Grid, Breadcrumb } from 'semantic-ui-react'
+import { PieChart, BarChart } from 'react-d3-basic'
 import _ from 'lodash'
 
 const label_colors = [
   'red', 'orange', 'yellow', 'olive', 'green', 'teal',
-  'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black',
+  'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black'
 ]
-
-/*
-COMCTC - Comprehensive CTC
-CS - Charter School
-IU - Intermediate Unit
-OCCCTC - Occupational CTC
-SD - School District
-SJCI - State Juvenile Correctional Institution
-*/
 
 const school_types = {
   CTC: 'Technical Center',
@@ -32,6 +23,7 @@ const school_types = {
 }
 
 class County extends Component {
+
   constructor (props) {
     super(props)
     this.state = {
@@ -43,7 +35,6 @@ class County extends Component {
     fetch(`http://localhost:3001/api/v1/school/${this.props.params.school}/`)
       .then(response => {
         if (response.status !== 200) {
-          console.log(`There was a problem: ${response.status}`)
           return
         }
         response.json().then(details => {
@@ -51,6 +42,7 @@ class County extends Component {
             details: details
           }, () => {
             this.forceUpdate()
+            console.log(details)
           })
         })
       })
@@ -76,24 +68,39 @@ class County extends Component {
     return (!m) ? null : '(' + m[1] + ') ' + m[2] + '-' + m[3];
   }
 
-
   render () {
+    const actScores = [
+      {section: 'English', score: Number(this.state.details.act_english) || 0 },
+      {section: 'Math', score: Number(this.state.details.act_math) || 0 },
+      {section: 'Reading', score: Number(this.state.details.act_reading) || 0 },
+      {section: 'Science', score: Number(this.state.details.act_science) || 0 }
+    ]
+
+    const satScores = [
+      {section: 'Math', score: Number(this.state.details.sat_math) || 0 },
+      {section: 'Reading', score: Number(this.state.details.sat_reading) || 0 },
+      {section: 'Writing', score: Number(this.state.details.sat_writing) || 0 }
+    ]
+
+
     return (
       <Container fluid  className='school-section'>
         <Container>
           <Segment>
             <Breadcrumb size='large'>
-              <Breadcrumb.Section link>Home</Breadcrumb.Section>
+              <Breadcrumb.Section link onClick={() => browserHistory.push('/')}>Home</Breadcrumb.Section>
               <Breadcrumb.Divider icon='right chevron' />
-              <Breadcrumb.Section link>{this.state.details.county} County</Breadcrumb.Section>
+              <Breadcrumb.Section link onClick={() => browserHistory.push(`/county/${this.state.details.county}`)}>
+                {this.state.details.county} County
+              </Breadcrumb.Section>
               <Breadcrumb.Divider icon='right chevron' />
               <Breadcrumb.Section active>{_.startCase(_.toLower(this.state.details.school_name))}</Breadcrumb.Section>
             </Breadcrumb>
           </Segment>
         </Container>
         <Container>
-          <Header as='h2' className='schoolName' >{_.lowerCase(this.state.details.school_name)}</Header>
-          <Header as='h3' className='countyName' >{this.state.details.county} County, PA</Header>
+          <Header as='h2' className='headerText' >{_.lowerCase(this.state.details.school_name)}</Header>
+          <Header as='h3' className='subHeaderText' >{this.state.details.county} County, PA</Header>
           <Statistic.Group>
             {this.renderStatistic(this.state.details.dropout_rate, 'Dropout Rate', 'percent')}
             {this.renderStatistic(this.state.details.school_enrollment, 'Enrollment', 'student')}
@@ -113,24 +120,84 @@ class County extends Component {
           >
         </iframe>
         <Container>
-          <Header as='h2'>Overview</Header>
-          <Header as='h3'>Grades offered</Header>
+          <Header as='h2' className='headerText'>Overview</Header>
+          <Header as='h3' className='subHeaderText top'>Grades offered</Header>
           {
             this.state.details.grades_offered && this.state.details.grades_offered.map((grade) => (
               <Label circular color={label_colors[Number(grade)]} key={grade}>{grade}</Label>
             ))
           }
-          <Header as='h3'>Gender repartition</Header>
-          <PieChart
-            data= {[{percent: Number(this.state.details.female), name: 'female'}, {percent: Number(this.state.details.male), name: 'male'}]}
-            width= {320}
-            height= {300}
-            chartSeries= {[{field: 'female', name: 'Females', color: '#e74c3c'}, {field: 'male', name: 'Males', color: '#2980b9'}]}
-            value = {(d) => d.percent}
-            name = {(d) => d.name}
-            showLegend
-            innerRadius = {40}
-          />
+          <Header as='h3' className='subHeaderText top'>Statistics</Header>
+          <Container style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}} fluid>
+            <div style={{margin: '30px'}}>
+              <PieChart
+                data= {[{percent: Number(this.state.details.female), name: 'female'}, {percent: Number(this.state.details.male), name: 'male'}]}
+                width= {320}
+                height= {300}
+                chartSeries= {[{field: 'female', name: 'Females', color: '#e74c3c'}, {field: 'male', name: 'Males', color: '#2980b9'}]}
+                value = {(d) => d.percent}
+                name = {(d) => d.name}
+                showLegend
+                innerRadius = {40}
+              />
+            </div>
+            <div style={{margin: '30px'}}>
+              <PieChart
+                svgClassName='pie-svg'
+                style={{flex: .5}}
+                data= {[
+                  {percent: Number(this.state.details.americanindian_alaskan), name: 'americanindian_alaskan'},
+                  {percent: Number(this.state.details.asian), name: 'asian'},
+                  {percent: Number(this.state.details.black), name: 'black'},
+                  {percent: Number(this.state.details.hawaiian_pacific_islander), name: 'hawaiian_pacific_islander'},
+                  {percent: Number(this.state.details.hispanic), name: 'hispanic'},
+                  {percent: Number(this.state.details.multiracial), name: 'multiracial'},
+                  {percent: Number(this.state.details.white), name: 'white'}
+                ]}
+                width= {500}
+                height= {300}
+                chartSeries= {[
+                  {field: 'americanindian_alaskan', name: 'American Indian/Alaskan', color: '#16a085'},
+                  {field: 'asian', name: 'Asian', color: '#27ae60'},
+                  {field: 'black', name: 'Black', color: '#2980b9'},
+                  {field: 'hawaiian_pacific_islander', name: 'Hawaiian Pacific Islander', color: '#8e44ad'},
+                  {field: 'hispanic', name: 'Hispanic', color: '#c0392b'},
+                  {field: 'multiracial', name: 'Multiracial', color: '#d35400'},
+                  {field: 'white', name: 'White', color: '#f39c12'}
+                ]}
+                value = {(d) => d.percent}
+                name = {(d) => d.name}
+                showLegend
+                innerRadius = {40}
+              />
+            </div>
+          </Container>
+          <Container style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}} fluid>
+            <BarChart
+              style={{flex: .5}}
+              title={'ACT Scores'}
+              data={actScores}
+              width={600}
+              height={300}
+              chartSeries={[{field: 'score',name: 'ACT Scores'}]}
+              x={d => d.section}
+              xLabel={'ACT Section'}
+              xScale={'ordinal'}
+              yLabel={'Score'}
+            />
+            <BarChart
+              style={{flex: .5}}
+              title={'SAT Scores'}
+              data={satScores}
+              width={600}
+              height={300}
+              chartSeries={[{field: 'score',name: 'SAT Scores'}]}
+              x={d => d.section}
+              xLabel={'SAT Section'}
+              xScale={'ordinal'}
+              yLabel={'Score'}
+            />
+          </Container>
         </Container>
       </Container>
     )

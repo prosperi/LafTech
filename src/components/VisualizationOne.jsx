@@ -2,8 +2,6 @@
 import React, { Component } from 'react'
 import { BarStackChart } from 'react-d3-basic'
 
-//import data from '../data/data_01'
-
 export default class Visualization1 extends Component {
 
   constructor (props) {
