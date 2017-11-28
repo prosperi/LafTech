@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {hierarchy, partition} from 'd3-hierarchy'
 import {arc} from 'd3-shape'
 import {color} from 'd3-color'
+import { Container } from 'semantic-ui-react'
 
 class Visualization2 extends Component {
   constructor (props) {
@@ -70,7 +71,6 @@ class Visualization2 extends Component {
     let sequenceArray = this.state.hovered != null ? this.getAncestors(this.state.hovered) : [];
 
     return (
-
       <div className="visContainer">
         <svg
           className="vis2svg"

@@ -1,6 +1,7 @@
 /* global d3 */
 import React, { Component } from 'react'
 import { BarStackChart } from 'react-d3-basic'
+import { Container } from 'semantic-ui-react'
 
 export default class Visualization1 extends Component {
 
@@ -61,24 +62,33 @@ export default class Visualization1 extends Component {
     xTicks = [5, '$']
 
     return (
-      <BarStackChart
-        showXGrid= {true}
-        showYGrid= {true}
-        margins= {margins}
-        title={title}
-        width={width}
-        height={height}
-        chartSeries={chartSeries}
-        data={this.state.data}
-        x= {x}
-        xLabel= {xLabel}
-        yLabel = {yLabel}
-        xScale= {xScale}
-        yScale = {yScale}
-        xTicks= {xTicks}
-        yTickFormat={yTickFormat}
-
-      />
+      this.state.data.length > 0
+      ? (
+        <BarStackChart
+          showXGrid= {true}
+          showYGrid= {true}
+          margins= {margins}
+          title={title}
+          width={width}
+          height={height}
+          chartSeries={chartSeries}
+          data={this.state.data}
+          x= {x}
+          xLabel= {xLabel}
+          yLabel = {yLabel}
+          xScale= {xScale}
+          yScale = {yScale}
+          xTicks= {xTicks}
+          yTickFormat={yTickFormat}
+        />
+      ) : (
+        <Container className='analysis-section'>
+          <p className='analysis-title' style={{textAlign: 'center'}}>
+            NOT ENOUGH DATA TO COMPARE THE PUPIL EXPENDITURE (AMOUNT SPENT BY THE SCHOOL ON EACH STUDENT IN THE SCHOOL) AND THE AVERAGE SCORES FOR THE FOUR DIFFERENT SECTIONS ON THE PSSA
+          </p>
+          <hr style={{width: '500px', borderColor: '#707070'}} />
+        </Container>
+      )
     )
   }
 }
