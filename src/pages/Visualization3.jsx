@@ -1,65 +1,63 @@
 import React, { Component } from 'react'
 import { ScatterPlot } from 'react-d3-basic'
 
+//import data from '../data/data_03'
 export default class Visualization3 extends Component {
 
   constructor (props) {
     super(props)
 
     this.state = {
-      data: []
+      data: null
     }
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/v1/visualizations/1').then((res) => {
+    fetch('http://localhost:3001/api/v1/visualizations/3').then((res) => {
       return res.json()
     }).then((data) => {
-      this.setState({ data })
+      // console.log("Data Received: " + JSON.stringify(data))
+      this.setState({ data: data })
     })
   }
 
   render () {
+    if(!this.state.data){
+      return(<div></div>)
+    }
+
     let title = 'Visualization 3'
-    let width = 700
+    let width = 800
     let height = 300
     let margins = {
       left: 100,
       right: 50,
       top: 10,
-      bottom: 10
+      bottom: 50
     }
 
     let chartSeries = [
       {
-            field: 'sat_math',
-            name: 'Sat Math',
-            color: '#ff2a2a',
-            symbolSize: 5
-          },
-          {
-            field: 'sat_reading',
-            name: 'Sat Reading',
-            color: '#2bbbff',
-            symbolSize: 5
-          },
-          {
-            field: 'sat_writing',
-            name: 'Sat Writing',
-            color: '#53f442',
+            field: 'sat_total',
+            name: 'Sat Total Score',
+            color: '#3CC47C',
             symbolSize: 5
           }
     ]
     const x = d => {
       return Number(d.revenue)
-    }
+    },
+    xLabel = 'Total Revenue ($)',
+    yLabel = 'SAT Score (AVG)',
+    xScale = 'linear',
+    xTicks = [10, '$']
 
     return (
       <ScatterPlot
         showXGrid= {true}
         showYGrid= {true}
-        xAxis={{innerTickSize: 6, label: "x-label"}}
-        yAxis={{label: "Total Pupil Expenditure ($)"}}
+        xLabel= {xLabel}
+        yLabel= {yLabel}
         margins= {margins}
         title={title}
         width={width}
@@ -67,6 +65,8 @@ export default class Visualization3 extends Component {
         chartSeries={chartSeries}
         data={this.state.data}
         x={x}
+        xTicks={xTicks}
+        xScale = {xScale}
       />
     )
   }

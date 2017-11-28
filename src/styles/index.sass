@@ -4,10 +4,49 @@ html,
 body
   height: 100%
 
+svg
+  max-height: 100%
+
+.ui.large.breadcrumb
+    font-family: 'Avenir Next'
+
+.ui.breadcrumb .active.section
+    font-weight: normal !important
+
+.ui.breadcrumb a.section
+    color: #bfbebe
+
+.counties
+  g
+    cursor: pointer
+  g:hover
+    .county
+      fill: rgb(120,120,120)
+
+.mainMenu
+  padding: 20px
+  margin: 0px !important
+
+.school_row, .school_marker
+  cursor: pointer
+  transition: all 1s
+
+.ui.grid
+  margin: 0 !important
+  max-width: 100%
+
+.padded-column
+  padding: 20px
+
+.ui.fluid.container
+  margin-left: 0 !important
+  margin-right: 0 !important
+
 .index-header
   height: 400px
   background-image: url('../images/lafayette.jpg')
   background-size: cover
+  margin: 0px !important
 
   .content
     height: 100%
@@ -16,6 +55,7 @@ body
     flex-direction: column
     justify-content: center
     align-items: center
+    margin: 0px !important
 
   .logo
     width: 150px
@@ -26,6 +66,7 @@ body
     color: #fff
     font-family: 'Avenir Next'
     font-weight: bold
+    text-align: center
 
   .hint
     margin-top: 80px
@@ -42,8 +83,7 @@ body
 
 .district-section
   padding-top: 80px
-  padding-bottom: 80px
-  height: 700px
+  padding-bottom: 40px
   background-color: rgba(55, 55, 55, 100)
   display: flex !important
   flex-direction: column
@@ -54,6 +94,7 @@ body
     color: #B3B3B3
     font-family: 'Avenir Next'
     font-weight: normal
+    text-align: center
 
   .district-filter
     width: 300px
@@ -63,9 +104,126 @@ body
     color: #B3B3B3
     width: 50%
     margin-top: 50px
+
 .analysis-section
-    height: 700px
+    //height: 700px
     display: flex !important
     flex-direction: column
     justify-content: center
     align-items: center
+    border-top: 10px
+    border-top-style: ridge
+    border-color: #8f052c
+    padding: 20px
+
+    .analysis-title
+    padding: 50px
+    color: #000
+    text-align: center
+    justify-content: center
+    align-items: center
+    font-size: 24px
+
+.paragraph
+    color: #000
+    padding-left: 100px
+    padding-right: 100px
+    text-align: center
+    font-size: 18px
+
+.county-section
+    display: flex !important
+    flex-direction: column
+    justify-content: top
+    align-items: center
+    margin-top: 100px
+
+    .countyName
+      font-weight: normal !important
+      font-family: 'Avenir Next' !important
+      font-size: 28px !important
+      color: #3F3F3F !important
+      text-transform: capitalize !important
+      margin: 0 !important
+
+    .countyMap
+      border: none
+      margin-bottom: 100px !important
+
+    .stateName
+      font-weight: normal !important
+      font-family: 'Avenir Next' !important
+      text-transform: capitalize !important
+      color: #707070 !important
+      font-size: 24px !important
+      margin: 0 !important
+      margin-bottom: 100px !important
+
+      font-weight: normal !important
+      font-family: 'Avenir Next' !important
+      color: #989898 !important
+      font-size: 20px !important
+
+.school-section
+    display: flex !important
+    flex-direction: column
+    justify-content: top
+    margin-top: 40px
+    margin-bottom: 40px
+    .schoolName
+      font-weight: normal !important
+      font-family: 'Avenir Next' !important
+      font-size: 28px !important
+      color: #3F3F3F !important
+      text-transform: capitalize !important
+      margin: 0 !important
+      margin-top: 40px !important
+
+    .schoolMap
+      border: none
+      margin-bottom: 100px !important
+
+    .countyName
+      font-weight: normal !important
+      font-family: 'Avenir Next' !important
+      text-transform: capitalize !important
+      color: #707070 !important
+      font-size: 24px !important
+      margin: 0 !important
+      margin-bottom: 40px !important
+
+    p
+      font-weight: normal !important
+      font-family: 'Avenir Next' !important
+      color: #989898 !important
+      font-size: 20px !important
+
+.ui.statistic>.value, .ui.statistics .statistic>.value
+    font-size: 20px !important
+    font-weight: 300
+
+.ui.statistic>.label, .ui.statistics .statistic>.label
+    color: #b5b5b5
+    font-weight: 300
+    margin-bottom: 10px
+
+.ui.statistics>.statistic
+    border-right: 1px solid #eee
+    margin: 20px 0px 0px 0px !important
+    padding: 0 1.5em 1em
+
+.ui.statistics>.statistic:last-child
+    border-right: none !important
+
+.ui.statistic>.value, .ui.statistics .statistic>.value
+    text-transform: capitalize !important
+
+@media only screen and (max-width: 479px)
+   .mobile-hide
+     display: none !important
+   .ui.table
+     border-radius: 0px !important
+   .column
+     padding-bottom: 0px !important
+   .district-section
+     padding-bottom: 0px !important
