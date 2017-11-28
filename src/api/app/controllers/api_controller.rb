@@ -70,10 +70,24 @@ class ApiController < ApplicationController
   end
 
   def visualization_1
-    hash = { a: true, b: false, c: nil }
-    json_response([[1,2,3,4], [1,2], hash])
+    @pssa_information = School.joins(:Fiscal, :Performance_Measure)
+            .select('
+              pupil_expenditure_total,
+              school.state_lea_id,
+              school_name,
+              math_algebra_percent_proficient,
+              reading_lit_percent_proficient_pssa,
+              scibio_percent_proficient_pssa
+            ')
+            .where.not(data_school_fiscal: { pupil_expenditure_total: nil})
+            .where.not(data_school_performance_measure: { math_algebra_percent_proficient: nil })
+            .where.not(data_school_performance_measure: { reading_lit_percent_proficient_pssa: nil })
+            .where.not(data_school_performance_measure: { scibio_percent_proficient_pssa: nil })
+            .order('pupil_expenditure_total ASC')
+            .all()
+  json_response(@pssa_information)
   end
-
+  
   def visualization_2
     @pssa_performance_information = Exam.joins(:School)
               .select('
@@ -96,23 +110,21 @@ class ApiController < ApplicationController
               .group("subject")
 
     json_response(@pssa_performance_information)
+
   end
 
   def visualization_3
     @fiscal_information = School.joins(:Fiscal, :Fact)
               .select('
                 school_name,
-                (local_revenue + state_revenue + other_revenue + fed_revenue) AS totalRevenue,
-                sat_math,
-                sat_reading,
-                sat_writing
+                (sat_math + sat_reading + sat_writing) AS sat_total,
+                (local_revenue + state_revenue + other_revenue + fed_revenue) AS totalRevenue
               ')
               .where.not(data_school_facts: { sat_math: nil })
               .where.not(data_school_facts: { sat_reading: nil })
               .where.not(data_school_facts: { sat_writing: nil })
               .order('totalRevenue ASC')
               .all()
-
     json_response(visualization_3_custom_json(@fiscal_information))
   end
 
@@ -127,6 +139,4 @@ class ApiController < ApplicationController
 
     @dataResult.as_json
   end
-
-
 end
