@@ -6,6 +6,7 @@ import StateMap from './StateMap'
 import Vis1Explanation from './Vis1Explanation'
 import Vis3Explanation from './Vis3Explanation'
 import Visualization1 from './Visualization1'
+import Visualization2 from './Visualization2'
 import Visualization3 from './Visualization3'
 
 class Landing extends Component {
@@ -59,6 +60,10 @@ class Landing extends Component {
         <Container className='analysis-section' fluid>
           <Vis1Explanation />
           <Visualization1 />
+        </Container>
+
+        <Container className='analysis-section' fluid>
+          <Visualization2 width={700} height={400} />
         </Container>
 
         <Container className='analysis-section' fluid>
