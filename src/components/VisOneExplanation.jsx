@@ -14,10 +14,10 @@ export default class Vis1Explanation extends Component {
         <Header as='hVis1' className='analysis-title'>VISUALIZATION #1</Header>
           <p className='paragraph'>
             <br/>
-            This stacked bar graph compares the Pupil Expenditure
+            This grouped bar graph compares the Pupil Expenditure
             (Amount spent by the school on each student in the school) and
-            the average scores for the four different sections on the PSSA.
-            This was created to help identify a correlation between a rise in total
+            the average percentage of proficiency for the four different sections on the PSSA.
+            This was created to help identify a correlation between a rise in average
             score with a rise or fall in pupil expenditure.
           </p>
           <p className='paragraph'>
