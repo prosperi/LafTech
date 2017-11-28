@@ -12,9 +12,15 @@ Rails.application.routes.draw do
         scope '/2/(:grade)/(:academic_year_start)',
         :defaults => {:grade => 'School Total', :academic_year_start => '2014'} do
           get '/' => 'api#visualization_2'
+          scope '/:county_id' do
+            get '/' => 'api#visualization_2_county'
+          end
         end
         scope '/3' do
           get '/' => 'api#visualization_3'
+          scope '/:county_id' do
+            get '/' => 'api#visualization_3_county'
+          end
         end
       end
       scope '/map' do

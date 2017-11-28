@@ -85,7 +85,27 @@ class ApiController < ApplicationController
             .where.not(data_school_performance_measure: { scibio_percent_proficient_pssa: nil })
             .order('pupil_expenditure_total ASC')
             .all()
-  json_response(@pssa_information)
+    json_response(@pssa_information)
+  end
+
+  def visualization_1_county
+    @pssa_information = School.joins(:Fiscal, :Performance)
+            .select('
+              pupil_expenditure_total,
+              school.state_lea_id,
+              school_name,
+              math_algebra_percent_proficient,
+              reading_lit_percent_proficient_pssa,
+              scibio_percent_proficient_pssa
+            ')
+            .where.not(data_school_fiscal: { pupil_expenditure_total: nil})
+            .where.not(data_school_performance_measure: { math_algebra_percent_proficient: nil })
+            .where.not(data_school_performance_measure: { reading_lit_percent_proficient_pssa: nil })
+            .where.not(data_school_performance_measure: { scibio_percent_proficient_pssa: nil })
+            .where(school: {county: params[:county_id]})
+            .order('pupil_expenditure_total ASC')
+            .uniq()
+    json_response(@pssa_information)
   end
 
   def visualization_2
@@ -113,6 +133,34 @@ class ApiController < ApplicationController
 
   end
 
+
+  def visualization_2_county
+    @pssa_performance_information = Exam.joins(:School)
+              .select('
+                subject,
+                lea_type,
+                AVG(pctadvanced) AS avgpctadvanced,
+                AVG(pctproficient) AS avgpctproficient,
+                AVG(pctbasic) AS avgpctbasic,
+                AVG(pctbelowbasic) AS avgpctbelowbasic
+              ')
+              .where.not(data_exam: { pctadvanced: nil })
+              .where.not(data_exam: { pctproficient: nil })
+              .where.not(data_exam: { pctbasic: nil })
+              .where.not(data_exam: { pctbelowbasic: nil })
+              .where(data_exam: { student_group: "All Students" })
+              .where(data_exam: { source: ["pssa"] })
+              .where(data_exam: { grade: params[:grade] })
+              .where(data_exam: { academic_year_start: params[:academic_year_start] })
+              .where(school: {county: params[:county_id]})
+              .group("lea_type")
+              .group("subject")
+              .uniq()
+
+    json_response(@pssa_performance_information)
+
+  end
+
   def visualization_3
     @fiscal_information = School.joins(:Fiscal, :Fact)
               .select('
@@ -125,6 +173,23 @@ class ApiController < ApplicationController
               .where.not(data_school_facts: { sat_writing: nil })
               .order('totalrevenue ASC')
               .all()
+    json_response(@fiscal_information)
+  end
+
+  def visualization_3_county
+    @fiscal_information = School.joins(:Fiscal, :Fact)
+              .select('
+                school_name,
+                (sat_math + sat_reading + sat_writing) AS sattotal,
+                (local_revenue + state_revenue + other_revenue + fed_revenue) AS totalrevenue
+              ')
+              .where.not(data_school_facts: { sat_math: nil })
+              .where.not(data_school_facts: { sat_reading: nil })
+              .where.not(data_school_facts: { sat_writing: nil })
+              .where(school: {county: params[:county_id]})
+              .order('totalrevenue ASC')
+              .all()
+              .uniq()
     json_response(@fiscal_information)
   end
 

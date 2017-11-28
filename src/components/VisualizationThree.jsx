@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { ScatterPlot } from 'react-d3-basic'
-import { Yaxis } from 'react-d3-core'
+import { Container, Divider } from 'semantic-ui-react'
 
 export default class Visualization3 extends Component {
 
@@ -13,9 +13,10 @@ export default class Visualization3 extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/v1/visualizations/3').then((res) => {
+    fetch(this.props.url).then((res) => {
       return res.json()
     }).then((data) => {
+      console.log(data)
       this.setState({ data: data })
     })
   }
@@ -26,8 +27,8 @@ export default class Visualization3 extends Component {
     }
 
     let title = 'Visualization 3'
-    let width = 800
-    let height = 300
+    let width = this.props.width
+    let height = this.props.height
     let margins = {
       left: 100,
       right: 50,
@@ -43,6 +44,7 @@ export default class Visualization3 extends Component {
         symbolSize: 5
       }
     ]
+
     const x = d => {
       return Number(d.totalrevenue)
     },
@@ -52,21 +54,34 @@ export default class Visualization3 extends Component {
     xTicks = [10, '$']
 
     return (
-      <ScatterPlot
-        showXGrid= {true}
-        showYGrid= {true}
-        xLabel= {xLabel}
-        yLabel= {yLabel}
-        margins= {margins}
-        title={title}
-        width={width}
-        height={height}
-        chartSeries={chartSeries}
-        data={this.state.data}
-        x={x}
-        xTicks={xTicks}
-        xScale = {xScale}
-      />
+
+        this.state.data.length > 0
+        ? (
+          <ScatterPlot
+            showXGrid= {true}
+            showYGrid= {true}
+            xLabel= {xLabel}
+            yLabel= {yLabel}
+            margins= {margins}
+            title={title}
+            width={width}
+            height={height}
+            chartSeries={chartSeries}
+            data={this.state.data}
+            x={x}
+            xTicks={xTicks}
+            xScale = {xScale}
+          />
+        )
+        : (
+          <Container className='analysis-section'>
+            <p className='analysis-title' style={{textAlign: 'center'}}>
+              NOT ENOUGH DATA TO COMPARE THE TOTAL REVENUE AND THE AVERAGE SCORES FOR THE THREE DIFFERENT SECTIONS ON THE SAT
+            </p>
+            <hr style={{width: '500px', borderColor: '#707070'}} />
+          </Container>
+        )
+
     )
   }
 }

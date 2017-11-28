@@ -3,18 +3,19 @@ import { browserHistory } from 'react-router'
 import { Container, Header, Dropdown, Divider } from 'semantic-ui-react'
 
 import StateMap from './StateMap'
-import Vis1Explanation from '../components/Vis1Explanation'
-import Vis2Explanation from '../components/Vis2Explanation'
-import Vis3Explanation from '../components/Vis3Explanation'
-import Visualization1 from '../components/VisualizationOne'
-import Visualization2 from '../components/VisualizationTwo'
-import Visualization3 from '../components/VisualizationThree'
+import VisOneExplanation from '../components/VisOneExplanation'
+import VisTwoExplanation from '../components/VisTwoExplanation'
+import VisThreeExplanation from '../components/VisThreeExplanation'
+import VisualizationOne from '../components/VisualizationOne'
+import VisualizationTwo from '../components/VisualizationTwo'
+import VisualizationThree from '../components/VisualizationThree'
 
 class Landing extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      countyList: []
+      countyList: [],
+      vis_01: []
     }
   }
 
@@ -59,18 +60,18 @@ class Landing extends Component {
         </Container>
 
         <Container className='analysis-section' fluid>
-          <Vis1Explanation />
-          <Visualization1 />
+          <VisOneExplanation />
+          <VisualizationOne width={1000} height={400} url='http://localhost:3001/api/v1/visualizations/1' />
         </Container>
 
         <Container className='analysis-section' fluid>
-          <Vis2Explanation />
-          <Visualization2 width={700} height={500} />
+          <VisTwoExplanation />
+          <VisualizationTwo width={1000} height={400} url='http://localhost:3001/api/v1/visualizations/2' />
         </Container>
 
         <Container className='analysis-section' fluid>
-          <Vis3Explanation />
-          <Visualization3 />
+          <VisThreeExplanation />
+          <VisualizationThree width={1000} height={400} url='http://localhost:3001/api/v1/visualizations/3' />
         </Container>
 
       </Container>

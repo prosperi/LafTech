@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {hierarchy, partition} from 'd3-hierarchy'
 import {arc} from 'd3-shape'
 import {color} from 'd3-color'
+import { Container } from 'semantic-ui-react'
 
 class Visualization2 extends Component {
   constructor (props) {
@@ -14,10 +15,9 @@ class Visualization2 extends Component {
   }
 
   componentWillMount () {
-    fetch('http://localhost:3001/api/v1/visualizations/2')
+    fetch(this.props.url)
       .then(response => {
         if (response.status !== 200) {
-          console.log(`There was a problem: ${response.status}`)
           return
         }
         response.json().then(data => {

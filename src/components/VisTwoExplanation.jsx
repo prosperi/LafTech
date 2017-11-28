@@ -11,7 +11,7 @@ export default class Vis2Explanation extends Component {
   return (
     <Container fluid>
       <center>
-        <Header as= 'hVis1' className='analysis-title'><u>VISUALIZATION 2</u></Header>
+        <Header as= 'hVis1' className='analysis-title'>VISUALIZATION #2</Header>
           <p className='paragraph'>
           <br/>
           This sunburst chart visualizes the PSSA exam performances for each school type.

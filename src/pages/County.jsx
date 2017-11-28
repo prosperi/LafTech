@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import { Grid, Container, Breadcrumb, Header, Menu, Label, Icon, Table } from 'semantic-ui-react'
 import { browserHistory } from 'react-router'
-import CountyMap from './CountyMap'
 import capitalize from 'capitalize'
+import CountyMap from './CountyMap'
 import _ from 'lodash'
+
+import VisualizationOne from '../components/VisualizationOne'
+import VisualizationThree from '../components/VisualizationThree'
 
 const label_colors = [
   'red', 'orange', 'yellow', 'olive', 'green', 'teal',
@@ -188,6 +191,15 @@ class County extends Component {
           </iframe>
 
         </Container>
+
+        <Container className='analysis-section' fluid>
+          <VisualizationOne width={1000} height={400} url={`http://localhost:3001/api/v1/visualizations/1/${this.props.params.county}`} />
+        </Container>
+
+        <Container className='analysis-section' fluid>
+          <VisualizationThree width={1000} height={400} url={`http://localhost:3001/api/v1/visualizations/3/${this.props.params.county}`} />
+        </Container>
+
       </Container>
     )
   }

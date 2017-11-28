@@ -68,7 +68,7 @@ class HeaderSection extends Component {
                 placeholder='Search for schools...'
               />
             </Menu.Item>
-            <Menu.Item name='contact us' as={Link} to='mailto:info@laf-tech.edu' />
+            <Menu.Item name='contact us' as={Link} onClick={() => window.open('https://github.com/prosperi/LafTech')} />
           </Menu.Menu>
         </Menu>
 
