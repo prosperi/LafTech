@@ -31,7 +31,8 @@ class Visualization2 extends Component {
           this.setState({
             hovered: null,
             selected: this.root,
-            selectedIntact: this.root
+            selectedReal: this.root,
+            dataRoot: this.root
           })
         })
       })
@@ -45,18 +46,18 @@ class Visualization2 extends Component {
     let radius = Math.min(this.props.width, this.props.height) / 2;
 
     const colors = {
-            'CTC': '#38c742',
-            'CS': '#303ce3',
-            'PS': '#114183',
-            'A': '#259ee7',
-            'P': '#7ab6db',
-            'B': '#d8d8d8',
-            'BB': '#db7712',
-            'Math': '#c35b48',
-            'Reading': '#e5c027',
-            'Writing': '#458962',
-            'SciBio': '#125592'
-          }
+      'CTC': '#38c742',
+      'CS': '#303ce3',
+      'PS': '#114183',
+      'A': '#259ee7',
+      'P': '#7ab6db',
+      'B': '#d8d8d8',
+      'BB': '#db7712',
+      'Math': '#c35b48',
+      'Reading': '#e5c027',
+      'Writing': '#458962',
+      'SciBio': '#125592'
+    }
 
     // Data strucure
     this.state.selected.sum(function (d) { return d.size });
@@ -140,49 +141,127 @@ class Visualization2 extends Component {
   onClick = (d) =>{
     let newRoot = null;
     if(d === this.state.selected){
-      if(!this.state.selectedIntact.parent){
+      // if the node is the same as the selected node, then we go up a layer
+
+      if(d.data.name === this.state.dataRoot.data.name){
+        // if we are at the dataRoot, don't do anything
         return;
+
       } else {
-        newRoot = this.state.selectedIntact.parent
+        //otherwise we have parents
+        newRoot = this.state.selectedReal.parent
       }
     } else {
-      newRoot = d;
+      // otherwise the new root becomes the dataNode at d
+      newRoot = this.findDataNode(d);
     }
+
+    console.log("Setting newRoot to : " + newRoot.data.name);
     this.setState({
+      // the selected node becomes the root of a copied subtree
       selected: newRoot.copy(),
-      selectedIntact: newRoot
+
+      // the real selected node is stored
+      selectedReal: newRoot
     })
     this.render()
   }
 
+  // finds the node in the complete data tree
+  // d can come from the copied tree
+  findDataNode = (d) => {
+    // since we know the topic node for sure, the children's names are not
+    // ambiguous.
+    console.log("FindDataNode in topic: " + this.state.testTopic)
+    console.log("FindDataNode on d: " + d.data.name)
+    let topicNode = this.recursiveFind(this.state.dataRoot, this.state.testTopic)
+    console.log("Found topic node: " + topicNode.data.name)
+    return this.recursiveFind(topicNode, d.data.name)
+  }
+
+  // pass in the name of the node u want to find
+  // and the node you want to recursively search
+  recursiveFind = (d, name) => {
+    console.log(d.data.name + ", " + name)
+    // base case, current node is the node to find
+    if(d.data.name === name){
+      return d;
+    }
+
+    let desc = d.descendants();
+
+    // remove d from the descendants
+    desc.shift();
+
+
+    for(var child in desc){
+      console.log("desc["+child+"]: " + desc[child].data.name)
+    }
+    // base case, current node has no children and is not the node to find
+    if(desc.length == 0){
+      return null;
+    }
+
+    // recurse for each child
+    for(var child of desc){
+
+      // look for a node with name equal to name in the child
+      var result = this.recursiveFind(child, name)
+
+      // if we found match, stop running and return it
+      if(result != null){
+        return result;
+      }
+    }
+
+    // the node was not found in the tree
+    return null;
+  }
+
   mouseover = (d) => {
-     if(this.isTopicNode(d)){
-       this.setState({
-         testTopic: d.data.name,
-         percentage: '',
-         profLevel: '',
-         schoolType: ''
-       })
-     } else if(this.isProficiencyNode(d)) {
-       this.setState({
-         testTopic: this.state.selectedIntact.data.name,
-         percentage: d.value/this.state.selectedIntact.value,
-         profLevel: d.data.name,
-         schoolType: ''
-       })
-     } else if(this.isSchoolNode(d)) {
-       this.setState({
-         testTopic: this.state.selectedIntact.data.name,
-         percentage: d.value/this.state.selectedIntact.value,
-         profLevel: d.parent.data.name,
-         schoolType: d.data.name
-       })
-     }
-     this.setState({
-       hovered: d
-     })
-     this.render()
-   }
+    if(this.state.selectedReal.height >= 2){
+      if(this.isTopicNode(d)){
+        this.setState({
+          testTopic: d.data.name,
+          percentage: '',
+          profLevel: '',
+          schoolType: ''
+        })
+      } else if(this.isProficiencyNode(d)) {
+        this.setState({
+          testTopic: d.parent.data.name,
+          percentage: d.value/this.state.selectedReal.value,
+          profLevel: d.data.name,
+          schoolType: ''
+        })
+      } else if(this.isSchoolNode(d)) {
+        this.setState({
+          testTopic: d.parent.parent.data.name,
+          percentage: d.value/this.state.selectedReal.value,
+          profLevel: d.parent.data.name,
+          schoolType: d.data.name
+        })
+      }
+    } else {
+      if(this.isProficiencyNode(d)) {
+        this.setState({
+          percentage: d.value/this.state.selectedReal.value,
+          profLevel: d.data.name,
+          schoolType: ''
+        })
+      } else if(this.isSchoolNode(d)) {
+        this.setState({
+          percentage: d.value/this.state.selectedReal.value,
+          profLevel: d.parent.data.name,
+          schoolType: d.data.name
+        })
+      }
+    }
+    this.setState({
+      hovered: d
+    })
+    this.render()
+  }
 
 }
 
