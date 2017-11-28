@@ -10,7 +10,7 @@ const data = [
     },
     {
       'schoolName': 'Mason',
-      'pupil_expenditure_total': 200000,
+      'pupil_expenditure_total': 185000,
       'math_algebra_percent_proficient': 590.20,
       'reading_lit_percent_proficient_pssa': 660.52,
       'writing_percent_proficient_pssa': 443.30,
@@ -19,7 +19,7 @@ const data = [
     },
     {
       'schoolName': 'Carter',
-      'pupil_expenditure_total': 300000,
+      'pupil_expenditure_total': 263100,
       'math_algebra_percent_proficient': 600.25,
       'reading_lit_percent_proficient_pssa': 610.00,
       'writing_percent_proficient_pssa': 575.10,
@@ -28,7 +28,7 @@ const data = [
     },
     {
       'schoolName': 'Monahan',
-      'pupil_expenditure_total': 150000,
+      'pupil_expenditure_total': 350000,
       'math_algebra_percent_proficient': 200.25,
       'reading_lit_percent_proficient_pssa': 310.00,
       'writing_percent_proficient_pssa': 475.10,

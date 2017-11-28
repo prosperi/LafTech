@@ -6,6 +6,7 @@ import StateMap from './StateMap'
 import VisOneExplanation from '../components/VisOneExplanation'
 import VisTwoExplanation from '../components/VisTwoExplanation'
 import VisThreeExplanation from '../components/VisThreeExplanation'
+import VisualizationOneMainChart from '../components/VisualizationOneMainChart'
 import VisualizationOne from '../components/VisualizationOne'
 import VisualizationTwo from '../components/VisualizationTwo'
 import VisualizationThree from '../components/VisualizationThree'
@@ -61,7 +62,7 @@ class Landing extends Component {
 
         <Container className='analysis-section' fluid>
           <VisOneExplanation />
-          <VisualizationOne width={1000} height={400} url='http://localhost:3001/api/v1/visualizations/1' />
+          <VisualizationOneMainChart width={1000} height={400} url='http://localhost:3001/api/v1/visualizations/1' />
         </Container>
 
         <Container className='analysis-section' fluid>

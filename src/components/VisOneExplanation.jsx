@@ -25,7 +25,13 @@ export default class Vis1Explanation extends Component {
             as well as their pupil expenditure amounts were not included within the
             data utilized to create the visualization. This condition was implemented in
             order to remove any outliers within the database of school profiles.
-            <br/>
+          </p>
+          <p className='paragraph'>
+            The size of the data within the LafTech database is too large to be
+            expressed within a single graph for this visualization. Thus the
+            data shown here on the main page is utilizing dummy data in order to
+            express the idea behind the creation of this visualization. To see
+            this visualization using real data, select a county.
             <br/>
           </p>
       </center>

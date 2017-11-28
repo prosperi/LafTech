@@ -49,8 +49,13 @@ export default class Visualization3 extends Component {
       return Number(d.totalrevenue)
     },
     xLabel = 'Total Revenue ($)',
-    yLabel = 'SAT Score (AVG)',
+    yLabel = 'Total SAT Score (AVG)',
     xScale = 'linear',
+    yDomain =
+        [d3.min(this.state.data, function(a) { return Number(a.sattotal);}),
+         d3.max(this.state.data, function(b) { return Number(b.sattotal);}) ],
+    xDomain = [0,//d3.min(this.state.data, function(a) { return Number(a.totalrevenue); }),
+               d3.max(this.state.data, function(b) { return Number(b.totalrevenue); })],
     xTicks = [10, '$']
 
     return (
@@ -71,6 +76,8 @@ export default class Visualization3 extends Component {
             x={x}
             xTicks={xTicks}
             xScale = {xScale}
+            xDomain= {xDomain}
+            yDomain = {yDomain}
           />
         )
         : (
