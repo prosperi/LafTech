@@ -20,7 +20,7 @@ class ApiController < ApplicationController
              school.school_name,
              school.latitude,
              school.longitude,
-             school.state_lea_id
+             school.state_school_id
             ')
             .uniq
     # .distinct()
@@ -34,7 +34,7 @@ class ApiController < ApplicationController
 
   def school_details
     @schools = School.joins(:Fact)
-    .where('school.state_lea_id = ?', params[:school_id])
+    .where('school.state_school_id = ?', params[:school_id])
     .select('data_school_facts.school_add_city,
              data_school_facts.school_enrollment,
              data_school_facts.grades_offered,
@@ -62,7 +62,7 @@ class ApiController < ApplicationController
              school.county,
              school.latitude,
              school.longitude,
-             school.state_lea_id,
+             school.state_school_id,
              school.lea_type
             ')
     .first
@@ -73,7 +73,7 @@ class ApiController < ApplicationController
     @pssa_information = School.joins(:Fiscal, :Performance)
             .select('
               pupil_expenditure_total,
-              school.state_lea_id,
+              school.state_school_id,
               school_name,
               math_algebra_percent_proficient,
               reading_lit_percent_proficient_pssa,

@@ -100,40 +100,40 @@ export default class PAMap extends Component {
           }
           {
             this.props.schools.map((school) => {
-                const {school_name, state_lea_id, latitude, longitude} = school
+                const {school_name, state_school_id, latitude, longitude} = school
                 if (!latitude || !longitude) return
                 const cx = this.projection()([longitude, latitude])[0],
                       cy = this.projection()([longitude, latitude])[1]
                 if (!cx || !cy) return
                 return (
                   <g
-                    key = {`circle-${state_lea_id}`}
+                    key = {`circle-${state_school_id}`}
                     opacity={
                       (
                         this.props.currentSchools.indexOf(school) == -1 ||
                         (this.props.selected && this.props.selected != school)
                       ) ? '0.1' : '1'}
                     className='school_marker'
-                    onClick={() => browserHistory.push(`/school/${state_lea_id}`)}
+                    onClick={() => browserHistory.push(`/school/${state_school_id}`)}
                     onMouseEnter={() => this.setState({selected: school})}
                     onMouseLeave={() => this.setState({selected: null})}
                   >
                     <circle
-                      key = {`biggest-circle-${state_lea_id}`}
+                      key = {`biggest-circle-${state_school_id}`}
                       cx = { cx }
                       cy = { cy }
                       fill='rgba(255, 204, 26, 0.04)'
                       r = '24px'
                     />
                     <circle
-                      key = {`medium-circle-${state_lea_id}`}
+                      key = {`medium-circle-${state_school_id}`}
                       cx = { cx }
                       cy = { cy }
                       fill='rgba(255, 204, 26, 0.09)'
                       r = '16px'
                     />
                     <circle
-                      key = {`smallest-circle-${state_lea_id}`}
+                      key = {`smallest-circle-${state_school_id}`}
                       cx = { cx }
                       cy = { cy }
                       fill='yellow'
@@ -142,7 +142,7 @@ export default class PAMap extends Component {
                     {(this.state.selected == school || this.props.selected == school)
                       &&
                       (<text
-                        key={ `school-name-${state_lea_id}` }
+                        key={ `school-name-${state_school_id}` }
                         fill='#CCC'
                         x={ cx }
                         y={ cy - 20 }

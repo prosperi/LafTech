@@ -31,9 +31,9 @@ class HeaderSection extends Component {
         responseType: 'json'
       })
       .then(response => {
-        const results = response.data.map(({state_lea_id, school_add_city, school_name}) => {
+        const results = response.data.map(({state_school_id, school_add_city, school_name}) => {
           return {
-            key: state_lea_id,
+            key: state_school_id,
             title: school_name,
             description: school_add_city
           }

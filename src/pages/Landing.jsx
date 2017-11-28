@@ -3,12 +3,21 @@ import { browserHistory } from 'react-router'
 import { Container, Header, Dropdown, Divider } from 'semantic-ui-react'
 
 import StateMap from './StateMap'
+<<<<<<< HEAD
 import VisOneExplanation from '../components/VisOneExplanation'
 import VisTwoExplanation from '../components/VisTwoExplanation'
 import VisThreeExplanation from '../components/VisThreeExplanation'
 import VisualizationOne from '../components/VisualizationOne'
 import VisualizationTwo from '../components/VisualizationTwo'
 import VisualizationThree from '../components/VisualizationThree'
+=======
+import Vis1Explanation from '../components/Vis1Explanation'
+import Vis2Explanation from '../components/Vis2Explanation'
+import Vis3Explanation from '../components/Vis3Explanation'
+import Visualization1 from '../components/VisualizationOne'
+import Visualization2 from '../components/VisualizationTwo'
+import Visualization3 from '../components/VisualizationThree'
+>>>>>>> master
 
 class Landing extends Component {
   constructor (props) {
@@ -66,7 +75,7 @@ class Landing extends Component {
 
         <Container className='analysis-section' fluid>
           <VisTwoExplanation />
-          <VisualizationTwo width={1000} height={400} url='../data/data_02_process.json' />
+          <VisualizationTwo width={1000} height={400} url='http://localhost:3001/api/v1/visualizations/2' />
         </Container>
 
         <Container className='analysis-section' fluid>
