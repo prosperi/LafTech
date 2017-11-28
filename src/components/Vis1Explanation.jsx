@@ -21,7 +21,7 @@ export default class Vis1Explanation extends Component {
           score with a rise or fall in pupil expenditure.
           </p>
           <p className='paragraph'>
-          Some schools that did not provide the statistics to all four PSSA scores
+          Some schools that did not provide the statistics to all three PSSA scores
           as well as their pupil expenditure amounts were not included within the
           data utilized to create the visualization. This condition was implemented in
           order to remove any outliers within the database of school profiles.

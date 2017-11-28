@@ -1,69 +1,84 @@
 /* global d3 */
-import React from 'react'
+import React, { Component } from 'react'
 import { BarStackChart } from 'react-d3-basic'
-import data from '../data/data_01'
 
-const VisualizationOne = () => {
-  return (
-    <BarStackChart
-      showXGrid= {true}
-      showYGrid= {true}
-      margins= {d3_props.margins}
-      title={d3_props.title}
-      width={d3_props.width}
-      height={d3_props.height}
-      chartSeries={d3_props.chartSeries}
-      data={data}
-      x= {d3_props.x}
-      xLabel= {d3_props.xLabel}
-      yLabel = {d3_props.yLabel}
-      xScale= {d3_props.xScale}
-      yScale = {d3_props.yScale}
-      xTicks= {d3_props.xTicks}
-      yTickFormat={d3_props.yTickFormat}
-    />
-  )
-}
+export default class Visualization1 extends Component {
 
-const d3_props = {
-  title: 'Visualization 1',
-  width: 700,
-  height: 300,
-  margins: {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      data: []
+    }
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3001/api/v1/visualizations/1').then((res) => {
+      return res.json()
+    }).then((data) => {
+      this.setState({ data })
+    })
+  }
+
+  render () {
+  let title = 'Visualization 1'
+
+  let width = 700
+  let height = 300
+  let margins = {
     left: 100,
     right: 100,
     top: 10,
-    bottom: 10
-  },
-  chartSeries: [
-    {
-      field: 'math_algebra_percent_proficient',
-      name: 'PSSA Math',
-      color: '#828081'
-    },
-    {
-      field: 'reading_percent_lit_proficient_pssa',
-      name: 'PSSA Reading',
-      color: '#E9C893'
-    },
-    {
-      field: 'writing_percent_proficient_pssa',
-      name: 'PSSA Writing',
-      color: '#1E392A'
-    },
-    {
-      field: 'scibio_percent_proficient_pssa',
-      name: 'PSSA Sci/Bio',
-      color: '#3CC47C'
-    }
-  ],
-  x: d => d.pupil_expenditure_total,
-  xScale: 'ordinal',
-  yScale: 'linear',
-  xLabel: 'Pupil Expenditure ($)',
-  yLabel: 'Total PSSA Score(AVG)',
-  yTickFormat: d3.format('.2s'),
-  xTicks: [10, '$']
-}
+    bottom: 50
+  }
 
-export default VisualizationOne
+  let chartSeries = [
+    {
+          field: 'math_algebra_percent_proficient',
+          name: 'PSSA Math',
+          color: '#828081'
+        },
+        {
+          field: 'reading_lit_percent_proficient_pssa',
+          name: 'PSSA Reading',
+          color: '#E9C893'
+        },
+        {
+          field: 'scibio_percent_proficient_pssa',
+          name: 'PSSA Sci/Bio',
+          color: '#3CC47C'
+        }
+  ]
+  const x = d => {
+    return Number(d.pupil_expenditure_total)
+  },
+  xScale = 'ordinal',
+  yScale = 'linear',
+  xLabel = 'Pupil Expenditure ($)',
+  yLabel = 'Total PSSA Score',
+  yTickFormat = d3.format('.2s'),
+  xTicks = [5, '$']
+
+    return (
+      <BarStackChart
+        showXGrid= {true}
+        showYGrid= {true}
+        margins= {margins}
+        title={title}
+        width={width}
+        height={height}
+        chartSeries={chartSeries}
+        data={this.state.data}
+        x= {x}
+        xLabel= {xLabel}
+        yLabel = {yLabel}
+        xScale= {xScale}
+        yScale = {yScale}
+        xTicks= {xTicks}
+        yTickFormat={yTickFormat}
+
+      />
+    )
+    console.log(this.state.data)
+  }
+  }

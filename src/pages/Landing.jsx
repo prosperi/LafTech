@@ -3,6 +3,12 @@ import { browserHistory } from 'react-router'
 import { Container, Header, Dropdown, Divider } from 'semantic-ui-react'
 
 import StateMap from './StateMap'
+import Vis1Explanation from '../components/Vis1Explanation'
+import Vis2Explanation from '../components/Vis2Explanation'
+import Vis3Explanation from '../components/Vis3Explanation'
+import Visualization1 from '../components/VisualizationOne'
+import Visualization2 from '../components/VisualizationTwo'
+import Visualization3 from '../components/VisualizationThree'
 
 class Landing extends Component {
   constructor (props) {
@@ -51,6 +57,22 @@ class Landing extends Component {
           <Header as='h2' className='hint' style={{marginTop: '30px'}} >SELECT COUNTY FROM MAP</Header>
           <StateMap onChange={this.changeCounty}  />
         </Container>
+
+        <Container className='analysis-section' fluid>
+          <Vis1Explanation />
+          <Visualization1 />
+        </Container>
+
+        <Container className='analysis-section' fluid>
+          <Vis2Explanation />
+          <Visualization2 width={700} height={500} />
+        </Container>
+
+        <Container className='analysis-section' fluid>
+          <Vis3Explanation />
+          <Visualization3 />
+        </Container>
+
       </Container>
     )
   }
