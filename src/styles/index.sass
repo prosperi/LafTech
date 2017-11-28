@@ -170,7 +170,8 @@ svg
     justify-content: top
     margin-top: 40px
     margin-bottom: 40px
-    .schoolName
+
+    .headerText
       font-weight: normal !important
       font-family: 'Avenir Next' !important
       font-size: 28px !important
@@ -183,14 +184,27 @@ svg
       border: none
       margin-bottom: 100px !important
 
-    .countyName
+    .pie-chart
+      margin: 0px 50px
+
+    .pie-svg
+      margin-top: -15px
+
+      g
+        text
+         display: none !important
+
+    .subHeaderText
       font-weight: normal !important
       font-family: 'Avenir Next' !important
       text-transform: capitalize !important
       color: #707070 !important
       font-size: 24px !important
       margin: 0 !important
-      margin-bottom: 40px !important
+      margin-bottom: 20px !important
+
+      &.top
+        margin-top: 40px !important
 
     p
       font-weight: normal !important
@@ -234,9 +248,8 @@ svg
   font-weight: normal !important
   font-family: 'Avenir Next' !important
   padding: 5px
-  margin-top: 20px
 
   .footer-content
 
     a
-      color: #fff !important
+      color: rgba(255, 255, 255, .8) !important

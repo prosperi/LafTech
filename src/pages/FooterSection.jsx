@@ -9,17 +9,19 @@ const FooterSection = () => {
           <p style={{fontSize: '14pt', color: 'rgba(255, 255, 255, .5)'}}>SOURCES</p>
 
           <List>
-            <List.Item as='a'>What is a FAQ?</List.Item>
-            <List.Item as='a'>Who is our user?</List.Item>
-            <List.Item as='a'>Where is our office located?</List.Item>
+            <List.Item as='a'>Academic Performance Data for SY</List.Item>
+            <List.Item as='a'>School and District Fast Fact Data for SY</List.Item>
           </List>
         </Grid.Column>
         <Grid.Column width={8} style={{padding: '20px'}}>
           <p style={{fontSize: '14pt', color: 'rgba(255, 255, 255, .5)'}}>LINKS</p>
           <List>
-            <List.Item as='a'>What is a FAQ?</List.Item>
-            <List.Item as='a'>Who is our user?</List.Item>
-            <List.Item as='a'>Where is our office located?</List.Item>
+            <List.Item as='a' onClick={() => window.location.href = 'http://www.paschoolperformance.org/Downloads'}>
+              www.paschoolperformance.org
+            </List.Item>
+            <List.Item as='a' onClick={() => window.location.href = 'http://www.paschoolperformance.org/Downloads'}>
+              www.paschoolperformance.org
+            </List.Item>
           </List>
         </Grid.Column>
       </Grid>
