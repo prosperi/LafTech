@@ -57,9 +57,9 @@ export default class Visualization1 extends Component {
     xScale = 'ordinal',
     yScale = 'linear',
     xLabel = 'Pupil Expenditure ($)',
-    yLabel = 'Total PSSA Score',
+    yLabel = 'Average PSSA Score (%)',
     yTickFormat = d3.format('.2s'),
-    xTicks = [5, '$']
+    xTicks = [10, '$']
 
     return (
       this.state.data.length > 0
