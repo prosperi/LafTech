@@ -17,9 +17,9 @@ export default class Visualization1 extends Component {
     fetch(this.props.url).then((res) => {
       return res.json()
     }).then((data) => {
-      console.log(data)
       this.setState({ data })
     })
+
   }
 
   render () {
@@ -86,7 +86,7 @@ export default class Visualization1 extends Component {
           <p className='analysis-title' style={{textAlign: 'center'}}>
             NOT ENOUGH DATA TO COMPARE THE PUPIL EXPENDITURE (AMOUNT SPENT BY THE SCHOOL ON EACH STUDENT IN THE SCHOOL) AND THE AVERAGE SCORES FOR THE FOUR DIFFERENT SECTIONS ON THE PSSA
           </p>
-          <hr style={{width: '500px', borderColor: '#707070'}} />
+          <hr style={{width: '70%', borderColor: '#707070'}} />
         </Container>
       )
     )

@@ -16,8 +16,17 @@ class Landing extends Component {
     super(props)
     this.state = {
       countyList: [],
-      vis_01: []
+      vis_01: [],
+      visWidth: null,
+      visHeight: null
     }
+  }
+
+  componentDidMount() {
+
+    this.fitParentContainer()
+    window.addEventListener('resize', this.fitParentContainer)
+
   }
 
   componentWillMount() {
@@ -34,6 +43,21 @@ class Landing extends Component {
       this.setState({ countyList })
     })
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.fitParentContainer)
+  }
+
+  fitParentContainer = () => {
+    const currentContainerWidth = window.innerWidth
+
+    this.setState({
+      visWidth: Math.min(900, currentContainerWidth),
+      visHeight: Math.min(900, currentContainerWidth) * (600/960)
+    })
+
+  }
+
 
   changeCounty = (county) => {
     browserHistory.push(`/county/${county}`)
@@ -62,17 +86,17 @@ class Landing extends Component {
 
         <Container className='analysis-section' fluid>
           <VisOneExplanation />
-          <VisualizationOneMainChart width={1000} height={400} url='http://localhost:3001/api/v1/visualizations/1' />
+          <VisualizationOneMainChart width={this.state.visWidth} height={this.state.visHeight} url='http://localhost:3001/api/v1/visualizations/1' />
         </Container>
 
         <Container className='analysis-section' fluid>
           <VisTwoExplanation />
-          <VisualizationTwo width={1000} height={400} url='http://localhost:3001/api/v1/visualizations/2' />
+          <VisualizationTwo width={Number(this.state.visWidth)} height={Number(this.state.visWidth) * 2/5} url='http://localhost:3001/api/v1/visualizations/2' />
         </Container>
 
         <Container className='analysis-section' fluid>
           <VisThreeExplanation />
-          <VisualizationThree width={1000} height={400} url='http://localhost:3001/api/v1/visualizations/3' />
+          <VisualizationThree width={this.state.visWidth} height={this.state.visHeight} url='http://localhost:3001/api/v1/visualizations/3' />
         </Container>
 
       </Container>
