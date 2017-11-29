@@ -155,7 +155,6 @@ class ApiController < ApplicationController
               .where(school: {county: params[:county_id]})
               .group("lea_type")
               .group("subject")
-              .uniq()
 
     json_response(@pssa_performance_information)
 
@@ -189,7 +188,7 @@ class ApiController < ApplicationController
               .where(school: {county: params[:county_id]})
               .order('totalrevenue ASC')
               .all()
-              
+
     json_response(@fiscal_information)
   end
 
