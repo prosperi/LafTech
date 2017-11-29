@@ -189,7 +189,7 @@ class ApiController < ApplicationController
               .where(school: {county: params[:county_id]})
               .order('totalrevenue ASC')
               .all()
-              .uniq()
+              
     json_response(@fiscal_information)
   end
 
