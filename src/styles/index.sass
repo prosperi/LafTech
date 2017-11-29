@@ -1,4 +1,5 @@
 @import '../../node_modules/semantic-ui-css/semantic.min.css'
+$information-phone: 'only screen and (max-width : 767px)'
 
 html,
 body
@@ -260,3 +261,25 @@ svg
 
     a
       color: rgba(255, 255, 255, .8) !important
+
+@media #{$information-phone}
+  .analysis-section
+    .paragraph
+      padding: 0
+
+    .analysis-title
+      font-size: 12pt !important
+
+  .footer-content
+    display: none !important
+
+  .header-search
+    display: none !important
+
+  .school-pies,
+  .school-bars
+    flex-direction: column !important
+
+  .pie-title
+    width: 300px !important
+    margin: auto !important

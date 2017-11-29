@@ -78,7 +78,7 @@ export default class Visualization3 extends Component {
             <p className='analysis-title' style={{textAlign: 'center'}}>
               NOT ENOUGH DATA TO COMPARE THE TOTAL REVENUE AND THE AVERAGE SCORES FOR THE THREE DIFFERENT SECTIONS ON THE SAT
             </p>
-            <hr style={{width: '500px', borderColor: '#707070'}} />
+            <hr style={{width: '70%', borderColor: '#707070'}} />
           </Container>
         )
 

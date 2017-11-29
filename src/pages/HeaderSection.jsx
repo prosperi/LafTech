@@ -57,7 +57,7 @@ class HeaderSection extends Component {
         <Menu secondary className='mainMenu'>
           <Menu.Item name='lafTechVisualization' active as={Link} to='/' />
           <Menu.Item name='dataset' as={Link} target='_blank' to='http://www.laf-tech.org' />
-          <Menu.Menu position='right'>
+          <Menu.Menu position='right' className='header-search'>
             <Menu.Item>
               <Search
                 loading={isLoading}

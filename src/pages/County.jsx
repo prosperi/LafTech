@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Grid, Container, Breadcrumb, Header, Menu, Label, Icon, Table } from 'semantic-ui-react'
+import { Grid, Container, Breadcrumb, Header, Menu, Label, Icon, Table, Dropdown, Button } from 'semantic-ui-react'
 import { browserHistory } from 'react-router'
 import capitalize from 'capitalize'
 import CountyMap from './CountyMap'
 import _ from 'lodash'
 
 import VisualizationOne from '../components/VisualizationOne'
+import VisualizationTwo from '../components/VisualizationTwo'
 import VisualizationThree from '../components/VisualizationThree'
 
 const label_colors = [
@@ -19,10 +20,35 @@ class County extends Component {
     this.state = {
       schools: [],
       selected: null,
-      page: 1
+      page: 1,
+      visWidth: null,
+      visHeight: null,
+      url: `http://localhost:3001/api/v1/visualizations/2/School Total/2014/${props.params.county}`,
+      grade: 12,
+      year: 2014
     }
     this._perPage = 5
     this._numPages = 0
+  }
+
+  componentDidMount() {
+
+    this.fitParentContainer()
+    window.addEventListener('resize', this.fitParentContainer)
+
+  }
+
+  fitParentContainer = () => {
+    const currentContainerWidth = window.innerWidth
+
+    this.setState({
+      visWidth: Math.min(900, currentContainerWidth),
+      visHeight: Math.min(900, currentContainerWidth) * (600/960)
+    })
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.fitParentContainer)
   }
 
   componentWillMount() {
@@ -67,6 +93,17 @@ class County extends Component {
   render () {
 
     const currentSchools = this.state.schools.slice((this.state.page - 1) * this._perPage, this.state.page * this._perPage)
+    const gradeOptions = [
+      { key: '3', value: '3', text: '3' }, { key: '4', value: '4', text: '4' }, { key: '5', value: '5', text: '5' },
+      { key: '6', value: '6', text: '6' }, { key: '7', value: '7', text: '7' }, { key: '8', value: '8', text: '8' },
+      { key: '9', value: '9', text: '9' }, { key: '10', value: '10', text: '10' }, { key: '11', value: '11', text: '11' },
+      { key: '12', value: '12', text: '12' }
+    ]
+    const yearOptions = [
+       { key: '2012', value: '2012', text: '2012' },
+       { key: '2013', value: '2013', text: '2013' },
+       { key: '2014', value: '2014', text: '2014' }
+    ]
 
     return (
       <Container fluid>
@@ -193,11 +230,23 @@ class County extends Component {
         </Container>
 
         <Container className='analysis-section' fluid>
-          <VisualizationOne width={1000} height={400} url={`http://localhost:3001/api/v1/visualizations/1/${this.props.params.county}`} />
+          <VisualizationOne width={this.state.visWidth} height={this.state.visHeight} url={`http://localhost:3001/api/v1/visualizations/1/${this.props.params.county}`} />
         </Container>
 
         <Container className='analysis-section' fluid>
-          <VisualizationThree width={1000} height={400} url={`http://localhost:3001/api/v1/visualizations/3/${this.props.params.county}`} />
+          <div style={{display: 'flex', flexDirection: 'row'}}>
+            <Dropdown placeholder='Grade' selection options={gradeOptions} style={{margin: '20px'}} onChange={(e, v) => this.setState({grade: v.value})}/>
+            <Dropdown placeholder='Academic Year' selection options={yearOptions} style={{margin: '20px'}} onChange={(e, v) => this.setState({year: v.value})}/>
+          </div>
+          <Button style={{marginBottom: '20px'}} size='large' primary
+            onClick={(e) => { this.setState({url: `http://localhost:3001/api/v1/visualizations/2/${Number(this.state.grade)}/${Number(this.state.year)}/${this.props.params.county}`})}}>
+            Filter
+          </Button>
+          <VisualizationTwo width={Number(this.state.visWidth)} height={Number(this.state.visWidth) * 2/5} url={this.state.url} />
+        </Container>
+
+        <Container className='analysis-section' fluid>
+          <VisualizationThree width={this.state.visWidth} height={this.state.visHeight} url={`http://localhost:3001/api/v1/visualizations/3/${this.props.params.county}`} />
         </Container>
 
       </Container>
