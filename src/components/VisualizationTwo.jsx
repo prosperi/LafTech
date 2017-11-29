@@ -33,15 +33,23 @@ class Visualization2 extends Component {
           return
         }
         response.json().then(data => {
-          this.root = hierarchy(this.formatDataFromApi(data))
-              .sum(function (d) { return d.size })
+          if(data.length == 0){
 
-          this.setState({
-            hovered: null,
-            selected: this.root,
-            selectedReal: this.root,
-            dataRoot: this.root
-          })
+          } else {
+            this.root = hierarchy(this.formatDataFromApi(data))
+                .sum(function (d) { return d.size })
+
+            this.setState({
+              percentage: null,
+              testTopic: null,
+              profLevel: null,
+              schoolType: null,
+              hovered: null,
+              selected: this.root,
+              selectedReal: this.root,
+              dataRoot: this.root
+            })
+          }
         })
       })
   }
